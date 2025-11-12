@@ -1,14 +1,112 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Rahul's Page</title>   
-    <link rel="stylesheet" href="styles.css">
-    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
-</head>
-<body>  
+<div class="flex h-screen bg-gray-100">
 
-    <P>HELLO RAHUL</P>
-</body>
-</html>
+    <nav class="w-64 bg-gray-800 text-white p-4 space-y-4 shadow-2xl">
+        <h2 class="text-2xl font-bold text-green-400 border-b pb-2 mb-4">Farmer Portal</h2>
+        
+        <div class="mb-6">
+            <p class="text-lg font-semibold">Welcome, [Farmer Name]</p>
+            <p class="text-sm text-gray-400">[farmer.email]</p>
+        </div>
+
+        <a href="#overview" class="block py-2 px-3 rounded-lg bg-green-600 hover:bg-green-700 transition">
+            🏠 Dashboard Overview
+        </a>
+        <a href="#products" class="block py-2 px-3 rounded-lg hover:bg-gray-700 transition">
+            📦 Product Management
+        </a>
+        <a href="#orders" class="block py-2 px-3 rounded-lg hover:bg-gray-700 transition">
+            🚚 Order & Delivery
+        </a>
+        <a href="#payments" class="block py-2 px-3 rounded-lg hover:bg-gray-700 transition">
+            💰 Payment History
+        </a>
+        <a href="#profile" class="block py-2 px-3 rounded-lg hover:bg-gray-700 transition">
+            📜 Certificates & Profile
+        </a>
+    </nav>
+
+    <main class="flex-1 overflow-y-auto p-8">
+        
+        <section id="overview" class="mb-10">
+            <h1 class="text-3xl font-bold text-gray-800 mb-6">Dashboard Overview</h1>
+
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-6">
+                
+                <div class="bg-white p-6 rounded-xl shadow-lg border-l-4 border-green-500">
+                    <p class="text-sm text-gray-500">Total Revenue</p>
+                    <p class="text-3xl font-extrabold text-gray-800 mt-1">₹ 15,000</p>
+                </div>
+                
+                <div class="bg-white p-6 rounded-xl shadow-lg border-l-4 border-yellow-500">
+                    <p class="text-sm text-gray-500">Pending Orders</p>
+                    <p class="text-3xl font-extrabold text-gray-800 mt-1">2</p>
+                </div>
+                
+                <div class="bg-white p-6 rounded-xl shadow-lg border-l-4 border-blue-500">
+                    <p class="text-sm text-gray-500">Active Products</p>
+                    <p class="text-3xl font-extrabold text-gray-800 mt-1">5</p>
+                </div>
+                
+                <div class="bg-white p-6 rounded-xl shadow-lg border-l-4 border-purple-500">
+                    <p class="text-sm text-gray-500">Average Rating</p>
+                    <p class="text-3xl font-extrabold text-gray-800 mt-1">4.8 / 5</p>
+                </div>
+            </div>
+            
+            <div class="mt-8">
+                <button class="bg-green-600 text-white px-5 py-2 rounded-lg hover:bg-green-700 transition mr-4">
+                    + Add New Product
+                </button>
+                <button class="bg-blue-600 text-white px-5 py-2 rounded-lg hover:bg-blue-700 transition">
+                    View New Orders
+                </button>
+            </div>
+        </section>
+
+        <section id="products" class="mb-10">
+            <h2 class="text-2xl font-bold text-gray-800 mb-4">Product Inventory</h2>
+            
+            <div class="bg-white p-6 rounded-xl shadow-lg">
+                <table class="min-w-full divide-y divide-gray-200">
+                    <thead class="bg-gray-50">
+                        <tr>
+                            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Product Name</th>
+                            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Price</th>
+                            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Stock</th>
+                            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody class="divide-y divide-gray-200">
+                        <tr>
+                            <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">Organic Mango</td>
+                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">₹150.00</td>
+                            <td class="px-6 py-4 whitespace-nowrap text-sm">
+                                <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-green-100 text-green-800">50</span>
+                            </td>
+                            <td class="px-6 py-4 whitespace-nowrap text-sm font-medium">
+                                <a href="#" class="text-indigo-600 hover:text-indigo-900 mr-3">Edit</a>
+                                <a href="#" class="text-red-600 hover:text-red-900">Delete</a>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">Fresh Spinach</td>
+                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">₹40.00</td>
+                            <td class="px-6 py-4 whitespace-nowrap text-sm">
+                                <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-yellow-100 text-yellow-800">100</span>
+                            </td>
+                            <td class="px-6 py-4 whitespace-nowrap text-sm font-medium">
+                                <a href="#" class="text-indigo-600 hover:text-indigo-900 mr-3">Edit</a>
+                                <a href="#" class="text-red-600 hover:text-red-900">Delete</a>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+        
+        <section id="orders" class="mb-10">
+            <h2 class="text-2xl font-bold text-gray-800 mb-4">Pending Deliveries</h2>
+            </section>
+
+    </main>
+</div>
