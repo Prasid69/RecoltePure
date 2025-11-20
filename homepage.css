@@ -1,0 +1,268 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Poppins', sans-serif;
+  background-color: #FEF1E1;
+  color: #333;
+  padding-top: 90px;
+}
+
+.navbar {
+  position: fixed;      
+  top: 0;                
+  left: 0;
+  width: 100%;
+  z-index: 1000;      
+  display: flex;
+  justify-content: space-between;
+  align-items: center; 
+  padding: 15px 8%;
+  background-color: #FEF1E1; 
+}
+
+
+.logo {
+ text-decoration: none;
+  color: inherit; 
+  font-weight: bold; 
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  
+}
+
+.logo img {
+  height: 80px;
+  width: auto;
+  object-fit: contain;
+  cursor: pointer;
+}
+
+.nav-links {
+  font-size: 15px;
+  font-weight: bolder;
+  list-style: none;
+  display: flex;
+  gap: 25px;
+}
+
+.nav-links a {
+  text-decoration: none;
+  color: #333;
+  font-weight: 500;
+  position: relative;
+  text-decoration: none;
+  transition: color 0.3s ease;
+}
+
+
+.nav-links a::after {
+  content: "";
+  position: absolute;
+  bottom: -5px;            
+  left: 0;
+  width: 0;
+  height: 2px;
+  background-color: #ff4d2d; 
+  transition: width 0.3s ease;
+}
+
+.nav-links a:hover::after {
+  width: 100%;}
+
+.nav-links a.active{
+    font-size: 15px;
+    font-weight: bolder;
+
+}
+.nav-links a:hover {
+  color: #ff4d2d;
+}
+
+.nav-actions {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  height: 50px;
+}
+
+
+.nav-actions .bx-search {
+  font-size: 28px;
+  margin-right: 10px;
+  color: #222;
+}
+
+.nav-actions .bx-search:hover {
+  transform: translateY(-2px);
+  color: #ff6600;
+}
+
+
+.nav-actions .bxs-cart {
+  font-size: 28px;      
+  color: #333;      
+  margin-right: 10px;    
+  vertical-align: middle; 
+  cursor: pointer;       
+  transition: transform 0.2s ease, color 0.2s ease;
+}
+
+.nav-actions .bxs-cart:hover {
+  transform: translateY(-2px);
+  color: #007bff;        
+}
+
+.sign-in {
+  background-color: white;   
+  color: black;              
+  padding: 12px 28px;
+  border: none;              
+  border-radius: 30px;         
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+  transition: all 0.3s ease;   /* Smooth hover animation */
+}
+
+.sign-in:hover {
+  background-color: #ff2a00;   /* Slightly darker on hover */
+  box-shadow: 0 8px 25px rgba(255, 77, 45, 0.6); /* Stronger shadow on hover */
+  transform: translateY(-2px); /* Lift-up effect */
+}
+
+/* Hero Section */
+.hero {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 80px 8%;
+}
+
+.hero-content {
+  padding-right: 50px;
+  
+}
+
+.hero-content h1 {
+  font-family: "Times New Roman", Times, serif;
+  font-size: 80px;
+  line-height: 1.1;
+  margin-bottom: 20px;
+  font-weight: normal;
+
+}
+
+.highlight1 {
+  color: #d94747;
+}
+
+.highlight2 {
+  color: #ffb347;
+}
+
+.hero-content p {
+  color: #666;
+  margin-bottom: 25px;
+  font-family: "Times New Roman", Times, serif;
+  font-size: 1.2rem;
+}
+
+.explore-btn {
+  background-color: #ff4d2d;
+  color: #fff;
+  border: none;
+  padding: 12px 28px;
+  border-radius: 30px;
+  font-size: 1rem;
+  cursor: pointer;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+  transition: 0.3s ease;
+}
+
+.explore-btn:hover {
+  background-color: #ff2a00;
+}
+
+/* Hero Image */
+.hero-image {
+  position: relative;
+  flex: 1;
+  display: flex;
+  justify-content: center;
+}
+
+.hero-image img {
+  width: 500px;
+  border-color: red;
+}
+
+.discount-badge {
+  position: absolute;
+  top: 50px;
+  right: 50px;
+  width: 120px;
+  height: 120px;
+  background: #ff3b5c;
+  color: white;
+  font-weight: 700;
+  font-size: 1.2rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 50%;
+
+  /* SPIKES */
+  --spikes: 24;       /* number of spikes */
+  --size: 12px;       /* spike depth */
+
+  clip-path: polygon(
+    /* auto-generated spikes */
+    var(--spikes)
+  );
+}
+
+.discount-badge {
+  mask: 
+    radial-gradient(circle, black calc(100% - var(--size)), transparent calc(100% - var(--size))),
+    repeating-conic-gradient(
+      from 0deg,
+      black 0deg 10deg,
+      transparent 10deg 15deg
+    );
+  
+  -webkit-mask:
+    radial-gradient(circle, black calc(100% - var(--size)), transparent calc(100% - var(--size))),
+    repeating-conic-gradient(
+      from 0deg,
+      black 0deg 10deg,
+      transparent 10deg 15deg
+    );
+}
+
+
+.info-card {
+  position: absolute;
+  bottom: -40px;
+  left: 10%;
+  background: #fff;
+  padding: 15px 20px;
+  border-radius: 15px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+}
+
+.info-card h4 {
+  font-size: 1rem;
+  color: #333;
+}
+
+.info-card p {
+  font-size: 0.85rem;
+  color: #666;
+  margin-bottom: 10px;
+}
