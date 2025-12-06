@@ -1,3 +1,6 @@
+<?php
+session_start();
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -19,7 +22,7 @@
   <header>
     <nav class="navbar">
       <div class="logo">
-        <a href="homepage.html" class="logo">
+        <a href="homepage.php" class="logo">
         <img src="assets/images/Logo.png" alt="RecoltePure Logo" sizes="16x16"/>
         RecoltePure
         </a>
@@ -33,15 +36,37 @@
         <li><a href="#" class="active">Contact US</a></li>
       </ul>
       <div class="nav-actions">
-        <i class='bx  bx-search'></i> 
 
-        <a href="cart.html" >
-        <i class='bx  bxs-cart'  style='color: black'  ></i> 
-        </a>
-        <a href="login.html" >
-        <button class="sign-in">Sign in</button>
-        </a>
-      </div>
+    <i class='bx bx-search'></i>
+    <a href="cart.html"><i class='bx bxs-cart' style="color: black"></i></a>
+
+    <?php if (!isset($_SESSION['login_user'])): ?>
+
+        <!-- USER IS NOT LOGGED IN -->
+        <a href="login.php" class="sign-in">Sign Up</a>
+
+    <?php else: ?>
+
+        <!-- USER IS LOGGED IN -->
+        <?php 
+            $email = $_SESSION['login_user'];
+            $initial = strtoupper(substr($email, 0, 1));
+        ?>
+
+        <button class="user-btn"><?php echo $initial; ?></button>
+
+        <div class="dropdown-menu">
+            <a href="profile.php">My Profile</a>
+            <a href="orders.php">My Orders</a>
+            <a href="logout.php">Logout</a>
+        </div>
+
+    <?php endif; ?>
+
+</div>
+
+
+
     </nav>
   </header>
 
@@ -386,5 +411,29 @@
 
 
 
+
+<script>
+document.addEventListener("DOMContentLoaded", function () {
+    const btn = document.querySelector(".user-btn");
+    const menu = document.querySelector(".dropdown-menu");
+
+    if (btn) {
+        btn.addEventListener("click", () => {
+            menu.style.display = (menu.style.display === "block") ? "none" : "block";
+        });
+    }
+
+    // Close dropdown when clicking outside
+    document.addEventListener("click", function(e) {
+        if (!btn.contains(e.target) && !menu.contains(e.target)) {
+            menu.style.display = "none";
+        }
+    });
+});
+</script>
+
+
 </body>
+
+
 </html>
