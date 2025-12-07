@@ -3,33 +3,48 @@ session_start();
 include "db_connection.php";
 
 $category_id = isset($_GET['category_id']) ? intval($_GET['category_id']) : 0;
-$sort = isset($_GET['sort']) ? $_GET['sort'] : '';   
+$sort = isset($_GET['sort']) ? $_GET['sort'] : '';
+$page = isset($_GET['page']) ? intval($_GET['page']) : 1;
 
+$items_per_page = 12; 
+$offset = ($page - 1) * $items_per_page;
 
 $cat_sql = "SELECT * FROM categories";
 $categories = mysqli_query($db, $cat_sql);
 
-if ($category_id == 0) {
-    $prod_sql = "SELECT * FROM products";
-} else {
-    $prod_sql = "SELECT * FROM products WHERE category_id = $category_id";
+$prod_sql = "FROM products WHERE 1";
+
+if ($category_id != 0) {
+    $prod_sql .= " AND category_id = $category_id";
 }
 
+/* SORTING */
 if ($sort === 'low') {
     $prod_sql .= " ORDER BY price ASC";
 } elseif ($sort === 'high') {
     $prod_sql .= " ORDER BY price DESC";
-}
-elseif ($sort === "newest") {
-    $prod_sql .= " ORDER BY created_on DESC"; 
-}
-elseif ($sort === "oldest") {
-    $prod_sql .= " ORDER BY created_on ASC"; 
+} elseif ($sort === "newest") {
+    $prod_sql .= " ORDER BY created_on DESC";
+} elseif ($sort === "oldest") {
+    $prod_sql .= " ORDER BY created_on ASC";
+} else {
+    $prod_sql .= " ORDER BY product_id DESC"; // default
 }
 
-$products = mysqli_query($db, $prod_sql);
 
+/* GET TOTAL ITEMS */
+$total_sql = "SELECT COUNT(*) as total " . $prod_sql;
+$total_result = mysqli_query($db, $total_sql);
+$total_row = mysqli_fetch_assoc($total_result);
+$total_items = $total_row['total'];
+
+$total_pages = ceil($total_items / $items_per_page);
+
+
+$final_sql = "SELECT * " . $prod_sql . " LIMIT $offset, $items_per_page";
+$products = mysqli_query($db, $final_sql);
 ?>
+
 
 <!DOCTYPE html>
 <html lang="en">
@@ -78,8 +93,8 @@ $products = mysqli_query($db, $prod_sql);
             <div class="showing-text">Showing 1-10 of 85 Items</div>
             <div class="actions">
                 <span class="view-options">
-                    <i class="fas fa-th-large"></i>
-                    <i class="fas fa-list"></i>
+                    <i class="fas fa-th-large" id="gridView"></i>
+                    <i class="fas fa-list" id="listView"></i>
                 </span>
                 <select class="sort-select" style="margin-left: 15px;" onchange="location='?category_id=<?php echo $category_id; ?>&sort=' + this.value;">
                     <option value="">Default Sorting</option>
@@ -95,17 +110,18 @@ $products = mysqli_query($db, $prod_sql);
         
 
         <!-- Product Grid -->
-        <div class="product-grid">
-<?php while($prod = mysqli_fetch_assoc($products)) : ?>
-    <div class="product-card">
-        <span class="badge"><?php echo $prod['stock_quantity']; ?></span>
-        <img src="assets/images/<?php echo $prod['image']; ?>" alt="<?php echo $prod['product_name']; ?>" class="product-img">
-        <div class="product-cat">
-            <?php 
-            $cat_name = mysqli_fetch_assoc(mysqli_query($db, "SELECT category_name FROM categories WHERE category_id=".$prod['category_id']));
-            echo ucfirst($cat_name['category_name']);
-            ?>
+        <div class="product-grid" id="productGrid">
+            <?php while($prod = mysqli_fetch_assoc($products)) : ?>
+                <div class="product-card">
+                    <span class="badge"><?php echo $prod['stock_quantity']; ?></span>
+                    <img src="assets/images/<?php echo $prod['image']; ?>" alt="<?php echo $prod['product_name']; ?>" class="product-img">
+                    <div class="product-cat">
+                        <?php 
+                        $cat_name = mysqli_fetch_assoc(mysqli_query($db, "SELECT category_name FROM categories WHERE category_id=".$prod['category_id']));
+                        echo ucfirst($cat_name['category_name']);
+                        ?>
         </div>
+
         <h3 class="product-title"><?php echo $prod['product_name']; ?></h3>
         <div class="product-footer">
             <div>
@@ -125,13 +141,70 @@ $products = mysqli_query($db, $prod_sql);
 
         <!-- Pagination -->
         <div class="pagination">
-            <span class="page-num active">1</span>
-            <span class="page-num">2</span>
-            <span class="page-num">3</span>
-            <span class="page-num">25</span>
-        </div>
+    <?php if ($page > 1): ?>
+        <a class="page-btn" href="?category_id=<?= $category_id ?>&sort=<?= $sort ?>&page=<?= $page - 1 ?>">Prev</a>
+    <?php endif; ?>
 
-    </div>
+    <?php for ($i = 1; $i <= $total_pages; $i++): ?>
+        <a class="page-btn <?= ($i == $page) ? 'active' : '' ?>"
+           href="?category_id=<?= $category_id ?>&sort=<?= $sort ?>&page=<?= $i ?>">
+           <?= $i ?>
+        </a>
+    <?php endfor; ?>
+
+    <?php if ($page < $total_pages): ?>
+        <a class="page-btn" href="?category_id=<?= $category_id ?>&sort=<?= $sort ?>&page=<?= $page + 1 ?>">Next</a>
+    <?php endif; ?>
+</div>
+
+
+
+
+<script>
+document.addEventListener("DOMContentLoaded", function() {
+    console.log("JS is working!");
+    const productGrid = document.getElementById("productGrid");
+    const gridBtn = document.getElementById("gridView");
+    const listBtn = document.getElementById("listView");
+
+    if (!productGrid) {
+        console.error("productGrid element not found. Make sure <div id='productGrid'> exists.");
+        return;
+    }
+
+    if (!productGrid.classList.contains("grid-view") && !productGrid.classList.contains("list-view")) {
+        productGrid.classList.add("grid-view");
+    }
+
+    function setActive(btn) {
+        if (!gridBtn || !listBtn) return;
+        gridBtn.classList.remove("active-view");
+        listBtn.classList.remove("active-view");
+        btn.classList.add("active-view");
+    }
+
+    if (gridBtn) {
+        gridBtn.addEventListener("click", function() {
+            productGrid.classList.add("grid-view");
+            productGrid.classList.remove("list-view");
+            setActive(gridBtn);
+        });
+    }
+
+    if (listBtn) {
+        listBtn.addEventListener("click", function() {
+            productGrid.classList.add("list-view");
+            productGrid.classList.remove("grid-view");
+            setActive(listBtn);
+        });
+    }
+
+
+    if (productGrid.classList.contains("list-view") && listBtn) setActive(listBtn);
+    else if (gridBtn) setActive(gridBtn);
+});
+</script>
+
 
 </body>
 </html>
