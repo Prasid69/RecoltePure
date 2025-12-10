@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>RecoltePure - Farmer Registration</title>
+    <title>CrowdFarming - Farmer Registration</title>
     <style>
         * {
             margin: 0;
@@ -13,77 +13,44 @@
 
         body {
             font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Arial, sans-serif;
-            background: linear-gradient(180deg, #c8e6a0 0%, #7da86f 50%, #4a6b4a 100%);
+            background-color: #f5f5f5;
             color: #333;
-            min-height: 100vh;
         }
 
         .header {
-            background: rgba(255, 255, 255, 0.95);
-            padding: 15px 40px;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+            background-color: white;
+            padding: 20px 40px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
         }
 
         .logo {
             display: flex;
             align-items: center;
-            gap: 15px;
-        }
-
-        .logo-circle {
-            width: 60px;
-            height: 60px;
-            border-radius: 50%;
-            border: 3px solid #4a6b4a;
-            background-color: #f5f0e8;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            flex-direction: column;
-            position: relative;
-        }
-
-        .logo-text-top {
-            font-size: 9px;
-            font-weight: bold;
-            color: #4a6b4a;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-        }
-
-        .logo-icon {
-            width: 25px;
-            height: 25px;
-            margin: 2px 0;
-        }
-
-        .logo-text-bottom {
-            font-size: 7px;
-            color: #4a6b4a;
-            text-transform: uppercase;
-        }
-
-        .logo-name {
-            font-size: 28px;
+            gap: 10px;
+            font-size: 24px;
             font-weight: 600;
-            color: #4a6b4a;
+            color: #2d9b8e;
+        }
+
+        .logo svg {
+            width: 40px;
+            height: 40px;
         }
 
         .container {
             display: flex;
             max-width: 1400px;
             margin: 0 auto;
-            min-height: calc(100vh - 90px);
-            padding: 40px 20px;
+            min-height: calc(100vh - 84px);
         }
 
         .left-section {
             flex: 1;
+            background: linear-gradient(135deg, #e8f5f3 0%, #d4ede9 100%);
             padding: 60px 80px;
             display: flex;
             flex-direction: column;
             justify-content: center;
-            color: white;
         }
 
         .illustration {
@@ -94,10 +61,9 @@
 
         .left-section h1 {
             font-size: 36px;
-            color: white;
+            color: #1a1a1a;
             margin-bottom: 40px;
             line-height: 1.3;
-            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
         }
 
         .feature-list {
@@ -110,20 +76,18 @@
             gap: 15px;
             margin-bottom: 20px;
             font-size: 18px;
-            color: white;
-            text-shadow: 1px 1px 2px rgba(0,0,0,0.3);
+            color: #333;
         }
 
         .check-icon {
             width: 24px;
             height: 24px;
-            background-color: #7da86f;
+            background-color: #2d9b8e;
             border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
             flex-shrink: 0;
-            box-shadow: 0 2px 4px rgba(0,0,0,0.2);
         }
 
         .check-icon::after {
@@ -135,23 +99,17 @@
 
         .right-section {
             flex: 1;
-            background: rgba(255, 255, 255, 0.15);
-            backdrop-filter: blur(20px);
-            border-radius: 20px;
+            background-color: white;
             padding: 60px 80px;
             display: flex;
             flex-direction: column;
             justify-content: center;
-            box-shadow: 0 8px 32px rgba(0,0,0,0.2);
-            border: 1px solid rgba(255, 255, 255, 0.2);
         }
 
         .form-container h2 {
             font-size: 32px;
-            color: white;
+            color: #1a1a1a;
             margin-bottom: 40px;
-            text-align: center;
-            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
         }
 
         .form-row {
@@ -169,31 +127,22 @@
             display: block;
             margin-bottom: 8px;
             font-size: 14px;
-            color: white;
+            color: #555;
             font-weight: 500;
-            text-shadow: 1px 1px 2px rgba(0,0,0,0.3);
         }
 
         .form-group input {
             width: 100%;
             padding: 14px 16px;
-            border: 1px solid rgba(255, 255, 255, 0.3);
-            border-radius: 25px;
+            border: 1px solid #ddd;
+            border-radius: 6px;
             font-size: 16px;
-            background: rgba(255, 255, 255, 0.2);
-            backdrop-filter: blur(10px);
-            color: white;
-            transition: all 0.3s;
-        }
-
-        .form-group input::placeholder {
-            color: rgba(255, 255, 255, 0.7);
+            transition: border-color 0.3s;
         }
 
         .form-group input:focus {
             outline: none;
-            border-color: rgba(255, 255, 255, 0.6);
-            background: rgba(255, 255, 255, 0.25);
+            border-color: #2d9b8e;
         }
 
         .password-wrapper {
@@ -209,8 +158,6 @@
             border: none;
             cursor: pointer;
             font-size: 20px;
-            filter: brightness(0) invert(1);
-            opacity: 0.8;
         }
 
         .checkbox-group {
@@ -225,20 +172,17 @@
             height: 20px;
             margin-top: 2px;
             cursor: pointer;
-            accent-color: #7da86f;
         }
 
         .checkbox-group label {
             font-size: 14px;
-            color: white;
+            color: #555;
             line-height: 1.5;
-            text-shadow: 1px 1px 2px rgba(0,0,0,0.3);
         }
 
         .checkbox-group a {
-            color: #c8e6a0;
+            color: #2d9b8e;
             text-decoration: none;
-            font-weight: 600;
         }
 
         .checkbox-group a:hover {
@@ -248,30 +192,26 @@
         .submit-btn {
             width: 100%;
             padding: 16px;
-            background-color: rgba(255, 255, 255, 0.95);
-            color: #4a6b4a;
+            background-color: #2d9b8e;
+            color: white;
             border: none;
-            border-radius: 25px;
+            border-radius: 6px;
             font-size: 18px;
             font-weight: 600;
             cursor: pointer;
-            transition: all 0.3s;
+            transition: background-color 0.3s;
             margin-bottom: 30px;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.2);
         }
 
         .submit-btn:hover {
-            background-color: white;
-            transform: translateY(-2px);
-            box-shadow: 0 6px 16px rgba(0,0,0,0.3);
+            background-color: #258276;
         }
 
         .divider {
             text-align: center;
             margin: 30px 0;
-            color: white;
+            color: #888;
             font-size: 14px;
-            text-shadow: 1px 1px 2px rgba(0,0,0,0.3);
         }
 
         .social-buttons {
@@ -283,10 +223,9 @@
         .social-btn {
             flex: 1;
             padding: 14px;
-            border: 1px solid rgba(255, 255, 255, 0.3);
-            border-radius: 25px;
-            background: rgba(255, 255, 255, 0.2);
-            backdrop-filter: blur(10px);
+            border: 1px solid #ddd;
+            border-radius: 6px;
+            background-color: white;
             font-size: 16px;
             cursor: pointer;
             display: flex;
@@ -294,33 +233,31 @@
             justify-content: center;
             gap: 10px;
             transition: all 0.3s;
-            color: white;
         }
 
         .social-btn:hover {
-            border-color: rgba(255, 255, 255, 0.5);
-            background: rgba(255, 255, 255, 0.25);
-            transform: translateY(-2px);
+            border-color: #2d9b8e;
+            background-color: #f9f9f9;
         }
 
         .facebook-btn {
-            background: rgba(59, 89, 152, 0.4);
-            border-color: rgba(59, 89, 152, 0.5);
+            background-color: #3b5998;
+            color: white;
+            border-color: #3b5998;
         }
 
         .facebook-btn:hover {
-            background: rgba(59, 89, 152, 0.5);
+            background-color: #344e86;
         }
 
         .login-link {
             text-align: center;
             font-size: 14px;
-            color: white;
-            text-shadow: 1px 1px 2px rgba(0,0,0,0.3);
+            color: #555;
         }
 
         .login-link a {
-            color: #c8e6a0;
+            color: #2d9b8e;
             text-decoration: none;
             font-weight: 600;
         }
@@ -354,16 +291,34 @@
 <body>
     <div class="header">
         <div class="logo">
-            <div class="logo-circle">
-                <img src="assets/images/logo.png" alt="Logo Icon" class="logo-icon">
-            </div>
-            <span class="logo-name">RecoltePure</span>
+            <svg viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M50 10C50 10 35 15 35 35C35 45 40 50 50 60C60 50 65 45 65 35C65 15 50 10 50 10Z" fill="#2d9b8e"/>
+                <path d="M50 60C50 60 40 65 40 75C40 82 45 87 50 90C55 87 60 82 60 75C60 65 50 60 50 60Z" fill="#2d9b8e"/>
+                <circle cx="42" cy="40" r="3" fill="white"/>
+            </svg>
+            <span>CrowdFarming</span>
         </div>
     </div>
 
     <div class="container">
         <div class="left-section">
             <div class="illustration">
+                <svg viewBox="0 0 200 200" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <ellipse cx="100" cy="100" rx="90" ry="85" fill="#b8e6df"/>
+                    <rect x="70" y="120" width="60" height="40" rx="5" fill="#8b6f47"/>
+                    <circle cx="85" cy="135" r="8" fill="#f4a460"/>
+                    <circle cx="100" cy="135" r="8" fill="#f4a460"/>
+                    <circle cx="115" cy="135" r="8" fill="#f4a460"/>
+                    <circle cx="92.5" cy="148" r="8" fill="#f4a460"/>
+                    <circle cx="107.5" cy="148" r="8" fill="#f4a460"/>
+                    <ellipse cx="100" cy="70" rx="30" ry="35" fill="#f5deb3"/>
+                    <rect x="90" y="40" width="20" height="15" fill="#6fa86f" rx="3"/>
+                    <path d="M100 40Q85 35 85 25Q85 20 90 20Q95 20 100 25Q105 20 110 20Q115 20 115 25Q115 35 100 40Z" fill="#4a7c4a"/>
+                    <rect x="95" y="70" width="10" height="50" fill="#87ceeb"/>
+                    <circle cx="85" cy="65" r="5" fill="#333"/>
+                    <circle cx="115" cy="65" r="5" fill="#333"/>
+                    <path d="M95 80Q100 85 105 80" stroke="#333" stroke-width="2" fill="none"/>
+                </svg>
             </div>
             <h1>Join Us to Change Food for Good</h1>
             <ul class="feature-list">
@@ -436,7 +391,7 @@
                         <label for="password">Password</label>
                         <div class="password-wrapper">
                             <input type="password" id="password" name="password" required>
-                            <button type="button" class="password-toggle" onclick="togglePassword()">🔒</button>
+                            <button type="button" class="password-toggle" onclick="togglePassword()">👁</button>
                         </div>
                     </div>
 
@@ -473,14 +428,8 @@
     <script>
         function togglePassword() {
             const passwordInput = document.getElementById('password');
-            const toggleBtn = document.querySelector('.password-toggle');
-            if (passwordInput.type === 'password') {
-                passwordInput.type = 'text';
-                toggleBtn.textContent = '🔓';
-            } else {
-                passwordInput.type = 'password';
-                toggleBtn.textContent = '🔒';
-            }
+            const type = passwordInput.type === 'password' ? 'text' : 'password';
+            passwordInput.type = type;
         }
 
         // Set today's date as default for registration date
