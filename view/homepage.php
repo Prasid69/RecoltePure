@@ -33,7 +33,7 @@ session_start();
         <li><a href="#categories" class="active">Categories</a></li>
         <li><a href="#" class="active">Sesaonal Products</a></li>
         <li><a href="#" class="active">Our Producers</a></li>
-        <li><a href="#" class="active">Contact US</a></li>
+        <li><a href="contact.php" class="active">Contact Us</a></li>
       </ul>
       <div class="nav-actions">
 
