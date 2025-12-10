@@ -172,7 +172,7 @@ session_start();
     <footer class="footer">
         <div class="footer-content">
             <div class="footer-logo">
-                <h3>🌾 Recolte Pure</h3>
+                <h3> Recolte Pure</h3>
                 <p>Connecting farmers with consumers in Paris</p>
             </div>
             <div class="footer-links">
