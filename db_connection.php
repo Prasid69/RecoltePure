@@ -1,12 +1,23 @@
 <?php
-define('DB_SERVER', 'localhost');
-define('DB_USERNAME', 'root');
-define('DB_PASSWORD', '');
-define('DB_NAME', 'recoltepure');
+// db_connection.php - Make sure your file looks similar to this
 
-$db = mysqli_connect(DB_SERVER, DB_USERNAME, DB_PASSWORD, DB_NAME);
+// Database configuration
+$servername = "localhost";
+$username = "root";  // Default XAMPP username
+$password = "";      // Default XAMPP password (empty)
+$database = "recoltepure"; // Your database name
 
-if($db === false){
-    die("ERROR: Could not connect. " . mysqli_connect_error());
+// Create connection
+$conn = new mysqli($servername, $username, $password, $database);
+
+// Check connection
+if ($conn->connect_error) {
+    die("Connection failed: " . $conn->connect_error);
 }
+
+// Set charset to utf8mb4 (important for special characters)
+$conn->set_charset("utf8mb4");
+
+// Optional: Display success message (remove in production)
+// echo "Connected successfully";
 ?>
