@@ -1,6 +1,6 @@
 <?php
 session_start();
-include "db_connection.php";
+include "../db_connection.php";
 
 $category_id = isset($_GET['category_id']) ? intval($_GET['category_id']) : 0;
 $sort = isset($_GET['sort']) ? $_GET['sort'] : '';
@@ -18,7 +18,6 @@ if ($category_id != 0) {
     $prod_sql .= " AND category_id = $category_id";
 }
 
-/* SORTING */
 if ($sort === 'low') {
     $prod_sql .= " ORDER BY price ASC";
 } elseif ($sort === 'high') {
@@ -32,7 +31,6 @@ if ($sort === 'low') {
 }
 
 
-/* GET TOTAL ITEMS */
 $total_sql = "SELECT COUNT(*) as total " . $prod_sql;
 $total_result = mysqli_query($db, $total_sql);
 $total_row = mysqli_fetch_assoc($total_result);
@@ -52,7 +50,7 @@ $products = mysqli_query($db, $final_sql);
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>RecoltPure | Shopping | vegetable</title>
-    <link rel="stylesheet" href="categories.css"></link>
+    <link rel="stylesheet" href="../assets/css/categories.css"></link>
     <link href="https://fonts.googleapis.com/css2?fami  ly=Lato:wght@300;400;700&family=Dancing+Script:wght@600&display=swap" rel="stylesheet">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
     
