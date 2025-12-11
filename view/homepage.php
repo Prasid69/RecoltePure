@@ -87,7 +87,7 @@ session_start();
     </div>
 
     <div class="hero-image">
-      <img src="../assets/images/homepage.png" alt="Food Bowl">
+      <img src="../assets/uploads/products/homepage.png" alt="Food Bowl">
       <!-- <div class="info-card">
         <div>
           <h4> <i class='bx  bxs-truck'  style='color: black'  ></i> Fast Delivery</h4>
@@ -109,31 +109,31 @@ session_start();
       <button class="homepage-nav-btn" id="homepage-prev">❮</button>
       <div class="homepage-cards">
         <div class="homepage-card homepage-pink">
-          <img src="../assets/images/fruits.png" alt="fruits">
+          <img src="../assets/uploads/products/fruits.png" alt="fruits">
           <h3>Fruits</h3>
           <button class="homepage-order-btn">Order Now</button>
         </div>
 
         <div class="homepage-card homepage-orange">
-          <img src="../assets/images/vegetables.png" alt="vegetables">
+          <img src="../assets/uploads/products/vegetables.png" alt="vegetables">
           <h3>Vegetables</h3>
           <button class="homepage-order-btn">Order Now</button>
         </div>
 
         <div class="homepage-card homepage-green">
-          <img src="../assets/images/dairyproducts.png" alt="dairyproducts">
+          <img src="../assets/uploads/products/dairyproducts.png" alt="dairyproducts">
           <h3>Dairy Products</h3>
           <button class="homepage-order-btn">Order Now</button>
         </div>
 
         <div class="homepage-card homepage-blue">
-          <img src="../assets/images/grains_and_pulses.png" alt="grains_and_pulses">
+          <img src="../assets/uploads/products/grains_and_pulses.png" alt="grains_and_pulses">
           <h3>Grains and Pulses</h3>
           <button class="homepage-order-btn">Order Now</button>
         </div>
 
         <div class="homepage-card homepage-red">
-          <img src="../assets/images/herbss.webp" alt="herbs">
+          <img src="../assets/uploads/products/herbss.webp" alt="herbs">
           <h3>Herbs</h3>
           <button class="homepage-order-btn">Order Now</button>
         </div>
@@ -216,7 +216,7 @@ session_start();
             <button type="button" class="wishlist-btn active"><i class="fas fa-heart"></i></button>
 
             <div class="card-image-wrapper">
-                <img src="../assets/images/tomatoes.png" alt="Vegetables" class="card-image">
+                <img src="../assets/uploads/products/tomatoes.png" alt="Vegetables" class="card-image">
             </div>
 
             <div class="card-content">

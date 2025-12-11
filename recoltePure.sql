@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Dec 10, 2025 at 04:51 PM
+-- Generation Time: Dec 11, 2025 at 03:05 PM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -34,6 +34,14 @@ CREATE TABLE `announcement` (
   `announcement_date` date DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
+--
+-- Dumping data for table `announcement`
+--
+
+INSERT INTO `announcement` (`announce_id`, `product_id`, `farmer_id`, `announcement_date`) VALUES
+(1, 1, 1, '2025-11-12'),
+(2, 2, 3, '2025-11-15');
+
 -- --------------------------------------------------------
 
 --
@@ -43,8 +51,18 @@ CREATE TABLE `announcement` (
 CREATE TABLE `categories` (
   `category_id` int(11) NOT NULL,
   `category_name` varchar(100) DEFAULT NULL,
-  `category_description` varchar(255) DEFAULT NULL
+  `image` varchar(255) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `categories`
+--
+
+INSERT INTO `categories` (`category_id`, `category_name`, `image`) VALUES
+(1, 'fruits', NULL),
+(2, 'vegetable\r\n', NULL),
+(3, 'herbs', NULL),
+(4, 'milk', NULL);
 
 -- --------------------------------------------------------
 
@@ -58,32 +76,12 @@ CREATE TABLE `certificate` (
   `farmer_id` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
--- --------------------------------------------------------
-
 --
--- Table structure for table `contact_messages`
+-- Dumping data for table `certificate`
 --
 
-CREATE TABLE `contact_messages` (
-  `id` int(11) NOT NULL,
-  `first_name` varchar(100) NOT NULL,
-  `last_name` varchar(100) NOT NULL,
-  `email` varchar(255) NOT NULL,
-  `phone` varchar(20) DEFAULT NULL,
-  `subject` varchar(255) NOT NULL,
-  `message` text NOT NULL,
-  `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
-  `status` enum('new','read','replied') DEFAULT 'new'
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
-
---
--- Dumping data for table `contact_messages`
---
-
-INSERT INTO `contact_messages` (`id`, `first_name`, `last_name`, `email`, `phone`, `subject`, `message`, `created_at`, `status`) VALUES
-(1, 'DUGGEMPUDI RAHUL', 'REDDY', 'duggempudirahul56@gmail.com', '+919550519272', 'products', 'regfdv', '2025-12-10 13:54:07', 'new'),
-(2, 'vdfkjvb', 'fiusadjfij', 'duggempudirahul56@gmail.com', '+33758933493', 'feedback', 'nknjskdav blsafdnlv', '2025-12-10 14:27:54', 'new'),
-(3, 'efdf', 'asdasda', 'radsf45@gmail.com', '+33758933444', 'general', 'bsdfdfbdgd', '2025-12-10 15:28:27', 'new');
+INSERT INTO `certificate` (`certificate_id`, `certificate_name`, `farmer_id`) VALUES
+(1, 'farmer_certificate', 1);
 
 -- --------------------------------------------------------
 
@@ -100,6 +98,13 @@ CREATE TABLE `delivery` (
   `tracking_number` varchar(45) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
+--
+-- Dumping data for table `delivery`
+--
+
+INSERT INTO `delivery` (`delivery_id`, `order_id`, `delivery_date`, `delivery_status`, `delivery_partner`, `tracking_number`) VALUES
+(1, 1, '2025-11-21', 'Confirmed', 'xyz', '1234hb');
+
 -- --------------------------------------------------------
 
 --
@@ -115,8 +120,17 @@ CREATE TABLE `farmer` (
   `certificate_number` varchar(45) DEFAULT NULL,
   `verification_date` date DEFAULT NULL,
   `registration_date` datetime DEFAULT NULL,
-  `password_hash` varchar(255) DEFAULT NULL
+  `password` varchar(255) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `farmer`
+--
+
+INSERT INTO `farmer` (`farmer_id`, `name`, `email`, `phone_number`, `address`, `certificate_number`, `verification_date`, `registration_date`, `password`) VALUES
+(1, 'John', 'john@example.com', '7043022473', 'Paris', '1', '2025-11-04', '2025-11-04 00:00:00', 'xyz'),
+(2, 'Max', 'max2@gmail.com', '7896541230', 'Paris, France', '2', '2025-11-06', '2025-11-06 00:00:00', 'asd'),
+(3, 'John Doe', 'johndoe@gmail.com', '7412589631', '123 Farm Lane, Springfield', '3', '2025-11-04', '2025-11-04 00:00:00', 'hashed_password_123');
 
 -- --------------------------------------------------------
 
@@ -163,17 +177,33 @@ CREATE TABLE `payment` (
 -- --------------------------------------------------------
 
 --
--- Table structure for table `product`
+-- Table structure for table `products`
 --
 
-CREATE TABLE `product` (
+CREATE TABLE `products` (
   `product_id` int(11) NOT NULL,
+  `created_on` datetime(6) NOT NULL DEFAULT current_timestamp(6),
   `farmer_id` int(11) DEFAULT NULL,
   `category_id` int(11) DEFAULT NULL,
   `product_name` varchar(100) DEFAULT NULL,
   `price` decimal(10,2) DEFAULT NULL,
-  `stock_quantity` int(11) DEFAULT NULL
+  `old_price` int(11) NOT NULL,
+  `stock_quantity` int(11) DEFAULT NULL,
+  `product_description` varchar(1000) NOT NULL,
+  `image` varchar(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `products`
+--
+
+INSERT INTO `products` (`product_id`, `created_on`, `farmer_id`, `category_id`, `product_name`, `price`, `old_price`, `stock_quantity`, `product_description`, `image`) VALUES
+(1, '2025-12-07 11:07:37.359518', 1, 1, 'Apple', 5.00, 3, 10, '', ''),
+(2, '2025-12-07 11:07:37.359518', 1, 2, 'Mango', 8.00, 8, 5, '', ''),
+(3, '2025-12-07 11:07:37.359518', 1, 2, 'tomatoes', 25.00, 25, 5, 'Red tomatoes', ''),
+(4, '2025-12-07 11:07:37.359518', 1, 2, 'cabbage ', 40.00, 35, 10, 'Fresh Cabbage', ''),
+(5, '2025-12-10 14:59:21.782920', 2, 3, 'Bay Leaf', 50.00, 45, 40, 'BAy Leaf', '1765375161_bayleaf (2).png'),
+(6, '2025-12-10 15:42:05.974859', 2, 3, 'oregano', 100.00, 90, 60, 'Oregano is a species of flowering plant in the mint family, Lamiaceae.', '1765377725_oregano.png');
 
 -- --------------------------------------------------------
 
@@ -207,6 +237,13 @@ CREATE TABLE `users` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
+-- Dumping data for table `users`
+--
+
+INSERT INTO `users` (`customer_id`, `name`, `email`, `address`, `password`, `registration_date`) VALUES
+(1, 'Khushi', 'khushigajjar218@gmail.com', 'qwer', '1234', '2025-11-14 14:07:03');
+
+--
 -- Indexes for dumped tables
 --
 
@@ -230,15 +267,6 @@ ALTER TABLE `categories`
 ALTER TABLE `certificate`
   ADD PRIMARY KEY (`certificate_id`),
   ADD KEY `fk_certificate_farmer_idx` (`farmer_id`);
-
---
--- Indexes for table `contact_messages`
---
-ALTER TABLE `contact_messages`
-  ADD PRIMARY KEY (`id`),
-  ADD KEY `idx_created_at` (`created_at`),
-  ADD KEY `idx_status` (`status`),
-  ADD KEY `idx_email` (`email`);
 
 --
 -- Indexes for table `delivery`
@@ -274,9 +302,9 @@ ALTER TABLE `payment`
   ADD KEY `fk_payment_order1_idx` (`order_customer_id`,`order_delivery_id`);
 
 --
--- Indexes for table `product`
+-- Indexes for table `products`
 --
-ALTER TABLE `product`
+ALTER TABLE `products`
   ADD PRIMARY KEY (`product_id`),
   ADD KEY `fk_Product_Categories1_idx` (`category_id`),
   ADD KEY `fk_Product_farmer1` (`farmer_id`);
@@ -302,37 +330,31 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT for table `announcement`
 --
 ALTER TABLE `announcement`
-  MODIFY `announce_id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `announce_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `categories`
 --
 ALTER TABLE `categories`
-  MODIFY `category_id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `category_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT for table `certificate`
 --
 ALTER TABLE `certificate`
-  MODIFY `certificate_id` int(11) NOT NULL AUTO_INCREMENT;
-
---
--- AUTO_INCREMENT for table `contact_messages`
---
-ALTER TABLE `contact_messages`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `certificate_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT for table `delivery`
 --
 ALTER TABLE `delivery`
-  MODIFY `delivery_id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `delivery_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT for table `farmer`
 --
 ALTER TABLE `farmer`
-  MODIFY `farmer_id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `farmer_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT for table `payment`
@@ -341,10 +363,10 @@ ALTER TABLE `payment`
   MODIFY `payment_id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
--- AUTO_INCREMENT for table `product`
+-- AUTO_INCREMENT for table `products`
 --
-ALTER TABLE `product`
-  MODIFY `product_id` int(11) NOT NULL AUTO_INCREMENT;
+ALTER TABLE `products`
+  MODIFY `product_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT for table `reviews`
@@ -356,7 +378,7 @@ ALTER TABLE `reviews`
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `customer_id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `customer_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- Constraints for dumped tables
@@ -366,7 +388,7 @@ ALTER TABLE `users`
 -- Constraints for table `announcement`
 --
 ALTER TABLE `announcement`
-  ADD CONSTRAINT `fk_Announcement_Product` FOREIGN KEY (`product_id`) REFERENCES `product` (`product_id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  ADD CONSTRAINT `fk_Announcement_Product` FOREIGN KEY (`product_id`) REFERENCES `products` (`product_id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   ADD CONSTRAINT `fk_Announcement_farmer` FOREIGN KEY (`farmer_id`) REFERENCES `farmer` (`farmer_id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
 
 --
@@ -386,7 +408,8 @@ ALTER TABLE `order_items`
 -- Constraints for table `order_or_cart`
 --
 ALTER TABLE `order_or_cart`
-  ADD CONSTRAINT `fk_order_delivery1` FOREIGN KEY (`delivery_id`) REFERENCES `delivery` (`delivery_id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
+  ADD CONSTRAINT `fk_order_delivery1` FOREIGN KEY (`delivery_id`) REFERENCES `delivery` (`delivery_id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  ADD CONSTRAINT `fk_order_user` FOREIGN KEY (`customer_id`) REFERENCES `users` (`customer_id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
 
 --
 -- Constraints for table `payment`
@@ -395,9 +418,9 @@ ALTER TABLE `payment`
   ADD CONSTRAINT `fk_payment_order1` FOREIGN KEY (`order_customer_id`,`order_delivery_id`) REFERENCES `order_or_cart` (`customer_id`, `delivery_id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
 
 --
--- Constraints for table `product`
+-- Constraints for table `products`
 --
-ALTER TABLE `product`
+ALTER TABLE `products`
   ADD CONSTRAINT `fk_Product_Categories1` FOREIGN KEY (`category_id`) REFERENCES `categories` (`category_id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   ADD CONSTRAINT `fk_Product_farmer1` FOREIGN KEY (`farmer_id`) REFERENCES `farmer` (`farmer_id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
 
