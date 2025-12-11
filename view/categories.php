@@ -2,6 +2,22 @@
 session_start();
 include "../db_connection.php";
 
+
+
+// Search button functionality
+$search = isset($_GET['search']) ? trim($_GET['search']) : '';
+
+$sql = "SELECT * FROM products WHERE 1=1";
+
+if(!empty($search)) {
+    $search_safe = mysqli_real_escape_string($db, $search);
+    $sql .= " AND (name LIKE '%$search_safe%' OR description LIKE '%$search_safe%')";
+}
+
+$sql .= " ORDER BY product_id DESC";
+$result = mysqli_query($db, $sql);
+
+
 $category_id = isset($_GET['category_id']) ? intval($_GET['category_id']) : 0;
 $sort = isset($_GET['sort']) ? $_GET['sort'] : '';
 $page = isset($_GET['page']) ? intval($_GET['page']) : 1;
@@ -27,7 +43,7 @@ if ($sort === 'low') {
 } elseif ($sort === "oldest") {
     $prod_sql .= " ORDER BY created_on ASC";
 } else {
-    $prod_sql .= " ORDER BY product_id DESC"; // default
+    $prod_sql .= " ORDER BY product_id DESC"; 
 }
 
 
@@ -60,7 +76,7 @@ $products = mysqli_query($db, $final_sql);
     <header class="page-header">
         <h1>Shop</h1>
         <div class="breadcrumb">
-            Home <span>/</span> Shop
+            <span>/</span> 
         </div>
     </header>
 
@@ -76,7 +92,7 @@ $products = mysqli_query($db, $final_sql);
                     <a href="categories.php?category_id=<?php echo $cat['category_id']; ?>">
                         <div class="category-item">
                             <div class="cat-img-wrapper">
-                                 <img src="assets/images/<?php echo $cat['image']; ?>" alt="<?php echo $cat['category_name']; ?>">
+                                 <img src="assets/uploads/products/<?php echo $cat['image']; ?>" alt="<?php echo $cat['category_name']; ?>">
                             </div>
                              <h4><?php echo ucfirst($cat['category_name']); ?></h4>
                         </div>
@@ -88,7 +104,7 @@ $products = mysqli_query($db, $final_sql);
 
         <!-- Sort / Filter Bar -->
         <div class="toolbar">
-            <div class="showing-text">Showing 1-10 of 85 Items</div>
+            <div class="showing-text">Showing 1-10 of 20 Items</div>
             <div class="actions">
                 <span class="view-options">
                     <i class="fas fa-th-large" id="gridView"></i>
@@ -112,7 +128,7 @@ $products = mysqli_query($db, $final_sql);
             <?php while($prod = mysqli_fetch_assoc($products)) : ?>
                 <div class="product-card">
                     <span class="badge"><?php echo $prod['stock_quantity']; ?></span>
-                    <img src="assets/images/<?php echo $prod['image']; ?>" alt="<?php echo $prod['product_name']; ?>" class="product-img">
+                    <img src="../assets/uploads/products/<?php echo $prod['image']; ?>" alt="<?php echo $prod['product_name']; ?>" class="product-img">
                     <div class="product-cat">
                         <?php 
                         $cat_name = mysqli_fetch_assoc(mysqli_query($db, "SELECT category_name FROM categories WHERE category_id=".$prod['category_id']));
@@ -130,7 +146,18 @@ $products = mysqli_query($db, $final_sql);
                 </span>
                 <?php endif; ?>
             </div>
-            <div class="add-btn"><i class="fas fa-shopping-bag"></i></div>
+            <form method="POST" action="cart.php">
+    <input type="hidden" name="product_id" value="<?php echo $prod['product_id']; ?>">
+    <input type="hidden" name="product_name" value="<?php echo htmlspecialchars($prod['product_name']); ?>">
+    <input type="hidden" name="price" value="<?php echo $prod['price']; ?>">
+    <input type="hidden" name="quantity" value="1">
+    <input type="hidden" name="image" value="../assets/uploads/products/<?php echo $prod['image']; ?>">
+    <button type="submit" class="add-btn">
+        <i class="fas fa-shopping-bag"></i>
+    </button>
+</form>
+
+
         </div>
     </div>
 <?php endwhile; ?>
@@ -160,7 +187,6 @@ $products = mysqli_query($db, $final_sql);
 
 <script>
 document.addEventListener("DOMContentLoaded", function() {
-    console.log("JS is working!");
     const productGrid = document.getElementById("productGrid");
     const gridBtn = document.getElementById("gridView");
     const listBtn = document.getElementById("listView");

@@ -18,8 +18,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     $username = mysqli_real_escape_string($db, $_POST['username']);
     $password = mysqli_real_escape_string($db, $_POST['password']);
-
-    // --- CHECK FARMER ---
     $sql_farmers = "SELECT * FROM farmer WHERE email='$username' AND password='$password'";
     $result_farmers = mysqli_query($db, $sql_farmers);
 
@@ -30,7 +28,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         exit();
     }
 
-    // --- CHECK USER ---
     $sql_users = "SELECT * FROM users WHERE email='$username' AND password='$password'";
     $result_users = mysqli_query($db, $sql_users);
 
@@ -41,7 +38,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         exit();
     }
 
-    // If we reach here, no user was found
     $error = "Invalid Username or Password!";
 }
 ?>
