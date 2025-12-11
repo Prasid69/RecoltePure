@@ -118,6 +118,34 @@ body {
 }
 
 
+.nav-actions button {
+    all: unset; 
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    width: 42px;
+    height: 42px;
+    border-radius: 6px;
+    color: #fff;
+    transition: 0.3s;
+}
+
+.nav-actions button:hover {
+    transform: translateY(-2px);
+}
+
+.nav-actions button .bx-search {
+    font-size: 28px;
+    color: #fff; 
+}
+
+.nav-actions button:hover .bx-search {
+    color: #ff6600; 
+}
+
+
+
 .nav-actions .bxs-cart {
   font-size: 28px;      
   color: #333;      

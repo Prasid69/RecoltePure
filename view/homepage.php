@@ -36,7 +36,15 @@ session_start();
       </ul>
       <div class="nav-actions">
 
-    <i class='bx bx-search'></i>
+
+    
+    <form method="GET" action="view/categories.php" >
+    <input type="text" name="search" placeholder="Search products..." value="<?php echo isset($_GET['search']) ? htmlspecialchars($_GET['search']) : ''; ?>">
+    <button type="submit">
+        <i class='bx bx-search'></i>
+    </button>
+    </form>
+
     <a href="cart.php"><i class='bx bxs-cart' style="color: black"></i></a>
 
     <?php if (!isset($_SESSION['login_user'])): ?>
