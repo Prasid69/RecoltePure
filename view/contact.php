@@ -180,6 +180,7 @@ session_start();
                 <a href="categories.php">Categories</a>
                 <a href="best team.php">Our Team</a>
                 <a href="contact.php">Contact</a>
+                <a href="terms_and_conditions.php">Terms & Conditions</a>
             </div>
         </div>
         <div class="footer-bottom">

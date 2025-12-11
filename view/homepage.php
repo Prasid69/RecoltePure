@@ -33,6 +33,7 @@ session_start();
         <li><a href="#categories" class="active">Categories</a></li>
         <li><a href="#" class="active">Our Producers</a></li>
         <li><a href="contact.php" class="active">Contact Us</a></li>
+        <li><a href="terms_and_conditions.php" class="active">Terms & Conditions</a></li>
       </ul>
       <div class="nav-actions">
 
@@ -402,7 +403,7 @@ session_start();
             
             <div class="bottom-links">
                 <a href="#">Privacy Policy</a>
-                <a href="#">Terms & Conditions</a>
+                <a href="terms_and_conditions.php">Terms & Conditions</a>
                 <a href="#">Cookies/Ad Choices</a>
             </div>
 
