@@ -109,7 +109,7 @@ body {
 .nav-actions .bx-search {
   font-size: 28px;
   margin-right: 10px;
-  color: #222;
+  color: #000000;
 }
 
 .nav-actions .bx-search:hover {
@@ -127,7 +127,7 @@ body {
     width: 42px;
     height: 42px;
     border-radius: 6px;
-    color: #fff;
+    color: #000000;
     transition: 0.3s;
 }
 
@@ -137,7 +137,7 @@ body {
 
 .nav-actions button .bx-search {
     font-size: 28px;
-    color: #fff; 
+    color: #000000; 
 }
 
 .nav-actions button:hover .bx-search {
@@ -148,16 +148,16 @@ body {
 
 .nav-actions .bxs-cart {
   font-size: 28px;      
-  color: #333;      
+  color: #000000;      
   margin-right: 10px;    
   vertical-align: middle; 
   cursor: pointer;       
   transition: transform 0.2s ease, color 0.2s ease;
 }
 
-.nav-actions .bxs-cart:hover {
+.nav-actions button:hover .bxs-cart {
   transform: translateY(-2px);
-  color: #007bff;        
+  color: #ff6600;         
 }
 
 .sign-in {
@@ -951,17 +951,22 @@ box-shadow: 0 10px 30px rgba(0,0,0,0.05);
     position: relative;
 }
 
-.user-btn {
-    width: 35px;
-    height: 35px;
-    border-radius: 50%;
-    background: #ff4d2d;
-    color: white;
-    border: none;
+.nav-actions .user-btn {
+    width: 35px !important;
+    height: 35px !important;
+    border-radius: 50% !important;
+    background: #ff4d2d !important;
+    color: white !important;
+    border: none !important;
     cursor: pointer;
     font-weight: bold;
     font-size: 16px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0;
 }
+
 
 .dropdown-menu {
     position: absolute;

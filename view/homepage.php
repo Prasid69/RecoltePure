@@ -38,12 +38,12 @@ session_start();
 
 
     
-    <form method="GET" action="view/categories.php" >
+    <form method="GET" action="view/categories.php">
     <input type="text" name="search" placeholder="Search products..." value="<?php echo isset($_GET['search']) ? htmlspecialchars($_GET['search']) : ''; ?>">
     <button type="submit">
         <i class='bx bx-search'></i>
     </button>
-    </form>
+</form>
 
     <a href="cart.php"><i class='bx bxs-cart' style="color: black"></i></a>
 
@@ -87,7 +87,7 @@ session_start();
     </div>
 
     <div class="hero-image">
-      <img src="../assets/images/homepage.png" alt="Food Bowl">
+      <img src="../assets/uploads/products/homepage.png" alt="Food Bowl">
       <!-- <div class="info-card">
         <div>
           <h4> <i class='bx  bxs-truck'  style='color: black'  ></i> Fast Delivery</h4>
@@ -109,7 +109,7 @@ session_start();
       <button class="homepage-nav-btn" id="homepage-prev">❮</button>
       <div class="homepage-cards">
         <div class="homepage-card homepage-pink">
-          <img src="../assets/images/fruits.png" alt="fruits">
+          <img src="../assets/uploads/products/fruits.png" alt="fruits">
           <h3>Fruits</h3>
           <button class="homepage-order-btn">Order Now</button>
         </div>
@@ -127,7 +127,7 @@ session_start();
         </div>
 
         <div class="homepage-card homepage-blue">
-          <img src="../assets/images/grains_and_pulses.png" alt="grains_and_pulses">
+          <img src="../assets/uploads/products/grains_and_pulses.png" alt="grains_and_pulses">
           <h3>Grains and Pulses</h3>
           <button class="homepage-order-btn">Order Now</button>
         </div>
@@ -213,10 +213,10 @@ session_start();
         <!-- PRODUCT 1 -->
         <form action="cart.php" method="POST" class="card">
             <div class="badge">-25%</div>
-            <button type="button" class="wishlist-btn active"><i class="fas fa-heart"></i></button>
+            
 
             <div class="card-image-wrapper">
-                <img src="../assets/images/tomatoes.png" alt="Vegetables" class="card-image">
+                <img src="../assets/uploads/products/tomatoes.png" alt="Vegetables" class="card-image">
             </div>
 
             <div class="card-content">
@@ -229,7 +229,7 @@ session_start();
             <input type="hidden" name="product_id" value="1">
             <input type="hidden" name="product_name" value="Farm fresh organic Tomates 250g">
             <input type="hidden" name="price" value="7.99">
-            <input type="hidden" name="image" value="../assets/images/tomatoes.png">
+            <input type="hidden" name="image" value="../assets/uploads/products/tomatoes.png">
             <input type="hidden" name="quantity" class="quantity-field" value="1">
 
             <div class="card-actions">
@@ -247,10 +247,9 @@ session_start();
         <!-- PRODUCT 2 -->
         <form action="cart.php" method="POST" class="card">
             <div class="badge">-25%</div>
-            <button type="button" class="wishlist-btn"><i class="far fa-heart"></i></button>
 
             <div class="card-image-wrapper">
-                <img src="../assets/images/banana.png" alt="Bananas" class="card-image">
+                <img src="../assets/uploads/products/banana.png" alt="Bananas" class="card-image">
             </div>
 
             <div class="card-content">
@@ -280,10 +279,9 @@ session_start();
         <!-- PRODUCT 3 -->
         <form action="cart.php" method="POST" class="card">
             <div class="badge">-25%</div>
-            <button type="button" class="wishlist-btn"><i class="far fa-heart"></i></button>
 
             <div class="card-image-wrapper">
-                <img src="../assets/images/honey.png" alt="Honey" class="card-image">
+                <img src="../assets/uploads/products/honey.png" alt="Honey" class="card-image">
             </div>
 
             <div class="card-content">
@@ -313,10 +311,9 @@ session_start();
         <!-- PRODUCT 4 -->
         <form action="cart.php" method="POST" class="card">
             <div class="badge">-25%</div>
-            <button type="button" class="wishlist-btn"><i class="far fa-heart"></i></button>
 
             <div class="card-image-wrapper">
-                <img src="../assets/images/orange.png" alt="Oranges" class="card-image">
+                <img src="../assets/uploads/products/orange.png" alt="Oranges" class="card-image">
             </div>
 
             <div class="card-content">
@@ -346,10 +343,9 @@ session_start();
         <!-- PRODUCT 5 -->
         <form action="cart.php" method="POST" class="card">
             <div class="badge">-25%</div>
-            <button type="button" class="wishlist-btn"><i class="far fa-heart"></i></button>
 
             <div class="card-image-wrapper">
-                <img src="../assets/images/orange.png" alt="Oranges" class="card-image">
+                <img src="../assets/uploads/products/orange.png" alt="Oranges" class="card-image">
             </div>
 
             <div class="card-content">
@@ -379,10 +375,9 @@ session_start();
         <!-- PRODUCT 6 -->
         <form action="cart.php" method="POST" class="card">
             <div class="badge">-25%</div>
-            <button type="button" class="wishlist-btn"><i class="far fa-heart"></i></button>
 
             <div class="card-image-wrapper">
-                <img src="../assets/images/orange.png" alt="Oranges" class="card-image">
+                <img src="../assets/uploads/products/orange.png" alt="Oranges" class="card-image">
             </div>
 
             <div class="card-content">
@@ -411,10 +406,9 @@ session_start();
         <!-- PRODUCT 7 -->
         <form action="cart.php" method="POST" class="card">
             <div class="badge">-25%</div>
-            <button type="button" class="wishlist-btn"><i class="far fa-heart"></i></button>
 
             <div class="card-image-wrapper">
-                <img src="../assets/images/orange.png" alt="Oranges" class="card-image">
+                <img src="../assets/uploads/products/orange.png" alt="Oranges" class="card-image">
             </div>
 
             <div class="card-content">
@@ -444,10 +438,9 @@ session_start();
         <!-- PRODUCT 8 -->
         <form action="cart.php" method="POST" class="card">
             <div class="badge">-25%</div>
-            <button type="button" class="wishlist-btn"><i class="far fa-heart"></i></button>
 
             <div class="card-image-wrapper">
-                <img src="../assets/images/orange.png" alt="Oranges" class="card-image">
+                <img src="../assets/uploads/products/orange.png" alt="Oranges" class="card-image">
             </div>
 
             <div class="card-content">
@@ -476,10 +469,9 @@ session_start();
         <!-- PRODUCT 9 -->
         <form action="cart.php" method="POST" class="card">
             <div class="badge">-25%</div>
-            <button type="button" class="wishlist-btn"><i class="far fa-heart"></i></button>
 
             <div class="card-image-wrapper">
-                <img src="../assets/images/orange.png" alt="Oranges" class="card-image">
+                <img src="../assets/uploads/products/orange.png" alt="Oranges" class="card-image">
             </div>
 
             <div class="card-content">
@@ -508,10 +500,9 @@ session_start();
         <!-- PRODUCT 10 -->
         <form action="cart.php" method="POST" class="card">
             <div class="badge">-25%</div>
-            <button type="button" class="wishlist-btn"><i class="far fa-heart"></i></button>
 
             <div class="card-image-wrapper">
-                <img src="../assets/images/orange.png" alt="Oranges" class="card-image">
+                <img src="../assets/uploads/products/orange.png" alt="Oranges" class="card-image">
             </div>
 
             <div class="card-content">

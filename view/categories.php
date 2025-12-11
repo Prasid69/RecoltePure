@@ -2,61 +2,70 @@
 session_start();
 include "../db_connection.php";
 
+// --- DEBUG MODE: REMOVE THESE 2 LINES WHEN FIXED ---
+error_reporting(E_ALL);
+ini_set('display_errors', 1);
+// ---------------------------------------------------
 
-
-// Search button functionality
+// 1. Inputs
 $search = isset($_GET['search']) ? trim($_GET['search']) : '';
-
-$sql = "SELECT * FROM products WHERE 1=1";
-
-if(!empty($search)) {
-    $search_safe = mysqli_real_escape_string($db, $search);
-    $sql .= " AND (name LIKE '%$search_safe%' OR description LIKE '%$search_safe%')";
-}
-
-$sql .= " ORDER BY product_id DESC";
-$result = mysqli_query($db, $sql);
-
-
 $category_id = isset($_GET['category_id']) ? intval($_GET['category_id']) : 0;
 $sort = isset($_GET['sort']) ? $_GET['sort'] : '';
 $page = isset($_GET['page']) ? intval($_GET['page']) : 1;
 
+// 2. Base Query
+$conditions = "FROM products WHERE 1=1";
+
+// 3. Add Search Logic
+if ($search !== '') {
+    $search_safe = mysqli_real_escape_string($db, $search);
+    $conditions .= " AND (product_name LIKE '%$search_safe%' OR description LIKE '%$search_safe%')";
+}
+
+// 4. Add Category Logic
+if ($category_id != 0) {
+    $conditions .= " AND category_id = $category_id";
+}
+
+// 5. Pagination Setup
 $items_per_page = 12; 
 $offset = ($page - 1) * $items_per_page;
 
-$cat_sql = "SELECT * FROM categories";
-$categories = mysqli_query($db, $cat_sql);
+$total_sql = "SELECT COUNT(*) as total " . $conditions;
+$total_result = mysqli_query($db, $total_sql);
 
-$prod_sql = "FROM products WHERE 1";
-
-if ($category_id != 0) {
-    $prod_sql .= " AND category_id = $category_id";
+// DEBUG: Check if count query failed
+if (!$total_result) {
+    die("Count Query Failed: " . mysqli_error($db));
 }
 
+$total_row = mysqli_fetch_assoc($total_result);
+$total_items = $total_row['total'];
+$total_pages = ceil($total_items / $items_per_page);
+
+// 6. Sorting$order_sql = "";
 if ($sort === 'low') {
     $prod_sql .= " ORDER BY price ASC";
 } elseif ($sort === 'high') {
-    $prod_sql .= " ORDER BY price DESC";
+    $order_sql = " ORDER BY price DESC";
 } elseif ($sort === "newest") {
-    $prod_sql .= " ORDER BY created_on DESC";
+    $order_sql = " ORDER BY created_on DESC";
 } elseif ($sort === "oldest") {
-    $prod_sql .= " ORDER BY created_on ASC";
+    $order_sql = " ORDER BY created_on ASC";
 } else {
-    $prod_sql .= " ORDER BY product_id DESC"; 
+    $order_sql = " ORDER BY product_id DESC"; 
 }
 
-
-$total_sql = "SELECT COUNT(*) as total " . $prod_sql;
-$total_result = mysqli_query($db, $total_sql);
-$total_row = mysqli_fetch_assoc($total_result);
-$total_items = $total_row['total'];
-
-$total_pages = ceil($total_items / $items_per_page);
+$final_sql = "SELECT * " . $conditions . $order_sql . " LIMIT $offset, $items_per_page";
 
 
-$final_sql = "SELECT * " . $prod_sql . " LIMIT $offset, $items_per_page";
 $products = mysqli_query($db, $final_sql);
+
+if (!$products) {
+    die("Final Query Failed: " . mysqli_error($db));
+}
+
+$categories = mysqli_query($db, "SELECT * FROM categories");
 ?>
 
 
