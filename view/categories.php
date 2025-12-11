@@ -2,6 +2,22 @@
 session_start();
 include "../db_connection.php";
 
+
+
+// Search button functionality
+$search = isset($_GET['search']) ? trim($_GET['search']) : '';
+
+$sql = "SELECT * FROM products WHERE 1=1";
+
+if(!empty($search)) {
+    $search_safe = mysqli_real_escape_string($db, $search);
+    $sql .= " AND (name LIKE '%$search_safe%' OR description LIKE '%$search_safe%')";
+}
+
+$sql .= " ORDER BY product_id DESC";
+$result = mysqli_query($db, $sql);
+
+
 $category_id = isset($_GET['category_id']) ? intval($_GET['category_id']) : 0;
 $sort = isset($_GET['sort']) ? $_GET['sort'] : '';
 $page = isset($_GET['page']) ? intval($_GET['page']) : 1;
@@ -27,7 +43,7 @@ if ($sort === 'low') {
 } elseif ($sort === "oldest") {
     $prod_sql .= " ORDER BY created_on ASC";
 } else {
-    $prod_sql .= " ORDER BY product_id DESC"; // default
+    $prod_sql .= " ORDER BY product_id DESC"; 
 }
 
 
