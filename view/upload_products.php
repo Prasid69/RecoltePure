@@ -26,8 +26,27 @@ $row_farmer = $res_farmer->fetch_assoc();
 $farmer_id = $row_farmer['farmer_id'];
 
 
+$edit_mode = false;
+$product = [];
+
+if (isset($_GET['product_id'])) {
+    $product_id = (int)$_GET['product_id'];
+    $edit_mode = true;
+
+    $stmt = $db->prepare("SELECT * FROM products WHERE product_id = ? AND farmer_id = ?");
+    $stmt->bind_param("ii", $product_id, $farmer_id);
+    $stmt->execute();
+    $res = $stmt->get_result();
+
+    if ($res->num_rows == 0) {
+        die("Product not found or you don't have permission to edit it.");
+    }
+
+    $product = $res->fetch_assoc();
+}
+
+
 if (isset($_POST['upload'])) {
-    
 
     $product_name = mysqli_real_escape_string($db, $_POST['product_name']);
     $description = mysqli_real_escape_string($db, $_POST['description']);
@@ -36,55 +55,67 @@ if (isset($_POST['upload'])) {
     $stock = (int)$_POST['stock_quantity'];
     $category_id = (int)$_POST['category_id'];
 
-    $target_dir = "../assets/uploads/products/"; 
-    
-    $file_name = time() . "_" . basename($_FILES["image"]["name"]); 
-    $target_file = $target_dir . $file_name;
-    $uploadOk = 1;
-    $imageFileType = strtolower(pathinfo($target_file, PATHINFO_EXTENSION));
+    $file_name = $edit_mode ? $product['image'] : ''; // keep old image for edit
 
-    $check = getimagesize($_FILES["image"]["tmp_name"]);
-    if ($check === false) {
-        $error = "File is not an image.";
-        $uploadOk = 0;
-    }
+    if (isset($_FILES['image']) && $_FILES['image']['name'] != '') {
+        $target_dir = "../assets/uploads/products/";
+        $file_name = time() . "_" . basename($_FILES["image"]["name"]);
+        $target_file = $target_dir . $file_name;
+        $imageFileType = strtolower(pathinfo($target_file, PATHINFO_EXTENSION));
 
-    if ($_FILES["image"]["size"] > 5000000) {
-        $error = "Sorry, your file is too large.";
-        $uploadOk = 0;
-    }
+        $check = getimagesize($_FILES["image"]["tmp_name"]);
+        if ($check === false) {
+            $error = "File is not an image.";
+        } elseif ($_FILES["image"]["size"] > 5000000) {
+            $error = "File is too large.";
+        } elseif (!in_array($imageFileType, ['jpg','jpeg','png','gif'])) {
+            $error = "Only JPG, JPEG, PNG & GIF allowed.";
+        } else {
+            if (!file_exists($target_dir)) mkdir($target_dir, 0777, true);
+            move_uploaded_file($_FILES["image"]["tmp_name"], $target_file);
 
-    if ($imageFileType != "jpg" && $imageFileType != "png" && $imageFileType != "jpeg" && $imageFileType != "gif") {
-        $error = "Sorry, only JPG, JPEG, PNG & GIF files are allowed.";
-        $uploadOk = 0;
-    }
-
-    if ($uploadOk == 1) {
-        if (!file_exists($target_dir)) {
-            mkdir($target_dir, 0777, true);
+            // Delete old image if editing
+            if ($edit_mode && $product['image'] != '' && file_exists($target_dir . $product['image'])) {
+                unlink($target_dir . $product['image']);
+            }
         }
+    }
 
-        if (move_uploaded_file($_FILES["image"]["tmp_name"], $target_file)) {
-            
+    if (!isset($error)) {
+        if ($edit_mode) {
+            // Update existing product
+            $sql = "UPDATE products SET product_name=?, product_description=?, price=?, old_price=?, stock_quantity=?, category_id=?, image=? WHERE product_id=? AND farmer_id=?";
+            $stmt = $db->prepare($sql);
+            $stmt->bind_param("ssddiiiii", $product_name, $description, $price, $old_price, $stock, $category_id, $file_name, $product_id, $farmer_id);
+            $action = "updated";
+        } else {
+            // Insert new product
             $sql = "INSERT INTO products (product_name, product_description, price, old_price, stock_quantity, category_id, farmer_id, image) 
                     VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
-            
             $stmt = $db->prepare($sql);
             $stmt->bind_param("ssddiiis", $product_name, $description, $price, $old_price, $stock, $category_id, $farmer_id, $file_name);
+            $action = "uploaded";
+        }
 
-            if ($stmt->execute()) {
-                $success = "Product uploaded successfully!";
-            } else {
-                $error = "Database Error: " . $stmt->error;
+        if ($stmt->execute()) {
+            $success = "Product $action successfully!";
+            if (!$edit_mode) {
+                // Clear form after new upload
+                $_POST = [];
             }
         } else {
-            $error = "Sorry, there was an error uploading your file.";
+            $error = "Database Error: " . $stmt->error;
         }
     }
 }
 
+
 $categories_query = "SELECT category_id, category_name FROM categories ORDER BY category_name ASC";
 $categories = mysqli_query($db, $categories_query);
+
+
+
+
 ?>
 
 <!DOCTYPE html>
@@ -115,35 +146,46 @@ $categories = mysqli_query($db, $categories_query);
     <form action="" method="POST" enctype="multipart/form-data">
 
         <label>Product Name</label>
-        <input type="text" name="product_name" required>
+        <input type="text" name="product_name" 
+       value="<?php echo $edit_mode ? htmlspecialchars($product['product_name']) : ''; ?>" 
+       required>
+
 
         <label>Description</label>
-        <textarea name="description" rows="4" required></textarea>
+        <textarea name="description" rows="4" required>
+<?php echo $edit_mode ? htmlspecialchars($product['product_description']) : ''; ?>
+</textarea>
+
 
         <div class="row">
             <div class="column">
                 <label>Price</label>
-                <input type="number" step="0.01" name="price" required>
+                <input type="number" step="0.01" name="price" 
+       value="<?php echo $edit_mode ? $product['price'] : ''; ?>" required>
             </div>
             <div class="column">
                 <label>Old Price (Optional)</label>
-                <input type="number" step="0.01" name="old_price">
+                <input type="number" step="0.01" name="old_price" 
+       value="<?php echo $edit_mode ? $product['old_price'] : ''; ?>">
             </div>
         </div>
 
         <label>Stock Quantity</label>
-        <input type="number" name="stock_quantity" required>
+       <input type="number" name="stock_quantity" 
+       value="<?php echo $edit_mode ? $product['stock_quantity'] : ''; ?>" required>
+
 
         <label>Select Category</label>
         <select name="category_id" required>
-            <option value="">-- Choose category --</option>
-            <?php if($categories && mysqli_num_rows($categories) > 0): ?>
-                <?php while($cat = mysqli_fetch_assoc($categories)) : ?>
-                    <option value="<?php echo $cat['category_id']; ?>"> <?php echo ucfirst($cat['category_name']); ?>
-                    </option>
-                <?php endwhile; ?>
-            <?php endif; ?>
-        </select>
+    <option value="">-- Choose category --</option>
+    <?php while($cat = mysqli_fetch_assoc($categories)) : ?>
+        <option value="<?php echo $cat['category_id']; ?>" 
+            <?php echo ($edit_mode && $cat['category_id'] == $product['category_id']) ? 'selected' : ''; ?>>
+            <?php echo ucfirst($cat['category_name']); ?>
+        </option>
+    <?php endwhile; ?>
+</select>
+
 
         <label>Upload Product Image</label>
         <input type="file" name="image" accept="image/*" required>

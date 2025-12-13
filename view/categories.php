@@ -2,39 +2,33 @@
 session_start();
 include "../db_connection.php";
 
-// --- DEBUG MODE: REMOVE THESE 2 LINES WHEN FIXED ---
 error_reporting(E_ALL);
 ini_set('display_errors', 1);
-// ---------------------------------------------------
 
-// 1. Inputs
 $search = isset($_GET['search']) ? trim($_GET['search']) : '';
 $category_id = isset($_GET['category_id']) ? intval($_GET['category_id']) : 0;
 $sort = isset($_GET['sort']) ? $_GET['sort'] : '';
 $page = isset($_GET['page']) ? intval($_GET['page']) : 1;
 
-// 2. Base Query
 $conditions = "FROM products WHERE 1=1";
 
-// 3. Add Search Logic
+
 if ($search !== '') {
     $search_safe = mysqli_real_escape_string($db, $search);
     $conditions .= " AND (product_name LIKE '%$search_safe%' OR description LIKE '%$search_safe%')";
 }
 
-// 4. Add Category Logic
+
 if ($category_id != 0) {
     $conditions .= " AND category_id = $category_id";
 }
 
-// 5. Pagination Setup
 $items_per_page = 12; 
 $offset = ($page - 1) * $items_per_page;
 
 $total_sql = "SELECT COUNT(*) as total " . $conditions;
 $total_result = mysqli_query($db, $total_sql);
 
-// DEBUG: Check if count query failed
 if (!$total_result) {
     die("Count Query Failed: " . mysqli_error($db));
 }
@@ -43,7 +37,7 @@ $total_row = mysqli_fetch_assoc($total_result);
 $total_items = $total_row['total'];
 $total_pages = ceil($total_items / $items_per_page);
 
-// 6. Sorting$order_sql = "";
+
 if ($sort === 'low') {
     $prod_sql .= " ORDER BY price ASC";
 } elseif ($sort === 'high') {
@@ -84,10 +78,20 @@ $categories = mysqli_query($db, "SELECT * FROM categories");
     <!-- Header / Hero Section -->
     <header class="page-header">
         <h1>Shop</h1>
-        <div class="breadcrumb">
-            <span>/</span> 
+
+         <div class="back-home">
+            <a href="homepage.php">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M19 12H5M12 19l-7-7 7-7"/>
+                </svg>
+                Back to Home
+            </a>
         </div>
+       
+        
     </header>
+
+   
 
     <div class="container">
 
@@ -101,7 +105,7 @@ $categories = mysqli_query($db, "SELECT * FROM categories");
                     <a href="categories.php?category_id=<?php echo $cat['category_id']; ?>">
                         <div class="category-item">
                             <div class="cat-img-wrapper">
-                                 <img src="assets/uploads/products/<?php echo $cat['image']; ?>" alt="<?php echo $cat['category_name']; ?>">
+                                 <img src="../assets/uploads/products/Fruits.png" alt="Category Image">
                             </div>
                              <h4><?php echo ucfirst($cat['category_name']); ?></h4>
                         </div>
