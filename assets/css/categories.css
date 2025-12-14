@@ -223,6 +223,70 @@
 }
 
 
+
+
+/* Counter + Cart Button Row */
+.counter {
+    display: flex;
+    align-items: center;
+    gap: 8px; /* Space between buttons */
+}
+
+/* +/- buttons */
+.counter-btn {
+    width: 30px;
+    height: 30px;
+    border: 1px solid #e5e7eb;
+    background: #fff;
+    cursor: pointer;
+    font-size: 16px;
+}
+
+.counter-btn:hover {
+    background: #f1f5f9;
+}
+
+.counter-btn:first-child {
+    border-radius: 6px 0 0 6px;
+}
+
+.counter-btn:last-child {
+    border-radius: 0 6px 6px 0;
+}
+
+/* Counter input */
+.counter-input {
+    width: 36px;
+    text-align: center;
+    border-top: 1px solid #e5e7eb;
+    border-bottom: 1px solid #e5e7eb;
+    border-left: none;
+    border-right: none;
+    background: #fff;
+    font-size: 14px;
+}
+
+/* Bag button inside counter row */
+.add-to-cart-btn {
+    width: 42px;
+    height: 42px;
+    border-radius: 50%;
+    background: #1f6613;
+    color: #fff;
+    border: none;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: 0.2s;
+}
+
+.add-to-cart-btn:hover {
+    background: #43a047;
+    transform: translateY(-2px);
+}
+
+
 @media (max-width: 992px) {
     .product-grid.grid-view {
         grid-template-columns: repeat(2, 1fr);
