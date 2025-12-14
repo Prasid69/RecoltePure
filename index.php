@@ -1,8 +1,10 @@
 <?php
+
 ini_set('display_errors', 1);
 ini_set('display_startup_errors', 1);
 error_reporting(E_ALL);
 session_start();
+
 
 $page = $_GET['page'] ?? 'home'; 
 
@@ -28,9 +30,15 @@ switch ($page) {
 
     case 'upload_product':
         require_once "controller/ProductController.php";
-        $controller = new ProductController($db);
-        $controller->loadProduct();
-        $controller->handleUpload();
-        include "view/upload_product.php";
+        
+        $controller = new ProductController($db); 
+        $controller->loadProduct(); 
+        break;
+
+    case 'cart':
+        require_once "controller/CartController.php";
+        $controller = new CartController();
+        $controller->handleActions(); 
         break;
 }
+?>

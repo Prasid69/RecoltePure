@@ -82,26 +82,24 @@
                         <?php endif; ?>
                     </div>
 
-                    <form method="POST" action="cart.php">
+                    <form method="POST" action="index.php?page=cart">
                         <input type="hidden" name="product_id" value="<?= $product['product_id']; ?>">
                         <input type="hidden" name="product_name" value="<?= htmlspecialchars($product['product_name']); ?>">
                         <input type="hidden" name="price" value="<?= $product['price']; ?>">
                         <input type="hidden" name="quantity" class="quantity-input" value="1">
+                        <input type="hidden" name="image" value="assets/uploads/products/<?= htmlspecialchars($product['image']); ?>">
 
                         <div class="card-actions">
-    <div class="counter">
-        <button type="button" class="counter-btn minus">-</button>
-        <input type="text" class="counter-input" value="1" readonly>
-        <button type="button" class="counter-btn plus">+</button>
+        <div class="counter">
+            <button type="button" class="counter-btn minus">-</button>
+            <input type="text" class="counter-input" value="1" readonly>
+            <button type="button" class="counter-btn plus">+</button>
+        </div>
+        <button type="submit" class="add-to-cart-btn">
+            <i class="fas fa-shopping-bag"></i>
+        </button>
     </div>
-    <button type="submit" class="add-to-cart-btn">
-        <i class="fas fa-shopping-bag"></i>
-    </button>
-</div>
-
-
-                        
-                    </form>
+</form>
                 </div>
             </div>
         <?php endforeach; ?>
