@@ -102,7 +102,7 @@
                     </button>
                 </div>
 
-                <a href="#" class="forgot-link">Forgot password?</a>
+                <a href="index.php?page=password_recovery" class="forgot-link">Forgot password?</a>
 
                 <button type="submit" class="btn btn-primary">Login</button>
 

@@ -64,6 +64,19 @@ switch ($page) {
             $controller->index();
         }
         break;
+
+
+    case 'password_recovery':
+        require_once 'controller/PasswordRecoveryController.php';
+        $controller = new RecoveryController($db);
+        $controller->handleRequest();
+        break;
+
+    case 'reset_password':
+        require_once 'controller/ResetPasswordController.php';
+        $controller = new ResetPasswordController($db);
+        $controller->handleRequest();
+        break;
     
     
 }

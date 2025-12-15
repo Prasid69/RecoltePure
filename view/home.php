@@ -15,7 +15,7 @@
         Healty <span class="highlight1">Eating is <br>an </span><span class="highlight2"> Important </span>Part <br>of Lifestyle
       </h1>
       <p>Straight from the farm to your doorstep, Quality you can trust every day.</p>
-      <a href="#products"><button class="explore-btn">Explore Now</button></a>
+      <a href="index.php?page=categories"><button class="explore-btn">Explore Now</button></a>
     </div>
 
     <div class="hero-image">
@@ -31,31 +31,35 @@
         <div class="homepage-card homepage-pink">
           <img src="assets/uploads/products/fruits.png" alt="fruits">
           <h3>Fruits</h3>
+          <a href="index.php?page=categories&category_id=1">
           <button class="homepage-order-btn">Order Now</button>
+          </a>
         </div>
 
         <div class="homepage-card homepage-orange">
           <img src="assets/uploads/products/vegetables.png" alt="vegetables">
           <h3>Vegetables</h3>
+          <a href="index.php?page=categories&category_id=2">
           <button class="homepage-order-btn">Order Now</button>
+          </a>
         </div>
 
         <div class="homepage-card homepage-green">
           <img src="assets/uploads/products/dairyproducts.png" alt="dairyproducts">
           <h3>Dairy Products</h3>
+          <a href="index.php?page=categories&category_id=4">
           <button class="homepage-order-btn">Order Now</button>
+          </a>
         </div>
 
-        <div class="homepage-card homepage-blue">
-          <img src="assets/uploads/products/grains_and_pulses.png" alt="grains_and_pulses">
-          <h3>Grains and Pulses</h3>
-          <button class="homepage-order-btn">Order Now</button>
-        </div>
+        
 
         <div class="homepage-card homepage-red">
           <img src="assets/uploads/products/herbss.webp" alt="herbs">
           <h3>Herbs</h3>
+          <a href="index.php?page=categories&category_id=3">
           <button class="homepage-order-btn">Order Now</button>
+          </a>
         </div>
       </div>
       <button class="homepage-nav-btn" id="homepage-next">❯</button>
@@ -75,7 +79,10 @@
                 </div>
                 <div class="fm-card">
                     <img src="https://images.unsplash.com/photo-1610832958506-aa56368176cf?w=400&h=300&fit=crop" alt="Fruits">
-                    <div class="fm-overlay"><button class="fm-btn">ORDER NOW</button></div>
+                    <div class="fm-overlay">
+                        <a href="index.php?page=categories&category_id=2">
+                        <button class="fm-btn">ORDER NOW</button></div>
+                        </a>
                 </div>
                 <div class="fm-card">
                     <img src="https://images.unsplash.com/photo-1619566636858-adf3ef46400b?w=400&h=300&fit=crop" alt="Vegetables">
@@ -83,21 +90,21 @@
                 </div>
             </div>
             <div class="fm-right">
-                <a href="categories.php">
+                <a href="index.php?page=categories&category_id=1">
                     <div class="fm-cat">
                     <div class="fm-icon">🍎</div>
                     <div><h3 class="fm-cat-title">Fresh Fruits</h3><p class="fm-cat-desc">We provide fresh seasonal fruits directly from local farms</p></div>
                 </div>
                 </a>
                 
-                <a href="categories.php">
+                <a href="index.php?page=categories&category_id=2">
                 <div class="fm-cat">
                     <div class="fm-icon">🥕</div>
                     <div><h3 class="fm-cat-title">Fresh Vegetables</h3><p class="fm-cat-desc">We provide organic vegetables harvested daily for you</p></div>
                 </div>
                 </a>
 
-                <a href="categories.php">
+                <a href="index.php?page=categories&category_id=4">
                 <div class="fm-cat">
                     <div class="fm-icon">🥛</div>
                     <div><h3 class="fm-cat-title">Dairy Products</h3><p class="fm-cat-desc">We provide fresh dairy products from trusted local farms</p></div>
