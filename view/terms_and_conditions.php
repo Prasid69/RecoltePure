@@ -180,9 +180,9 @@ session_start();
       <div class="footer-section">
         <h4>Quick Links</h4>
         <ul>
-          <li><a href="homepage.php">Home</a></li>
+          <li><a href="../index.php?page=home">Home</a></li>
           <li><a href="terms_and_conditions.php">Terms & Conditions</a></li>
-          <li><a href="contact.php">Contact Us</a></li>
+          <li><a href="../index.php?page=contact">Contact Us</a></li>
         </ul>
       </div>
       <div class="footer-section">

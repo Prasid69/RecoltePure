@@ -8,7 +8,7 @@
 <body>
     <section class="hero">
         <div class="back-home">
-            <a href="homepage.php">
+            <a href="index.php?page=home">
                 <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                     <path d="M19 12H5M12 19l-7-7 7-7"/>
                 </svg>

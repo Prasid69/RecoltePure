@@ -48,6 +48,12 @@ switch ($page) {
         $controller->handleActions(); 
         break;
 
+    case 'clear':
+        require_once "controller/CartController.php";
+        $controller = new CartController();
+        $controller->handleActions(); 
+        break;
+
     case 'contact':
         require_once 'controller/ContactController.php';
         $controller = new ContactController($db);

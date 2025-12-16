@@ -90,11 +90,11 @@
                         <input type="hidden" name="image" value="assets/uploads/products/<?= htmlspecialchars($product['image']); ?>">
 
                         <div class="card-actions">
-        <div class="counter">
-            <button type="button" class="counter-btn minus">-</button>
-            <input type="text" class="counter-input" value="1" readonly>
-            <button type="button" class="counter-btn plus">+</button>
-        </div>
+                            <div class="counter">
+                            <button type="button" class="counter-btn minus">-</button>
+                                <input type="text" class="counter-input" value="1" readonly>
+                            <button type="button" class="counter-btn plus">+</button>
+                        </div>
         <button type="submit" class="add-to-cart-btn">
             <i class="fas fa-shopping-bag"></i>
         </button>
@@ -125,4 +125,3 @@
         <?php endif; ?>
     </div>
 </div>
-

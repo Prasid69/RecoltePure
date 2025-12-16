@@ -1,11 +1,16 @@
 <?php
+
+require_once 'config/db_connection.php';
 require_once 'model/Cart.php'; 
+
 
 class CartController {
     private $cartModel;
+    private $cart;
 
     public function __construct() {
         $this->cartModel = new Cart();
+        $this->cart = new Cart();
     }
 
     public function handleActions() {
@@ -34,19 +39,17 @@ class CartController {
                 }
             }
 
-            // Redirect to self (clean PRG pattern)
             header("Location: index.php?page=cart");
             exit;
         }
 
-        // 2. Handle GET Actions (Clear Cart)
-        if (isset($_GET['action']) && $_GET['action'] === 'clear') {
-            $this->cartModel->clear();
+
+       if (isset($_GET['action']) && $_GET['action'] === 'clear') {
+            $this->cart->clear();
             header("Location: index.php?page=cart");
             exit;
         }
-
-        // 3. Prepare Data for View
+    
         $cartItems   = $this->cartModel->getItems();
         $grandTotal  = $this->cartModel->calculateTotal();
         $totalItems  = $this->cartModel->countItems();

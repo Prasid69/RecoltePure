@@ -26,11 +26,11 @@
         <div class="links-col">
             <h3>Categories</h3>
             <ul>
-                <li><a href="#">Fruits & Vegetables</a></li>
+                <li><a href="">Fruits & </a></li>
                 <li><a href="#">Dairy Products</a></li>
-                <li><a href="#">Package Foods</a></li>
-                <li><a href="#">Beverage</a></li>
-                <li><a href="#">Health & Wellness</a></li>
+                <li><a href="#">Vegetables</a></li>
+                <li><a href="#">Herbs</a></li>
+                <li><a href="#">Vegetables</a></li>
             </ul>
         </div>
 
@@ -70,7 +70,7 @@
     
     <div class="bottom-links">
         <a href="#">Privacy Policy</a>
-        <a href="terms_and_conditions.php">Terms & Conditions</a>
+        <a href="view/terms_and_conditions.php">Terms & Conditions</a>
         <a href="#">Cookies/Ad Choices</a>
     </div>
 
@@ -81,6 +81,6 @@
     </div>
 </div>
 
-<script src="assets/js/main.js"></script>
+
 </body>
 </html>

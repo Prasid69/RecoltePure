@@ -15,7 +15,20 @@
 </head>
 <body>
 
+
+    
+
     <div class="container">
+
+
+    <div class="back-home">
+            <a href="index.php?page=home">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M19 12H5M12 19l-7-7 7-7"/>
+                </svg>
+                Back to Home
+            </a>
+        </div>
         <div class="page-header">
             <h1>Shopping Cart</h1>
             <div class="breadcrumb">Home <span>/</span> Shopping Cart</div>
@@ -72,7 +85,7 @@
                         <input type="text" class="input-field" placeholder="Coupon Code">
                         <button class="btn btn-dark">Apply Coupon</button>
                     </div>
-                    <a href="index.php?action=clear" class="link-text">Clear Shopping Cart</a>
+                    <a href="index.php?page=cart&action=clear" class="link-text">Clear Shopping Cart</a>
                 </div>
             </div>
 
