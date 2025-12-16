@@ -106,3 +106,4 @@ class AdminController {
     }
 
 }
+-- end of file controller/AdminController.php
