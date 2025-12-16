@@ -1,3 +1,4 @@
+modified file view/admin/register.php
 <!DOCTYPE html>
 <html lang="en">
 <head>
