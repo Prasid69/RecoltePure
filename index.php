@@ -44,7 +44,7 @@ switch ($page) {
 
     case 'cart':
         require_once "controller/CartController.php";
-        $controller = new CartController();
+        $controller = new CartController($db);
         $controller->handleActions(); 
         break;
 
@@ -83,7 +83,48 @@ switch ($page) {
         $controller = new ResetPasswordController($db);
         $controller->handleRequest();
         break;
+
+    case 'profile':
+        require_once 'controller/UserController.php';
+        $controller = new UserController();
+        $controller->profile();
+        break;
+
+
+    case 'edit_profile':
+        require_once 'controller/UserController.php';
+        $controller = new UserController();
+        $controller->edit();
+        break;
+
+    case 'update_profile':
+        require_once 'controller/UserController.php';
+        $controller = new UserController();
+        $controller->update();
+        break;
+
+    case 'write_review':
+        require_once 'controller/ReviewController.php';
+        $controller = new ReviewController($db); 
+        $controller->showReviewForm();
+        break;
+
+    case 'process_review':
+        require_once 'controller/ReviewController.php';
+        $controller = new ReviewController($db);
+        $controller->submitReview();
+        break;
+
+    case 'my_orders':
+        require_once 'controller/OrderController.php';
+        $controller = new OrderController($db); 
+        $controller->myOrders();
+        break;
     
-    
+    case 'checkout':
+    require_once "controller/CartController.php";
+    $controller = new CartController($db); 
+    $controller->checkout();
+    break;
 }
 ?>

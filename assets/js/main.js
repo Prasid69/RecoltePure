@@ -136,4 +136,27 @@ document.addEventListener("DOMContentLoaded", function () {
             }
         });
     }
+
+
+    // 6. SEARCH BAR TOGGLE
+    const searchForm = document.querySelector('.search-box');
+    const searchBtn = document.querySelector('.search-btn');
+    const searchInput = document.querySelector('.search-input');
+
+    if (searchForm && searchBtn) {
+        searchBtn.addEventListener('click', (e) => {
+            // Check if the search bar is already open
+            if (!searchForm.classList.contains('active')) {
+                e.preventDefault(); // Stop form submission
+                searchForm.classList.add('active'); // Expand the bar
+                searchInput.focus(); // Put cursor inside
+            } 
+            // If open but empty, close it instead of submitting
+            else if (searchInput.value.trim() === '') {
+                e.preventDefault();
+                searchForm.classList.remove('active');
+            }
+            // If open AND has text, let it submit normally (no code needed)
+        });
+    }
 });

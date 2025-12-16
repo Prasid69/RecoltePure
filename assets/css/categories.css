@@ -289,7 +289,41 @@
     transform: translateY(-2px);
 }
 
+.actions {
+    display: flex;
+    align-items: center;
+    gap: 15px; /* Adds space between search, view icons, and sort */
+}
 
+.search-form .search-group {
+    display: flex;
+    align-items: center;
+    border: 1px solid #ddd;
+    border-radius: 20px;
+    padding: 5px 15px;
+    background: #fff;
+}
+
+.search-form input {
+    border: none;
+    outline: none;
+    font-size: 14px;
+    width: 150px; /* Adjust width as needed */
+    background: transparent;
+}
+
+.search-form button {
+    background: none;
+    border: none;
+    cursor: pointer;
+    color: #555;
+    padding: 0;
+    margin-left: 5px;
+}
+
+.search-form button:hover {
+    color: #4CAF50; /* Or your theme green color */
+}
 
 @media (max-width: 992px) {
     .product-grid.grid-view {

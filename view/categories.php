@@ -26,6 +26,20 @@
             Showing <?= count($products) > 0 ? $offset + 1 : 0 ?>-<?= min($offset + count($products), $totalItems) ?> of <?= $totalItems ?> Items
         </div>
         <div class="actions">
+
+            <form action="index.php" method="GET" class="search-form">
+                <input type="hidden" name="page" value="categories">
+                
+                <?php if (isset($categoryId) && $categoryId): ?>
+                    <input type="hidden" name="category_id" value="<?= htmlspecialchars($categoryId); ?>">
+                <?php endif; ?>
+
+                <div class="search-group">
+                    <input type="text" name="search" placeholder="Search..." value="<?= isset($search) ? htmlspecialchars($search) : '' ?>">
+                    <button type="submit"><i class="fas fa-search"></i></button>
+                </div>
+            </form>
+            
             <span class="view-options">
                 <i class="fas fa-th-large" id="gridView"></i>
                 <i class="fas fa-list" id="listView"></i>

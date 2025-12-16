@@ -1,4 +1,25 @@
 <?php
+if (session_status() === PHP_SESSION_NONE) session_start();
+
+if (!isset($userData)) {
+    $isLoggedIn = isset($_SESSION['user_id']);
+    $initial = 'U';
+
+    if ($isLoggedIn) {
+        $displayName = $_SESSION['user_name'] ?? $_SESSION['login_user'] ?? '';
+        
+        if (!empty($displayName)) {
+            $initial = strtoupper(substr($displayName, 0, 1));
+        }
+    }
+
+    $userData = [
+        'is_logged_in' => $isLoggedIn,
+        'initial'      => $initial
+    ];
+}
+?>
+<?php
 require_once __DIR__ . '/../../model/Cart.php';
 $cartCount = Cart::getTotalQuantity();
 ?>
@@ -79,11 +100,15 @@ $cartCount = Cart::getTotalQuantity();
       </ul>
       
       <div class="nav-actions">
-        <form method="GET" action="view/categories.php">
-            <input type="text" name="search" placeholder="Search products..." value="<?php echo isset($_GET['search']) ? htmlspecialchars($_GET['search']) : ''; ?>">
-            <button type="submit">
-                <i class='bx bx-search'></i>
-            </button>
+        <form method="GET" action="index.php" class="search-box">
+          <input type="hidden" name="page" value="categories">
+        
+          <input type="text" name="search" class="search-input" placeholder="Search..." 
+                value="<?php echo isset($_GET['search']) ? htmlspecialchars($_GET['search']) : ''; ?>">
+        
+          <button type="submit" class="search-btn">
+              <i class='bx bx-search'></i>
+          </button>
         </form>
 
         <a href="index.php?page=cart" class="cart-link" style="text-decoration: none;">
@@ -100,8 +125,8 @@ $cartCount = Cart::getTotalQuantity();
         <?php else: ?>
             <button class="user-btn"><?php echo $userData['initial']; ?></button>
             <div class="dropdown-menu">
-                <a href="profile.php">My Profile</a>
-                <a href="orders.php">My Orders</a>
+                <a href="index.php?page=profile">My Profile</a>
+                <a href="index.php?page=my_orders">My Orders</a>
                 <a href="index.php?page=logout">Logout</a>
             </div>
         <?php endif; ?>

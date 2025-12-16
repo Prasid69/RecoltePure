@@ -17,6 +17,9 @@ class RegisterController {
     }
 
     public function handleRequest() {
+        // CHANGE 1: Start the session so we can save the user's data
+        if (session_status() === PHP_SESSION_NONE) session_start();
+        
         $error = "";
         $success = "";
 
@@ -45,20 +48,28 @@ class RegisterController {
                 } else {
                     // 4. Create User/Farmer
                     $password_hash = password_hash($password, PASSWORD_BCRYPT);
-                    $registered = false;
+                    
+                    // CHANGE 2: Use a variable name that implies an ID, not just boolean
+                    $newUserId = false;
 
                     if ($role === 'farmer') {
-                        $registered = $this->model->registerFarmer($fullName, $email, $phone, $address, $certNumber, $password_hash);
+                        $newUserId = $this->model->registerFarmer($fullName, $email, $phone, $address, $certNumber, $password_hash);
                     } else {
-                        $registered = $this->model->registerUser($fullName, $email, $address, $password_hash);
+                        $newUserId = $this->model->registerUser($fullName, $email, $address, $password_hash);
                     }
 
-                    if ($registered) {
-                        // Set Session
+                    // CHANGE 3: Check if ID exists and save it to SESSION['user_id']
+                    if ($newUserId) {
                         $_SESSION['role'] = $role;
-                        $_SESSION['login_user'] = $email;
+                        
+                        // CRITICAL: This allows the profile page to find the user
+                        $_SESSION['user_id'] = $newUserId; 
+                        
+                        // Optional: Save name instead of email so the Header shows their initial
+                        $_SESSION['login_user'] = $fullName; 
+
                         $success = "registered";
-                       
+                        
                     } else {
                         $error = "Database error. Please try again.";
                     }
