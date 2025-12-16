@@ -26,3 +26,4 @@ body{margin:0;font-family:'Poppins',Inter,system-ui,Arial,sans-serif;background:
 .card input{width:100%;padding:12px;border-radius:10px;border:1px solid var(--border);background:#ffffff;color:var(--text)}
 .btn{margin-top:14px;width:100%;padding:12px;border:none;border-radius:10px;background:var(--accent);color:#fff;font-weight:700;cursor:pointer}
 .error{margin-bottom:12px;padding:10px;border-radius:10px;background:#fde2e4;border:1px solid #fac5ca;color:#b02a37}
+-added file assets/css/admin.css
