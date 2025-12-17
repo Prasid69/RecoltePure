@@ -17,10 +17,12 @@ class Product {
             p.old_price,
             p.image,
             c.category_name,
-            COALESCE(SUM(o.quantity), 0) AS total_sold
+            -- Sum the quantity from 'order_or_cart'
+            COALESCE(SUM(oc.quantity), 0) AS total_sold
         FROM products p
-        LEFT JOIN order_items o 
-            ON p.product_id = o.product_id 
+        -- JOIN with the correct table name
+        LEFT JOIN order_or_cart oc 
+            ON p.product_id = oc.product_id 
         JOIN categories c 
             ON p.category_id = c.category_id
         GROUP BY p.product_id
@@ -28,10 +30,10 @@ class Product {
         LIMIT ?
     ";
 
-        $stmt = $this->db->prepare($sql);
-        $stmt->bind_param("i", $limit);
-        $stmt->execute();
-        $result = $stmt->get_result();
+    $stmt = $this->db->prepare($sql);
+    $stmt->bind_param("i", $limit);
+    $stmt->execute();
+    return $stmt->get_result()->fetch_all(MYSQLI_ASSOC);
 
         $products = [];
         while ($row = $result->fetch_assoc()) {

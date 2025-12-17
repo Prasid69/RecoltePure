@@ -1,66 +1,73 @@
 <?php
-
 require_once 'config/db_connection.php';
-require_once 'model/Review.php';
+require_once 'model/ProductReview.php'; // Ensure this matches your new model filename
+require_once 'model/Orders.php';        // Needed for fetching order items
 
 class ReviewController {
-    private $model;
+    private $reviewModel;
+    private $orderModel;
 
     public function __construct($db) {
-        $this->model = new ReviewModel($db);
+        $this->reviewModel = new ProductReviewModel($db);
+        $this->orderModel = new OrderModel($db);
     }
 
-    // Show the form
+    // --- SHOW THE REVIEW FORM ---
     public function showReviewForm() {
         if (session_status() === PHP_SESSION_NONE) session_start();
 
-        // 1. Check if logged in
+        // 1. Check Login
         if (!isset($_SESSION['user_id'])) {
             header("Location: index.php?page=login");
             exit();
         }
 
-        // 2. Validate URL parameters (we need to know WHAT we are reviewing)
-        if (!isset($_GET['order_id']) || !isset($_GET['delivery_id'])) {
-            echo "Invalid request. Missing Order ID.";
-            return;
+        $itemsToReview = [];
+        $preSelectedProductId = null;
+
+        // CASE A: User came from "My Orders" page (Has a Delivery ID)
+        // We need to show a dropdown of all items in that order.
+        if (isset($_GET['delivery_id'])) {
+            $deliveryId = $_GET['delivery_id'];
+            $itemsToReview = $this->orderModel->getOrderItems($deliveryId);
+        }
+        
+        // CASE B: User came from "Product Page" (Has a Product ID)
+        // We pre-select this product and hide the dropdown.
+        elseif (isset($_GET['product_id'])) {
+            $preSelectedProductId = $_GET['product_id'];
         }
 
-        $orderCustomerId = $_GET['order_id'];
-        $orderDeliveryId = $_GET['delivery_id'];
-
-        // 3. Render the view
+        // Render the view
         require_once 'view/submit_review.php';
     }
 
-    // Process the form submission
+    // --- HANDLE FORM SUBMISSION ---
     public function submitReview() {
         if (session_status() === PHP_SESSION_NONE) session_start();
 
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-            $customerId = $_SESSION['user_id'];
-            $orderCustomerId = $_SESSION['user_id'];
-            $orderDeliveryId = $_POST['order_delivery_id'];
+            $userId = $_SESSION['user_id'];
+            
+            // Get data from form
+            $productId = $_POST['product_id'];
             $rating = $_POST['rating'];
             $comment = trim($_POST['comment']);
 
-            // Simple validation
-            if ($rating < 1 || $rating > 5) {
-                echo "Invalid rating.";
+            // Validate inputs
+            if (empty($productId) || empty($rating)) {
+                echo "<script>alert('Please select a product and a rating.'); window.history.back();</script>";
                 return;
             }
 
-            // Check duplicate
-            if ($this->model->hasReviewed($customerId, $orderDeliveryId)) {
-                echo "<script>alert('You have already reviewed this item.'); window.location.href='index.php?page=profile';</script>";
-                return;
-            }
-
-            // Save
-            if ($this->model->createReview($customerId, $orderCustomerId, $orderDeliveryId, $rating, $comment)) {
+            // Save using the new ProductReviewModel
+            if ($this->reviewModel->addReview($userId, $productId, $rating, $comment)) {
+                // Success: Redirect to My Orders
                 header("Location: index.php?page=my_orders&success=review_submitted");
+                exit();
             } else {
-                echo "Error submitting review.";
+                // Failure (Likely already reviewed)
+                echo "<script>alert('You have already reviewed this product.'); window.location.href='index.php?page=my_orders';</script>";
             }
         }
     }

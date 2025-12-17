@@ -82,5 +82,23 @@ class OrderModel {
 
     return true;
 }
+
+
+public function getOrderItems($deliveryId) {
+        // This query fetches all products belonging to a specific delivery/order
+        $sql = "SELECT oc.product_id, p.product_name, p.image 
+                FROM order_or_cart oc
+                JOIN products p ON oc.product_id = p.product_id
+                WHERE oc.delivery_id = ?";
+                
+        $stmt = $this->db->prepare($sql);
+        if (!$stmt) {
+            die("Error preparing getOrderItems: " . $this->db->error);
+        }
+
+        $stmt->bind_param("i", $deliveryId);
+        $stmt->execute();
+        return $stmt->get_result()->fetch_all(MYSQLI_ASSOC);
+    }
 }
 ?>
