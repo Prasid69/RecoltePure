@@ -23,7 +23,10 @@
       </div>
    </section>
 
-   <h1 class="heading" id="products">Our Products</h1>
+
+
+   <h1 class="fm-heading" id="products">Our Categories</h1>
+   <br>
 <div class="homepage-wrapper">
     <div class="homepage-carousel">
       <button class="homepage-nav-btn" id="homepage-prev">❮</button>
@@ -67,7 +70,7 @@
    </div>
 
 
-   <br><br>
+   <!-- <br><br>
    <div class="fm-container">
         <h1 class="fm-heading" id="categories">Our Categories</h1>
         <div class="fm-content">
@@ -113,8 +116,8 @@
 
             </div>
         </div>
-    </div>
-
+    </div> -->
+<br><br>
 <div class="container">
     <div class="section-header">
         <h2 class="section-title">Best Selling Products</h2>
