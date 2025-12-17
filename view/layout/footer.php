@@ -37,7 +37,7 @@
         <div class="links-col">
             <h3>Useful Links</h3>
             <ul>
-                <li><a href="#">Payment & Tax</a></li>
+                <li><a href="index.php?page=faq" class="active">FAQ</a></li>
                 <li><a href="#">Terms of Service</a></li>
                 <li><a href="#">Store Location</a></li>
                 <li><a href="#">Return Policy</a></li>

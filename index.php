@@ -126,5 +126,21 @@ switch ($page) {
     $controller = new CartController($db); 
     $controller->checkout();
     break;
+
+    case 'admin':
+        require_once "controller/AdminController.php";
+        $controller = new AdminController();
+        $controller->route();
+        break;
+
+    case 'faq':
+        require_once 'view/faq.php';
+        break;
+
+    case 'farmers':
+        require_once 'controller/FarmerController.php';
+        $controller = new FarmerController($db);
+        $controller->index();
+        break;
 }
 ?>
