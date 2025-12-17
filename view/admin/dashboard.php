@@ -35,7 +35,6 @@
         box-shadow: 0 2px 5px rgba(0,0,0,0.05);
         margin-bottom: 20px;
     }
-    /* Responsive Table Wrapper */
     .table-wrapper {
         overflow-x: auto;
     }
@@ -103,32 +102,41 @@
                     <tr>
                         <th>ID</th>
                         <th>Name</th>
-                        <th>Email</th>
-                        <th>Phone</th>
-                        <th>Certificate</th>
-                    </tr>
+                        <th>Status</th> <th>Action</th> </tr>
                 </thead>
                 <tbody>
                     <?php if (!empty($allFarmers)): ?>
                         <?php foreach ($allFarmers as $farm): ?>
                         <tr>
                             <td>#<?= $farm['farmer_id'] ?></td>
-                            <td><?= htmlspecialchars($farm['name']) ?></td>
-                            <td><?= htmlspecialchars($farm['email']) ?></td>
-                            <td><?= htmlspecialchars($farm['phone_number']) ?></td>
                             <td>
-                                <?php if (!empty($farm['certificate_number'])): ?>
-                                    <span style="color: green; font-weight: bold;">
-                                        <?= htmlspecialchars($farm['certificate_number']) ?>
-                                    </span>
+                                <?= htmlspecialchars($farm['name']) ?><br>
+                                <small style="color:#888"><?= htmlspecialchars($farm['email']) ?></small>
+                            </td>
+                            
+                            <td>
+                                <?php if ($farm['account_status'] == 'Verified'): ?>
+                                    <span style="color: green; font-weight: bold; background: #e8f5e9; padding: 2px 6px; border-radius: 4px;">Verified</span>
                                 <?php else: ?>
-                                    <span style="color: #999;">Not Verified</span>
+                                    <span style="color: orange; font-weight: bold; background: #fff3e0; padding: 2px 6px; border-radius: 4px;">Pending</span>
+                                <?php endif; ?>
+                            </td>
+
+                            <td>
+                                <?php if ($farm['account_status'] != 'Verified'): ?>
+                                    <a href="index.php?page=admin&action=verify_farmer&id=<?= $farm['farmer_id'] ?>" 
+                                       onclick="return confirm('Are you sure you want to verify this farmer?');"
+                                       style="background: #4CAF50; color: white; padding: 5px 10px; text-decoration: none; border-radius: 4px; font-size: 0.8rem;">
+                                       Verify Now
+                                    </a>
+                                <?php else: ?>
+                                    <span style="color: #ccc;">No Action</span>
                                 <?php endif; ?>
                             </td>
                         </tr>
                         <?php endforeach; ?>
                     <?php else: ?>
-                        <tr><td colspan="5" style="text-align:center;">No farmers registered yet.</td></tr>
+                        <tr><td colspan="4" style="text-align:center;">No farmers found.</td></tr>
                     <?php endif; ?>
                 </tbody>
             </table>
@@ -136,9 +144,39 @@
       </div>
 
       <div class="panel">
-        <h2>Manage Products</h2>
-        <iframe src="index.php?page=upload_product" class="embed" style="width:100%; height:500px; border:none;"></iframe>
+        <h2>Product Inventory by Category</h2>
+        <div class="table-wrapper">
+            <table class="user-table">
+                <thead>
+                    <tr>
+                        <th style="width: 70%;">Category Name</th>
+                        <th style="width: 30%; text-align: center;">Total Products</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <?php if (!empty($categoryStats)): ?>
+                        <?php foreach ($categoryStats as $cat): ?>
+                        <tr>
+                            <td>
+                                <strong><?= htmlspecialchars($cat['category_name']) ?></strong>
+                            </td>
+                            <td style="text-align: center;">
+                                <span style="background: #e3f2fd; color: #1976d2; padding: 4px 12px; border-radius: 12px; font-weight: bold;">
+                                    <?= $cat['total_products'] ?>
+                                </span>
+                            </td>
+                        </tr>
+                        <?php endforeach; ?>
+                    <?php else: ?>
+                        <tr><td colspan="2" style="text-align:center;">No categories found.</td></tr>
+                    <?php endif; ?>
+                </tbody>
+            </table>
+        </div>
       </div>
+
+
+      
       
     </section>
   </main>

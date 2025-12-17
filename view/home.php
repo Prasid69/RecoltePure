@@ -146,6 +146,7 @@
                         <h3 class="card-title"><?= htmlspecialchars($product['product_name']); ?></h3>
                         <div class="card-price">
                             $<?= number_format($product['price'], 2); ?>
+                            <span style="font-size: 0.8rem; color: #555; margin-left:5px;"> / <?= $product['stock_quantity']; ?> kg</span>
                             <span class="card-unit"></span>
                         </div>
                     </div>

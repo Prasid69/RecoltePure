@@ -15,6 +15,7 @@ class Product {
             p.product_name,
             p.price,
             p.old_price,
+            p.stock_quantity,
             p.image,
             c.category_name,
             -- Sum the quantity from 'order_or_cart'

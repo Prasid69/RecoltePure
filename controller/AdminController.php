@@ -30,6 +30,10 @@ class AdminController {
                 $this->ensureAdmin();
                 $this->dashboard();
                 break;
+            case 'verify_farmer':
+                $this->ensureAdmin();
+                $this->verifyFarmerAction();
+                break;
             default:
                 $this->login();
         }
@@ -97,7 +101,21 @@ class AdminController {
         $stats = $this->model->getDashboardStats();
         $allUsers = $this->model->getAllUsers();
         $allFarmers = $this->model->getAllFarmers();
+        $categoryStats = $this->model->getCategoryStats();
         require 'view/admin/dashboard.php';
+    }
+
+
+    private function verifyFarmerAction() {
+        if (isset($_GET['id'])) {
+            $farmerId = $_GET['id'];
+            if ($this->model->verifyFarmer($farmerId)) {
+                header("Location: index.php?page=admin&action=dashboard&msg=verified");
+                exit;
+            }
+        }
+        header("Location: index.php?page=admin&action=dashboard&error=failed");
+        exit;
     }
 }
 ?>

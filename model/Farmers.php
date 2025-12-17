@@ -14,7 +14,7 @@ class Farmer {
     }
 
     public function getAllFarmers() {
-        $sql = "SELECT farmer_id, name, address, email, phone_number, certificate_number, registration_date 
+        $sql = "SELECT farmer_id, name, address, email, phone_number, certificate_number, registration_date , account_status
                 FROM farmer"; 
         
         $result = $this->db->query($sql);
@@ -29,7 +29,7 @@ class Farmer {
         
         return $farmers;
     }
-    
+
     private function getFarmerProducts($farmerId) {
         $sql = "SELECT product_name, image, price 
                 FROM products 

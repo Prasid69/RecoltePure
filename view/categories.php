@@ -89,6 +89,7 @@
                 <div class="product-footer">
                     <div>
                         <span class="price">$<?= $product['price']; ?></span>
+                        <span style="font-size: 0.8rem; color: #555; margin-left:5px;"> / <?= $product['stock_quantity']; ?> kg</span>
                         <?php if (!empty($product['old_price']) && $product['old_price'] != $product['price']) : ?>
                             <span class="old-price" style="text-decoration: line-through;">
                                 $<?= $product['old_price']; ?>
@@ -108,8 +109,8 @@
                             <button type="button" class="counter-btn minus">-</button>
                                 <input type="text" class="counter-input" value="1" readonly>
                             <button type="button" class="counter-btn plus">+</button>
-                        </div>
-        <button type="submit" class="add-to-cart-btn">
+                </div>
+                <button type="submit" class="add-to-cart-btn">
             <i class="fas fa-shopping-bag"></i>
         </button>
     </div>

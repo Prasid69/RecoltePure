@@ -35,21 +35,34 @@
         font-weight: bold;
         color: #333;
         margin-bottom: 5px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
     }
-    .verified-badge {
+    .status-badge {
         font-size: 0.75rem;
-        background: #e3f2fd;
-        color: #2196F3;
-        padding: 2px 6px;
-        border-radius: 4px;
-        vertical-align: middle;
-        margin-left: 5px;
+        padding: 4px 8px;
+        border-radius: 12px;
+        font-weight: 600;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
     }
+    .status-verified {
+        background-color: #e8f5e9; 
+        color: #2e7d32;            
+        border: 1px solid #c8e6c9;
+    }
+    .status-pending {
+        background-color: #fff3e0; 
+        color: #ef6c00;            
+        border: 1px solid #ffe0b2;
+    }
+
     .farmer-details {
         font-size: 0.9rem;
         color: #666;
+        margin-top: 10px;
     }
-    /* Product Preview Section */
     .products-preview {
         padding: 15px 20px;
         background: #fafafa;
@@ -105,14 +118,18 @@
                 
                 <div class="card-header">
                     <div class="farmer-name">
-                        <?php echo htmlspecialchars($farm['name']); ?>
-                        <?php if (!empty($farm['certificate_number'])): ?>
-                            <span class="verified-badge">✔ Verified</span>
+                        <span><?php echo htmlspecialchars($farm['name']); ?></span>
+                        
+                        <?php if (isset($farm['account_status']) && $farm['account_status'] === 'Verified'): ?>
+                            <span class="status-badge status-verified">Verified</span>
+                        <?php else: ?>
+                            <span class="status-badge status-pending">Pending</span>
                         <?php endif; ?>
+
                     </div>
                     <div class="farmer-details">
-                        📍 <?php echo htmlspecialchars($farm['address']); ?><br>
-                        📞 <?php echo htmlspecialchars($farm['phone_number']); ?>
+                        <i class='bx  bx-location-pin'></i> <?php echo htmlspecialchars($farm['address']); ?><br>
+                        <i class='bx  bx-phone'></i> <?php echo htmlspecialchars($farm['phone_number']); ?>
                     </div>
                 </div>
 

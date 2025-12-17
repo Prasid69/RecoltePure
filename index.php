@@ -37,9 +37,8 @@ switch ($page) {
 
     case 'upload_product':
         require_once "controller/ProductController.php";
-        
         $controller = new ProductController($db); 
-        $controller->loadProduct(); 
+        $controller->showUploadForm();
         break;
 
     case 'cart':
