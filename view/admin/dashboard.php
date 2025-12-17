@@ -6,7 +6,40 @@
   <title>Admin Dashboard | RecoltePure</title>
   <link rel="stylesheet" href="assets/css/admin.css">
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
-  <script defer src="assets/js/admin.js"></script>
+  
+  <style>
+    /* Table Styling */
+    .user-table {
+        width: 100%;
+        border-collapse: collapse;
+        margin-top: 15px;
+        font-size: 0.9rem;
+    }
+    .user-table th, .user-table td {
+        padding: 12px;
+        text-align: left;
+        border-bottom: 1px solid #eee;
+    }
+    .user-table th {
+        background-color: #f8f9fa;
+        color: #333;
+        font-weight: 600;
+    }
+    .user-table tr:hover {
+        background-color: #f1f1f1;
+    }
+    .panel {
+        background: #fff;
+        padding: 20px;
+        border-radius: 8px;
+        box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+        margin-bottom: 20px;
+    }
+    /* Responsive Table Wrapper */
+    .table-wrapper {
+        overflow-x: auto;
+    }
+  </style>
 </head>
 <body>
   <header class="admin-header">
@@ -19,6 +52,7 @@
   </header>
 
   <main class="admin-main">
+    
     <section class="stats">
       <div class="stat"><div class="num"><?= (int)$stats['users'] ?></div><div class="label">Users</div></div>
       <div class="stat"><div class="num"><?= (int)$stats['farmers'] ?></div><div class="label">Farmers</div></div>
@@ -26,15 +60,86 @@
       <div class="stat"><div class="num"><?= (int)$stats['orders'] ?></div><div class="label">Orders</div></div>
     </section>
 
-    <section class="panels">
+    <section class="panels" style="display: block;"> 
+      
       <div class="panel">
-        <h2>Users</h2>
-        <iframe src="index.php?page=categories" class="embed"></iframe>
+        <h2>Registered Users</h2>
+        <div class="table-wrapper">
+            <table class="user-table">
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Name</th>
+                        <th>Email</th>
+                        <th>Phone</th>
+                        <th>Address</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <?php if (!empty($allUsers)): ?>
+                        <?php foreach ($allUsers as $user): ?>
+                        <tr>
+                            <td>#<?= isset($user['customer_id']) ? $user['customer_id'] : $user['user_id'] ?></td>
+                            <td><?= htmlspecialchars($user['user_name'] ?? $user['name'] ?? 'N/A') ?></td>
+                            <td><?= htmlspecialchars($user['user_email'] ?? $user['email'] ?? 'N/A') ?></td>
+                            <td><?= htmlspecialchars($user['user_phone_number'] ?? $user['phone_number'] ?? 'N/A') ?></td>
+                            <td><?= htmlspecialchars($user['user_address'] ?? $user['address'] ?? 'N/A') ?></td>
+                        </tr>
+                        <?php endforeach; ?>
+                    <?php else: ?>
+                        <tr><td colspan="5" style="text-align:center;">No registered users found.</td></tr>
+                    <?php endif; ?>
+                </tbody>
+            </table>
+        </div>
       </div>
+
+
       <div class="panel">
-        <h2>Products</h2>
-        <iframe src="index.php?page=upload_product" class="embed"></iframe>
+        <h2>Registered Farmers</h2>
+        <div class="table-wrapper">
+            <table class="user-table">
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Name</th>
+                        <th>Email</th>
+                        <th>Phone</th>
+                        <th>Certificate</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <?php if (!empty($allFarmers)): ?>
+                        <?php foreach ($allFarmers as $farm): ?>
+                        <tr>
+                            <td>#<?= $farm['farmer_id'] ?></td>
+                            <td><?= htmlspecialchars($farm['name']) ?></td>
+                            <td><?= htmlspecialchars($farm['email']) ?></td>
+                            <td><?= htmlspecialchars($farm['phone_number']) ?></td>
+                            <td>
+                                <?php if (!empty($farm['certificate_number'])): ?>
+                                    <span style="color: green; font-weight: bold;">
+                                        <?= htmlspecialchars($farm['certificate_number']) ?>
+                                    </span>
+                                <?php else: ?>
+                                    <span style="color: #999;">Not Verified</span>
+                                <?php endif; ?>
+                            </td>
+                        </tr>
+                        <?php endforeach; ?>
+                    <?php else: ?>
+                        <tr><td colspan="5" style="text-align:center;">No farmers registered yet.</td></tr>
+                    <?php endif; ?>
+                </tbody>
+            </table>
+        </div>
       </div>
+
+      <div class="panel">
+        <h2>Manage Products</h2>
+        <iframe src="index.php?page=upload_product" class="embed" style="width:100%; height:500px; border:none;"></iframe>
+      </div>
+      
     </section>
   </main>
 

@@ -129,7 +129,7 @@ switch ($page) {
 
     case 'admin':
         require_once "controller/AdminController.php";
-        $controller = new AdminController();
+        $controller = new AdminController($db);
         $controller->route();
         break;
 
