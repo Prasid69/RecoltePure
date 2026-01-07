@@ -9,29 +9,32 @@ class Product {
     }
 
     public function getBestSellingProducts($limit = 10) {
-        $sql = "
-            SELECT 
-                p.product_id,
-                p.product_name,
-                p.price,
-                p.old_price,
-                p.image,
-                c.category_name,
-                COALESCE(SUM(o.quantity), 0) AS total_sold
-            FROM products p
-            LEFT JOIN order_items o 
-                ON p.product_id = o.announcement_id
-            JOIN categories c 
-                ON p.category_id = c.category_id
-            GROUP BY p.product_id
-            ORDER BY total_sold DESC
-            LIMIT ?
-        ";
+       $sql = "
+        SELECT 
+            p.product_id,
+            p.product_name,
+            p.price,
+            p.old_price,
+            p.stock_quantity,
+            p.image,
+            c.category_name,
+            -- Sum the quantity from 'order_or_cart'
+            COALESCE(SUM(oc.quantity), 0) AS total_sold
+        FROM products p
+        -- JOIN with the correct table name
+        LEFT JOIN order_or_cart oc 
+            ON p.product_id = oc.product_id 
+        JOIN categories c 
+            ON p.category_id = c.category_id
+        GROUP BY p.product_id
+        ORDER BY total_sold DESC
+        LIMIT ?
+    ";
 
-        $stmt = $this->db->prepare($sql);
-        $stmt->bind_param("i", $limit);
-        $stmt->execute();
-        $result = $stmt->get_result();
+    $stmt = $this->db->prepare($sql);
+    $stmt->bind_param("i", $limit);
+    $stmt->execute();
+    return $stmt->get_result()->fetch_all(MYSQLI_ASSOC);
 
         $products = [];
         while ($row = $result->fetch_assoc()) {
@@ -53,7 +56,7 @@ class Product {
         $types = "";
 
         if (!empty($search)) {
-            $sql .= " AND (product_name LIKE ? OR description LIKE ?)";
+            $sql .= " AND (product_name LIKE ? OR product_description LIKE ?)";
             $searchTerm = "%$search%";
             $params[] = $searchTerm;
             $params[] = $searchTerm;
@@ -82,7 +85,7 @@ class Product {
 
         // Filters
         if (!empty($search)) {
-            $sql .= " AND (product_name LIKE ? OR description LIKE ?)";
+            $sql .= " AND (product_name LIKE ? OR product_description LIKE ?)";
             $searchTerm = "%$search%";
             $params[] = $searchTerm;
             $params[] = $searchTerm;

@@ -7,41 +7,54 @@ require_once "model/Users.php";
 class AuthController {
 
     public function login() {
-        $error = "";
+    if (session_status() === PHP_SESSION_NONE) session_start();
 
-        if ($_SERVER["REQUEST_METHOD"] === "POST") {
+    $error = "";
 
-            $email = $_POST['username'];
-            $password = $_POST['password'];
+    if ($_SERVER["REQUEST_METHOD"] === "POST") {
 
-            $farmerModel = new Farmer($GLOBALS['db']);
-            $userModel   = new User($GLOBALS['db']);
+        $email = $_POST['username'];
+        $password = $_POST['password'];
 
-            // Try farmer login
-            $farmer = $farmerModel->findByEmail($email);
-            if ($farmer && password_verify($password, $farmer['password_hash'])) {
-                $_SESSION['login_user'] = $farmer['email'];
-                $_SESSION['role'] = "farmer";
-                $_SESSION['user_name'] = $farmer['name'];
-                header("Location: /RecoltePure/index.php?page=home");
-                exit;
-            }
+        $farmerModel = new Farmer($GLOBALS['db']);
+        $userModel   = new User($GLOBALS['db']);
 
-            // Try customer login
-            $user = $userModel->findByEmail($email);
-            if ($user && password_verify($password, $user['password'])) {
-                $_SESSION['login_user'] = $user['email'];
-                $_SESSION['role'] = "user";
-                $_SESSION['user_name'] = $user['name'];
-                header("Location: /RecoltePure/index.php?page=home");
-                exit;
-            }
+        $farmer = $farmerModel->findByEmail($email);
+        if ($farmer && password_verify($password, $farmer['password'])) {
+            $_SESSION['login_user'] = $farmer['email'];
+            $_SESSION['role'] = "farmer";
+            $_SESSION['user_name'] = $farmer['name'];
+           
+            $_SESSION['user_id'] = $farmer['farmer_id']; 
 
-            $error = "Invalid Username or Password!";
+            header("Location: index.php?page=home");
+            exit;
         }
 
-        // Load view
-        require "view/login.php";
+        $user = $userModel->findByEmail($email);
+        if ($user && password_verify($password, $user['password'])) {
+            $_SESSION['login_user'] = $user['email'];
+            $_SESSION['role'] = "customer";
+            $_SESSION['user_name'] = $user['name'];
+
+            $_SESSION['user_id'] = $user['customer_id'];     
+
+            header("Location: index.php?page=home");
+            exit;
+        }
+
+        $error = "Invalid Username or Password!";
+    }
+  
+    require "view/login.php";
+}
+
+    public function logout() {
+        session_unset();
+        session_destroy();
+
+        header("Location: index.php?page=home");
+        exit;
     }
 }
 

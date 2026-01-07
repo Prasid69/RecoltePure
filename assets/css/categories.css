@@ -7,7 +7,7 @@
 
         body {
             font-family: 'Lato', sans-serif;
-            background-color: #ffffff;
+            background-color: #FEF1E1;
             color: #333;
             line-height: 1.6;
         }
@@ -97,8 +97,9 @@
             border-radius: 50%;
             overflow: hidden;
             margin-bottom: 15px;
-            border: 2px solid transparent; /* Placeholder for hover border */
+            border: 2px solid transparent; 
             box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+            border-color: green;
         }
 
         .cat-img-wrapper img {
@@ -121,7 +122,7 @@
 }
 
 .product-card {
-    background: #fff;
+    background: #FFF6ED;
     padding: 15px;
     border-radius: 10px;
     box-shadow: 0 4px 12px rgba(0,0,0,0.08);
@@ -225,14 +226,18 @@
 
 
 
-/* Counter + Cart Button Row */
-.counter {
+/* Actions */
+.card-actions {
+    margin-top: 16px;
     display: flex;
+    justify-content: space-between;
     align-items: center;
-    gap: 8px; /* Space between buttons */
 }
 
-/* +/- buttons */
+.counter {
+    display: flex;
+}
+
 .counter-btn {
     width: 30px;
     height: 30px;
@@ -254,7 +259,6 @@
     border-radius: 0 6px 6px 0;
 }
 
-/* Counter input */
 .counter-input {
     width: 36px;
     text-align: center;
@@ -266,7 +270,7 @@
     font-size: 14px;
 }
 
-/* Bag button inside counter row */
+/* Cart Button */
 .add-to-cart-btn {
     width: 42px;
     height: 42px;
@@ -286,16 +290,51 @@
     transform: translateY(-2px);
 }
 
+.actions {
+    display: flex;
+    align-items: center;
+    gap: 15px; /* Adds space between search, view icons, and sort */
+}
+
+.search-form .search-group {
+    display: flex;
+    align-items: center;
+    border: 1px solid #ddd;
+    border-radius: 20px;
+    padding: 5px 15px;
+    background: #fff;
+}
+
+.search-form input {
+    border: none;
+    outline: none;
+    font-size: 14px;
+    width: 150px; /* Adjust width as needed */
+    background: transparent;
+}
+
+.search-form button {
+    background: none;
+    border: none;
+    cursor: pointer;
+    color: #555;
+    padding: 0;
+    margin-left: 5px;
+}
+
+.search-form button:hover {
+    color: #4CAF50; /* Or your theme green color */
+}
 
 @media (max-width: 992px) {
     .product-grid.grid-view {
         grid-template-columns: repeat(2, 1fr);
     }
-}
-@media (max-width: 600px) {
-    .product-grid.grid-view {
-        grid-template-columns: 1fr;
+    .product-grid.list-view .product-card {
+        flex-direction: column;
+        align-items: flex-start;
     }
+
 
     .product-grid.list-view .product-card {
         flex-direction: column;

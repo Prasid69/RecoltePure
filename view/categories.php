@@ -4,8 +4,7 @@
 
 <div class="container">
     <section class="categories-section">
-        <div class="subtitle">When health is organic</div>
-        <h2 class="section-title">Shop Our Organic Products</h2>
+        
         
         <div class="category-list">
             <?php foreach($categories as $cat): ?>
@@ -26,6 +25,20 @@
             Showing <?= count($products) > 0 ? $offset + 1 : 0 ?>-<?= min($offset + count($products), $totalItems) ?> of <?= $totalItems ?> Items
         </div>
         <div class="actions">
+
+            <form action="index.php" method="GET" class="search-form">
+                <input type="hidden" name="page" value="categories">
+                
+                <?php if (isset($categoryId) && $categoryId): ?>
+                    <input type="hidden" name="category_id" value="<?= htmlspecialchars($categoryId); ?>">
+                <?php endif; ?>
+
+                <div class="search-group">
+                    <input type="text" name="search" placeholder="Search..." value="<?= isset($search) ? htmlspecialchars($search) : '' ?>">
+                    <button type="submit"><i class="fas fa-search"></i></button>
+                </div>
+            </form>
+            
             <span class="view-options">
                 <i class="fas fa-th-large" id="gridView"></i>
                 <i class="fas fa-list" id="listView"></i>
@@ -75,6 +88,7 @@
                 <div class="product-footer">
                     <div>
                         <span class="price">$<?= $product['price']; ?></span>
+                        <span style="font-size: 0.8rem; color: #555; margin-left:5px;"> / <?= $product['stock_quantity']; ?> kg</span>
                         <?php if (!empty($product['old_price']) && $product['old_price'] != $product['price']) : ?>
                             <span class="old-price" style="text-decoration: line-through;">
                                 $<?= $product['old_price']; ?>
@@ -90,12 +104,12 @@
                         <input type="hidden" name="image" value="assets/uploads/products/<?= htmlspecialchars($product['image']); ?>">
 
                         <div class="card-actions">
-        <div class="counter">
-            <button type="button" class="counter-btn minus">-</button>
-            <input type="text" class="counter-input" value="1" readonly>
-            <button type="button" class="counter-btn plus">+</button>
-        </div>
-        <button type="submit" class="add-to-cart-btn">
+                            <div class="counter">
+                            <button type="button" class="counter-btn minus">-</button>
+                                <input type="text" class="counter-input" value="1" readonly>
+                            <button type="button" class="counter-btn plus">+</button>
+                </div>
+                <button type="submit" class="add-to-cart-btn">
             <i class="fas fa-shopping-bag"></i>
         </button>
     </div>
@@ -125,5 +139,3 @@
         <?php endif; ?>
     </div>
 </div>
-
-<script src="assets/js/main.js"></script>

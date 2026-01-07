@@ -1,5 +1,5 @@
 <?php
-// models/Cart.php
+
 
 class Cart {
     public function __construct() {
@@ -61,6 +61,21 @@ class Cart {
 
     public function countItems() {
         return array_sum(array_column($_SESSION['cart'], 'quantity'));
+    }
+
+
+    public static function getTotalQuantity() {
+        if (session_status() === PHP_SESSION_NONE) {
+            session_start();
+        }
+
+        $total = 0;
+        if (isset($_SESSION['cart'])) {
+            foreach ($_SESSION['cart'] as $item) {
+                $total += $item['quantity'];
+            }
+        }
+        return $total;
     }
 }
 ?>
