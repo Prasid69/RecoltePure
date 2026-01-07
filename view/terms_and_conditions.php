@@ -1,5 +1,5 @@
 <?php
-if (session_status() === PHP_SESSION_NONE) session_start();
+session_start();
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -7,9 +7,9 @@ if (session_status() === PHP_SESSION_NONE) session_start();
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Terms and Conditions - RecoltePure</title>
-  <link rel="icon" type="image/png" sizes="512x512" href="assets/uploads/products/favicon.png">
-  <link rel="stylesheet" href="assets/css/homepage.css" />
-  <link rel="stylesheet" href="assets/css/terms.css" />
+  <link rel="icon" type="image/png" sizes="512x512" href="../assets/uploads/products/favicon.png">
+  <link rel="stylesheet" href="../assets/css/homepage.css" />
+  <link rel="stylesheet" href="../assets/css/terms.css" />
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
   <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
@@ -18,16 +18,16 @@ if (session_status() === PHP_SESSION_NONE) session_start();
   <header>
     <nav class="navbar">
       <div class="logo">
-        <a href="index.php?page=home" class="logo">
-          <img src="assets/uploads/products/Logo.png" alt="RecoltePure Logo" sizes="16x16"/>
+        <a href="homepage.php" class="logo">
+          <img src="../assets/uploads/products/Logo.png" alt="RecoltePure Logo" sizes="16x16"/>
           RecoltePure
         </a>
       </div>
       <ul class="nav-links">
-        <li><a href="index.php?page=home">Home</a></li>
-        <li><a href="index.php?page=categories">Product</a></li>
-        <li><a href="index.php?page=home#categories">Categories</a></li>
-        <li><a href="index.php?page=farmers">Our Producers</a></li>
+        <li><a href="homepage.php">Home</a></li>
+        <li><a href="categories.php">Product</a></li>
+        <li><a href="homepage.php#categories">Categories</a></li>
+        <li><a href="homepage.php">Our Producers</a></li>
         <li><a href="contact.php">Contact Us</a></li>
       </ul>
       <div class="nav-actions">
