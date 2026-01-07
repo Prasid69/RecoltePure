@@ -1,36 +1,6 @@
 <?php
-session_start();
-require_once '../config/db_connection.php';
-
-$message = '';
-$resetLink = '';
-if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    $email = trim($_POST['email'] ?? '');
-    if ($email === '') {
-        $message = 'Please enter your email.';
-    } else {
-        // Check in both users and farmer tables
-        $exists = false;
-        $stmt = $db->prepare('SELECT 1 FROM users WHERE email = ? LIMIT 1');
-        $stmt->bind_param('s', $email);
-        $stmt->execute();
-        $exists = $stmt->get_result()->num_rows > 0;
-        if (!$exists) {
-            $stmt = $db->prepare('SELECT 1 FROM farmer WHERE email = ? LIMIT 1');
-            $stmt->bind_param('s', $email);
-            $stmt->execute();
-            $exists = $stmt->get_result()->num_rows > 0;
-        }
-
-        // Localhost reset: generate token, store in session, and show link
-        $token = bin2hex(random_bytes(16));
-        $_SESSION['pwd_reset'] = $_SESSION['pwd_reset'] ?? [];
-        // Store per-email token for a short-lived session-based reset
-        $_SESSION['pwd_reset'][$email] = ['token' => $token, 'created' => time()];
-        $resetLink = 'http://localhost/RecoltePure/view/reset_password.php?email=' . urlencode($email) . '&token=' . urlencode($token);
-        $message = 'If this email is registered, a recovery link has been generated below (local test).';
-    }
-}
+// This view should only be reached via PasswordRecoveryController
+// Variables: $message, $resetLink are set by the controller
 ?>
 <!DOCTYPE html>
 <html lang="en">

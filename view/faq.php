@@ -1,7 +1,4 @@
-<?php
-
-include 'view/layout/header.php';
-?>
+<?php include 'view/layout/header.php'; ?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
