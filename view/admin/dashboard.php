@@ -56,9 +56,6 @@
       <div class="stat"><div class="num"><?= (int)$stats['farmers'] ?></div><div class="label">Farmers</div></div>
       <div class="stat"><div class="num"><?= (int)$stats['products'] ?></div><div class="label">Products</div></div>
       <div class="stat"><div class="num"><?= (int)$stats['orders'] ?></div><div class="label">Orders</div></div>
-    <?php if (!empty($paymentStats) && isset($paymentStats['total_revenue'])): ?>
-    <div class="stat"><div class="num">$<?= number_format($paymentStats['total_revenue'], 0) ?></div><div class="label">Revenue</div></div>
-    <?php endif; ?>
     </section>
 
     <section class="panels" style="display: block;"> 
@@ -171,54 +168,6 @@
                         <?php endforeach; ?>
                     <?php else: ?>
                         <tr><td colspan="2" style="text-align:center;">No categories found.</td></tr>
-                    <?php endif; ?>
-                </tbody>
-            </table>
-        </div>
-      </div>
-
-      <div class="panel">
-        <h2>Recent Payment Transactions</h2>
-        <div class="table-wrapper">
-            <table class="user-table">
-                <thead>
-                    <tr>
-                        <th>Payment ID</th>
-                        <th>Order ID</th>
-                        <th>Customer</th>
-                        <th>Amount</th>
-                        <th>Status</th>
-                        <th>Date</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <?php 
-                    if (!empty($recentPayments)): 
-                        foreach ($recentPayments as $payment): 
-                    ?>
-                    <tr>
-                        <td>#<?= $payment['payment_id'] ?></td>
-                        <td>#<?= $payment['order_id'] ?></td>
-                        <td><?= htmlspecialchars($payment['customer_name'] ?? 'N/A') ?></td>
-                        <td>$<?= number_format($payment['amount'], 2) ?></td>
-                        <td>
-                            <?php 
-                            $statusClass = match($payment['payment_status']) {
-                                'completed' => 'style="color: green; background: #e8f5e9; padding: 2px 6px; border-radius: 4px;"',
-                                'failed' => 'style="color: red; background: #ffebee; padding: 2px 6px; border-radius: 4px;"',
-                                'refunded' => 'style="color: orange; background: #fff3e0; padding: 2px 6px; border-radius: 4px;"',
-                                default => 'style="color: #666; background: #f5f5f5; padding: 2px 6px; border-radius: 4px;"'
-                            };
-                            ?>
-                            <span <?= $statusClass ?>><?= ucfirst($payment['payment_status']) ?></span>
-                        </td>
-                        <td><?= date('M d, Y', strtotime($payment['created_at'])) ?></td>
-                    </tr>
-                    <?php 
-                        endforeach; 
-                    else: 
-                    ?>
-                    <tr><td colspan="6" style="text-align:center;">No payments found.</td></tr>
                     <?php endif; ?>
                 </tbody>
             </table>

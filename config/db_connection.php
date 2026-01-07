@@ -1,11 +1,11 @@
 <?php
-// Load environment helper and use it for DB credentials
-require_once __DIR__ . '/env.php';
 
-$servername = env('DB_HOST', 'localhost');
-$username   = env('DB_USER', 'root');
-$password   = env('DB_PASS', '');
-$database   = env('DB_NAME', 'recoltepure');
+
+
+$servername = "localhost";
+$username = "root";  
+$password = "";      
+$database = "recoltepure"; 
 
 $db = new mysqli($servername, $username, $password, $database);
 if ($db->connect_error) {

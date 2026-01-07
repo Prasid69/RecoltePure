@@ -52,7 +52,7 @@ switch ($page) {
 
     case 'clear':
         require_once "controller/CartController.php";
-        $controller = new CartController($db);
+        $controller = new CartController();
         $controller->handleActions(); 
         break;
 
@@ -143,43 +143,6 @@ switch ($page) {
         require_once 'controller/FarmerController.php';
         $controller = new FarmerController($db);
         $controller->index();
-        break;
-
-    case 'checkout_payment':
-        require_once 'view/checkout.php';
-        break;
-
-    case 'create_payment_intent':
-        require_once 'controller/PaymentController.php';
-        $controller = new PaymentController($db);
-        
-        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-            $data = json_decode(file_get_contents('php://input'), true);
-            $result = $controller->createPaymentIntent(
-                $data['delivery_id'] ?? 0,
-                $_SESSION['user_id'] ?? 0,
-                $data['order_total'] ?? 0
-            );
-            header('Content-Type: application/json');
-            echo json_encode($result);
-        }
-        break;
-
-    case 'payment_success':
-        if (isset($_GET['payment_intent'])) {
-            require_once 'controller/PaymentController.php';
-            $controller = new PaymentController($db);
-            $result = $controller->confirmPayment($_GET['payment_intent']);
-            if ($result['success']) {
-                $_SESSION['payment_success'] = true;
-                $_SESSION['last_order_id'] = $result['order_id'];
-            }
-        }
-        require_once 'view/payment_success.php';
-        break;
-
-    case 'payment_cancel':
-        require_once 'view/payment_cancel.php';
         break;
 }
 ?>

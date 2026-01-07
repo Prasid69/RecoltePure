@@ -111,15 +111,13 @@
                         <span>$<?php echo number_format($grandTotal, 2); ?></span>
                     </div>
 
-                    <?php if (!empty($_SESSION['cart'])): ?>
-                        <form action="index.php?page=checkout_payment" method="POST">
-                            <input type="hidden" name="delivery_id" value="">
-                            <input type="hidden" name="total" value="<?php echo number_format($grandTotal, 2); ?>">
-                            <button type="submit" class="btn btn-green btn-block">Proceed to Payment</button>
-                        </form>
-                    <?php else: ?>
-                        <button type="button" class="btn btn-secondary btn-block" disabled>Cart is Empty</button>
-                    <?php endif; ?>
+                    <form action="index.php?page=checkout" method="POST">
+                        <?php if (!empty($_SESSION['cart'])): ?>
+                            <button type="submit" class="btn btn-green btn-block">Proceed to Checkout</button>
+                            <?php else: ?>
+                                <button type="button" class="btn btn-secondary btn-block" disabled>Cart is Empty</button>
+                                <?php endif; ?>
+                            </form>
                 </div>
             </div>
         </div>
