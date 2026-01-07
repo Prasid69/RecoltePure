@@ -159,4 +159,12 @@ document.addEventListener("DOMContentLoaded", function () {
             // If open AND has text, let it submit normally (no code needed)
         });
     }
+
+
+    const menuToggle = document.getElementById('menu-toggle');
+    const navLinks = document.querySelector('.nav-links');
+
+    menuToggle.addEventListener('click', () => {
+    navLinks.classList.toggle('active');
+    });
 });

@@ -4,8 +4,7 @@
 
 <div class="container">
     <section class="categories-section">
-        <div class="subtitle">When health is organic</div>
-        <h2 class="section-title">Shop Our Organic Products</h2>
+        
         
         <div class="category-list">
             <?php foreach($categories as $cat): ?>

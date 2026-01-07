@@ -16,21 +16,18 @@
             </div>
             <br>
             <div class="social-icons">
-                <a href="#" class="social-btn"><i class="fa-brands fa-facebook-f"></i></a>
-                <a href="#" class="social-btn"><i class="fa-brands fa-twitter"></i></a>
-                <a href="#" class="social-btn"><i class="fa-brands fa-google-plus-g"></i></a>
-                <a href="#" class="social-btn"><i class="fa-brands fa-pinterest"></i></a>
+                
             </div>
         </div>
 
         <div class="links-col">
             <h3>Categories</h3>
             <ul>
-                <li><a href="">Fruits & </a></li>
-                <li><a href="#">Dairy Products</a></li>
-                <li><a href="#">Vegetables</a></li>
-                <li><a href="#">Herbs</a></li>
-                <li><a href="#">Vegetables</a></li>
+                <li><a href="index.php?page=categories&category_id=1">Fruits</a></li>
+                <li><a href="index.php?page=categories&category_id=4">Dairy Products</a></li>
+                <li><a href="index.php?page=categories&category_id=2">Vegetables</a></li>
+                <li><a href="index.php?page=categories&category_id=3">Herbs</a></li>
+               
             </ul>
         </div>
 
@@ -38,10 +35,10 @@
             <h3>Useful Links</h3>
             <ul>
                 <li><a href="index.php?page=faq" class="active">FAQ</a></li>
-                <li><a href="#">Terms of Service</a></li>
+                <!-- <li><a href="#">Terms of Service</a></li>
                 <li><a href="#">Store Location</a></li>
                 <li><a href="#">Return Policy</a></li>
-                <li><a href="#">Discount</a></li>
+                <li><a href="#">Discount</a></li> -->
             </ul>
         </div>
 
@@ -69,9 +66,8 @@
     </div>
     
     <div class="bottom-links">
-        <a href="#">Privacy Policy</a>
         <a href="view/terms_and_conditions.php">Terms & Conditions</a>
-        <a href="#">Cookies/Ad Choices</a>
+        
     </div>
 
     <div class="payment-icons">

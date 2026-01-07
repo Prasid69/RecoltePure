@@ -100,6 +100,9 @@ $cartCount = Cart::getTotalQuantity();
       </ul>
       
       <div class="nav-actions">
+
+      <div class="menu-icon" id="menu-toggle">
+     <i class='bx bx-menu'></i> </div>
         <form method="GET" action="index.php" class="search-box">
           <input type="hidden" name="page" value="categories">
         

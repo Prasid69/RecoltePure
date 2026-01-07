@@ -56,37 +56,38 @@ class UserController {
 
     // 2. Process the Update
     public function update() {
-        if (session_status() === PHP_SESSION_NONE) session_start();
+    if (session_status() === PHP_SESSION_NONE) session_start();
+    
+    if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_SESSION['user_id'])) {
+        $userId = $_SESSION['user_id'];
+        $role = isset($_SESSION['role']) ? $_SESSION['role'] : 'user';
+
+        // 1. Get Data
+        $name    = trim($_POST['first_name']); // This is your "Full Name"
+        $email   = trim($_POST['email']);
+        $address = trim($_POST['address']);
+        $phone   = trim($_POST['phone']);      // Matches name="phone" in the form
         
-        if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_SESSION['user_id'])) {
-            $userId = $_SESSION['user_id'];
-            $role = isset($_SESSION['role']) ? $_SESSION['role'] : 'user';
+        $certNumber = isset($_POST['certificate_number']) ? trim($_POST['certificate_number']) : '';
 
-            // Gather Data
-            $firstName = trim($_POST['first_name']);
-            $name = $firstName; 
-            $email = trim($_POST['email']);
-            $address = trim($_POST['address']);
-            $phone = isset($_POST['phone']) ? trim($_POST['phone']) : '';
-            $certNumber = isset($_POST['certificate_number']) ? trim($_POST['certificate_number']) : '';
+        // 2. Update via Model
+        $success = false;
 
-            $success = false;
+        if ($role === 'farmer') {
+            // Ensure your UserModel function accepts arguments in this EXACT order
+            $success = $this->model->updateFarmer($userId, $name, $email, $phone, $address, $certNumber);
+        } else {
+            $success = $this->model->updateUser($userId, $name, $email, $phone, $address);
+        }
 
-            if ($role === 'farmer') {
-                $success = $this->model->updateFarmer($userId, $name, $email, $phone, $address, $certNumber);
-            } else {
-                $success = $this->model->updateUser($userId, $name, $email, $phone, $address);
-            }
-
-            if ($success) {
-                $_SESSION['login_user'] = $name;
-                header("Location: index.php?page=profile");
-            } else {
-                echo "Update failed. Please try again.";
-            }
+        if ($success) {
+            $_SESSION['login_user'] = $name; 
+            header("Location: index.php?page=profile&success=1");
+            exit();
+        } else {
+            echo "Update failed.";
         }
     }
-
-
+}
 }
 ?>  

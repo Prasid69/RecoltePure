@@ -17,7 +17,7 @@ class ResetPasswordModel {
         if ($stmt->affected_rows > 0) {
             return true;
         }
-        $stmt = $this->db->prepare('UPDATE farmer SET password_hash = ? WHERE email = ?');
+        $stmt = $this->db->prepare('UPDATE farmer SET password = ? WHERE email = ?');
         $stmt->bind_param('ss', $newPasswordHash, $email);
         $stmt->execute();
 

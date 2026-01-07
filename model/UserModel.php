@@ -32,7 +32,7 @@ class UserModel {
     }
 
     public function registerUser($fullName, $email, $address, $passwordHash) {
-        // Note: New users won't have a phone number yet. That's fine, they can add it in Edit Profile.
+        // Note: New users won't have a phone number yet.
         $stmt = $this->db->prepare("INSERT INTO users (name, email, address, password, registration_date) VALUES (?, ?, ?, ?, NOW())");
         $stmt->bind_param("ssss", $fullName, $email, $address, $passwordHash);
         
@@ -45,12 +45,11 @@ class UserModel {
     public function getUserById($id, $role) {
         if ($role === 'farmer') {
             $table = 'farmer';
-            $idColumn = 'farmer_id';
+            // Assuming table is 'farmer'
             $sql = "SELECT farmer_id, name AS first_name, email, phone_number, address, certificate_number FROM farmer WHERE farmer_id = ?";
         } else {
-            $table = 'users';
-            $idColumn = 'customer_id'; 
-            
+            $table = 'users'; 
+            // Assuming table is 'users'
             $sql = "SELECT name AS first_name, email, address, phone_number FROM users WHERE customer_id = ?";
         }
 
@@ -69,25 +68,47 @@ class UserModel {
         return null;
     }
 
+    public function updateUser($userId, $name, $email, $phone, $address) {
+        // FIXED: Using 'customer_id' and 'users' table based on your code
+        $sql = "UPDATE users SET name = ?, email = ?, phone_number = ?, address = ? WHERE customer_id = ?";
+    
+        $stmt = $this->db->prepare($sql);
+
+        if (!$stmt) {
+            die("SQL Prepare Error (User): " . $this->db->error);
+        }
+
+        $stmt->bind_param("ssssi", $name, $email, $phone, $address, $userId);
+
+        if ($stmt->execute()) {
+            return true;
+        } else {
+            die("Execution Error (User): " . $stmt->error);
+        }
+    }
+
+    // FIXED: Moved this INSIDE the class and fixed the SQL/Binding
     public function updateFarmer($id, $name, $email, $phone, $address, $certNumber) {
-        $sql = "UPDATE farmer SET name=?, email=?, phone_number=?, address=?, certificate_number=? WHERE farmer_id=?";
+        // FIXED: Changed table from 'users' to 'farmer'
+        $sql = "UPDATE farmer SET name = ?, email = ?, phone_number = ?, address = ?, certificate_number = ? WHERE farmer_id = ?";
+        
         $stmt = $this->db->prepare($sql);
+        
+        if (!$stmt) {
+             die("SQL Prepare Error (Farmer): " . $this->db->error);
+        }
+
+        // FIXED: Use bind_param instead of execute([])
         $stmt->bind_param("sssssi", $name, $email, $phone, $address, $certNumber, $id);
-        return $stmt->execute();
+
+        if ($stmt->execute()) {
+            return true;
+        } else {
+            die("Execution Error (Farmer): " . $stmt->error);
+        }
     }
 
-    public function updateUser($id, $name, $email, $address, $phone) {
-        $sql = "UPDATE users SET name=?, email=?, address=?, phone_number=? WHERE customer_id=?";
-        $stmt = $this->db->prepare($sql);
-        
-        // Bind matches the SQL order: Name, Email, Address, Phone, ID
-        $stmt->bind_param("ssssi", $name, $email, $address, $phone, $id);
-        
-        return $stmt->execute();
-    }
-
-
-
+    // FIXED: Moved this INSIDE the class
     public function login($email, $password, $role) {
         $table = ($role === 'farmer') ? 'farmer' : 'users';
         $idColumn = ($role === 'farmer') ? 'farmer_id' : 'customer_id';
@@ -100,14 +121,16 @@ class UserModel {
         $result = $stmt->get_result();
 
         if ($row = $result->fetch_assoc()) {
+            // Note: Verify if your DB uses 'password' or 'password_hash' column
             if (password_verify($password, $row['password'])) {
                 return [
-                    'id' => $row[$idColumn], // Returns the ID
+                    'id' => $row[$idColumn], 
                     'name' => $row['name']
                 ];
             }
         }
         return false;
     }
-}
+
+} // End of Class UserModel
 ?>

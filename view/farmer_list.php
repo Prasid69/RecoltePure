@@ -150,7 +150,6 @@
                     <?php endif; ?>
                 </div>
 
-                <a href="#" class="btn-visit">View Full Profile</a>
             
             </div>
         <?php endforeach; ?>

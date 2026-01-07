@@ -111,11 +111,11 @@
         <h3 style="margin-bottom: 20px; color: #4CAF50;">Personal Information</h3>
 
         <div class="info-group">
-            <span class="info-label">Full Name</span>
-            <span class="info-value">
-                <?php echo htmlspecialchars($user['first_name'] ?? '-'); ?>
-            </span>
-        </div>
+    <span class="info-label">Full Name</span>
+    <span class="info-value">
+        <?php echo htmlspecialchars($user['first_name'] ?? '-'); ?>
+    </span>
+</div>
 
         <div class="info-group">
             <span class="info-label">Email Address</span>

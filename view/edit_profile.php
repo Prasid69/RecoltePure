@@ -16,36 +16,36 @@
         <h2 style="text-align: center; margin-bottom: 25px;">Edit Profile</h2>
         
         <form action="index.php?page=update_profile" method="POST">
-            
-            <div class="form-group">
-                <label>Full Name</label>
-                <input type="text" name="first_name" value="<?= htmlspecialchars($user['first_name'] ?? '') ?>" required>
-            </div>
+    
+    <div class="form-group">
+        <label>Full Name</label>
+        <input type="text" name="first_name" value="<?= htmlspecialchars($user['first_name'] ?? '') ?>" required>
+    </div>
 
-            <div class="form-group">
-                <label>Email Address</label>
-                <input type="email" name="email" value="<?= htmlspecialchars($user['email'] ?? '') ?>" required>
-            </div>
+    <div class="form-group">
+        <label>Email Address</label>
+        <input type="email" name="email" value="<?= htmlspecialchars($user['email'] ?? '') ?>" required>
+    </div>
 
-            <div class="form-group">
-                <label>Phone Number</label>
-                <input type="text" name="phone" value="<?= htmlspecialchars($user['phone_number'] ?? '') ?>" required>
-            </div>
+    <div class="form-group">
+        <label>Phone Number</label>
+        <input type="text" name="phone" value="<?= htmlspecialchars($user['phone_number'] ?? '') ?>" required>
+    </div>
 
-            <div class="form-group">
-                <label>Address</label>
-                <input type="text" name="address" value="<?= htmlspecialchars($user['address'] ?? '') ?>" required>
-            </div>
+    <div class="form-group">
+        <label>Address</label>
+        <input type="text" name="address" value="<?= htmlspecialchars($user['address'] ?? '') ?>" required>
+    </div>
 
-            <?php if ($role === 'farmer'): ?>
-                <div class="form-group">
-                    <label>Certificate Number</label>
-                    <input type="text" name="certificate_number" value="<?= htmlspecialchars($user['certificate_number'] ?? '') ?>" required>
-                </div>
-            <?php endif; ?>
+    <?php if (isset($role) && $role === 'farmer'): ?>
+        <div class="form-group">
+            <label>Certificate Number</label>
+            <input type="text" name="certificate_number" value="<?= htmlspecialchars($user['certificate_number'] ?? '') ?>" required>
+        </div>
+    <?php endif; ?>
 
-            <button type="submit" class="save-btn">Save Changes</button>
-            <a href="index.php?page=profile" class="cancel-link">Cancel</a>
-        </form>
+    <button type="submit" class="save-btn">Save Changes</button>
+    <a href="index.php?page=profile" class="cancel-link">Cancel</a>
+</form>
     </div>
 </div>

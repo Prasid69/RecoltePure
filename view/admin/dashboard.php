@@ -45,7 +45,6 @@
     <div class="brand"><img src="assets/uploads/products/Logo.png" alt="Logo"> RecoltePure Admin</div>
     <nav>
       <a href="index.php?page=admin&action=dashboard">Dashboard</a>
-      <a href="#" id="toggleTheme">Toggle Theme</a>
       <a class="logout" href="index.php?page=admin&action=logout">Logout</a>
     </nav>
   </header>

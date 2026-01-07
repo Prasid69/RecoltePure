@@ -116,25 +116,7 @@
 
         <!-- SOCIAL FOOTER -->
         <div class="social-footer">
-            <a href="https://www.facebook.com/RecoltePure" target="_blank" class="social-link">
-                <img src="https://cdn-icons-png.flaticon.com/512/124/124010.png"
-                     width="20" height="20" alt="Facebook">
-            </a>
-
-            <a href="https://www.twitter.com/RecoltePure" target="_blank" class="social-link">
-                <img src="https://cdn-icons-png.flaticon.com/512/733/733579.png"
-                     width="20" height="20" alt="Twitter">
-            </a>
-
-            <a href="https://www.linkedin.com/company/RecoltePure" target="_blank" class="social-link">
-                <img src="https://cdn-icons-png.flaticon.com/512/174/174857.png"
-                     width="20" height="20" alt="LinkedIn">
-            </a>
-
-            <a href="https://www.instagram.com/RecoltePure" target="_blank" class="social-link">
-                <img src="https://cdn-icons-png.flaticon.com/512/2111/2111463.png"
-                     width="20" height="20" alt="Instagram">
-            </a>
+           
         </div>
 
     </div>

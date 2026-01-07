@@ -7,7 +7,7 @@
 
         body {
             font-family: 'Lato', sans-serif;
-            background-color: #ffffff;
+            background-color: #FEF1E1;
             color: #333;
             line-height: 1.6;
         }
@@ -97,8 +97,9 @@
             border-radius: 50%;
             overflow: hidden;
             margin-bottom: 15px;
-            border: 2px solid transparent; /* Placeholder for hover border */
+            border: 2px solid transparent; 
             box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+            border-color: green;
         }
 
         .cat-img-wrapper img {
@@ -121,7 +122,7 @@
 }
 
 .product-card {
-    background: #fff;
+    background: #FFF6ED;
     padding: 15px;
     border-radius: 10px;
     box-shadow: 0 4px 12px rgba(0,0,0,0.08);
