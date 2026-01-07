@@ -3,7 +3,8 @@ if (session_status() === PHP_SESSION_NONE) {
     session_start();
 }
 require_once 'config/db_connection.php';
-require_once 'model/Admin.php'; 
+require_once 'model/Admin.php';
+require_once 'model/Payment.php'; 
 
 class AdminController {
     private $model;
@@ -102,6 +103,9 @@ class AdminController {
         $allUsers = $this->model->getAllUsers();
         $allFarmers = $this->model->getAllFarmers();
         $categoryStats = $this->model->getCategoryStats();
+        $paymentModel = new Payment($this->db);
+        $paymentStats = $paymentModel->getPaymentStats();
+        $recentPayments = $paymentModel->getRecentPayments(10);
         require 'view/admin/dashboard.php';
     }
 
