@@ -21,7 +21,7 @@ class FarmerProduct {
         $stmt->bind_param("ii", $product_id, $farmer_id);
         $stmt->execute();
         $res = $stmt->get_result();
-        return $res->num_rows > 0 ? $res->fetch_assoc() : null;
+        return $res->num_rows > 0   ? $res->fetch_assoc() : null;
     }
 
     // Get all categories

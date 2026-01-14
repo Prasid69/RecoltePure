@@ -5,7 +5,6 @@ ini_set('display_startup_errors', 1);
 error_reporting(E_ALL);
 session_start();
 
-// Ensure database connection is available to controllers that expect $db
 require_once __DIR__ . '/config/db_connection.php';
 
 

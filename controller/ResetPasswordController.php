@@ -1,5 +1,5 @@
 <?php
-
+session_start();
 require_once 'model/ResetPassword.php';
 require_once 'config/db_connection.php';
 
@@ -50,7 +50,7 @@ class ResetPasswordController {
             }
         }
 
-        include 'view/reset_password.php';
+        include __DIR__ . '/../view/reset_password.php';
     }
 }
 ?>
