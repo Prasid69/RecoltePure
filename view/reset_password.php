@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -25,7 +26,8 @@
 
     <?php if (!empty($error)) : ?>
       <div class="error"><?php echo htmlspecialchars($error); ?></div>
-    <?php endif; ?>
+    <?php endif;
+     ?>
 
 
     <?php if (!empty($valid) && $valid) : ?>

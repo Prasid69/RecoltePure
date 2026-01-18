@@ -114,7 +114,6 @@
             </form>
         </div>
 
-        <!-- SOCIAL FOOTER -->
         <div class="social-footer">
            
         </div>

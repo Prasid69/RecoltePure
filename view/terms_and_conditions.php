@@ -1,54 +1,8 @@
 <?php
-session_start();
-?>
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Terms and Conditions - RecoltePure</title>
-  <link rel="icon" type="image/png" sizes="512x512" href="../assets/uploads/products/favicon.png">
-  <link rel="stylesheet" href="../assets/css/homepage.css" />
-  <link rel="stylesheet" href="../assets/css/terms.css" />
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
-  <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-</head>
-<body>
-  <header>
-    <nav class="navbar">
-      <div class="logo">
-        <a href="homepage.php" class="logo">
-          <img src="../assets/uploads/products/Logo.png" alt="RecoltePure Logo" sizes="16x16"/>
-          RecoltePure
-        </a>
-      </div>
-      <ul class="nav-links">
-        <li><a href="homepage.php">Home</a></li>
-        <li><a href="categories.php">Product</a></li>
-        <li><a href="homepage.php#categories">Categories</a></li>
-        <li><a href="homepage.php">Our Producers</a></li>
-        <li><a href="contact.php">Contact Us</a></li>
-      </ul>
-      <div class="nav-actions">
-        <i class='bx bx-search'></i>
-        <a href="cart.php"><i class='bx bxs-cart' style="color: black"></i></a>
-        <?php if (!isset($_SESSION['login_user'])): ?>
-            <a href="login.php" class="sign-in">Sign Up</a>
-        <?php else: ?>
-            <?php 
-                $email = $_SESSION['login_user'];
-                $initial = strtoupper(substr($email, 0, 1));
-            ?>
-            <button class="user-btn"><?php echo $initial; ?></button>
-            <div class="dropdown-menu">
-                <a href="logout.php">Logout</a>
-            </div>
-        <?php endif; ?>
-      </div>
-    </nav>
-  </header>
 
+include 'layout/header.php';
+?>
+<link rel="stylesheet" href="assets/css/terms.css">
   <main class="terms-container">
     <section class="terms-header">
       <h1>Terms and Conditions</h1>

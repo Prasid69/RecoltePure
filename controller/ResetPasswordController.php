@@ -1,5 +1,5 @@
 <?php
-session_start();
+
 require_once 'model/ResetPassword.php';
 require_once 'config/db_connection.php';
 

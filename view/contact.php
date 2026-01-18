@@ -1,3 +1,6 @@
+<?php
+include '../layouts/header.php ';
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>

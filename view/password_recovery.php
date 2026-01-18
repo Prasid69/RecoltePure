@@ -70,7 +70,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             <?php if (!empty($resetLink)) : ?>
                 <div class="notice" style="margin-top:8px;">
                     <strong>Localhost Test Link:</strong><br>
-                    <a href="<?= htmlspecialchars($resetLink) ?>">Open Password Reset</a>
+                    <a href="index.php?page=reset_password&email=<?= urlencode($email) ?>&token=<?= urlencode($token) ?>">Open Password Reset</a>
                 </div>
             <?php endif; ?>
 

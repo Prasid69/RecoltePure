@@ -108,29 +108,40 @@ class UserModel {
         }
     }
 
-    // FIXED: Moved this INSIDE the class
     public function login($email, $password, $role) {
-        $table = ($role === 'farmer') ? 'farmer' : 'users';
-        $idColumn = ($role === 'farmer') ? 'farmer_id' : 'customer_id';
-
-        $sql = "SELECT $idColumn, name, password FROM $table WHERE email = ?";
-        
-        $stmt = $this->db->prepare($sql);
-        $stmt->bind_param("s", $email);
-        $stmt->execute();
-        $result = $stmt->get_result();
-
-        if ($row = $result->fetch_assoc()) {
-            // Note: Verify if your DB uses 'password' or 'password_hash' column
-            if (password_verify($password, $row['password'])) {
-                return [
-                    'id' => $row[$idColumn], 
-                    'name' => $row['name']
-                ];
-            }
-        }
-        return false;
+    // 1. Set Table and ID Column
+    if ($role === 'farmer') {
+        $table = 'farmer';
+        $idColumn = 'farmer_id';
+        $passColumn = 'password'; // Farmer uses 'password'
+    } elseif ($role === 'admin') {
+        $table = 'admins';         
+        $idColumn = 'id';         
+        $passColumn = 'password_hash'; 
+    } else {
+        $table = 'users';
+        $idColumn = 'customer_id';
+        $passColumn = 'password'; 
     }
 
-} // End of Class UserModel
+   
+    $sql = "SELECT $idColumn, name, $passColumn FROM $table WHERE email = ?";
+    
+    $stmt = $this->db->prepare($sql);
+    $stmt->bind_param("s", $email);
+    $stmt->execute();
+    $result = $stmt->get_result();
+
+    if ($row = $result->fetch_assoc()) {
+    
+        if (password_verify($password, $row[$passColumn])) {
+            return [
+                'id' => $row[$idColumn], 
+                'name' => $row['name']
+            ];
+        }
+    }
+    return false;
+    }
+}
 ?>
