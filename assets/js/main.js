@@ -1,9 +1,5 @@
 document.addEventListener("DOMContentLoaded", function () {
 
-    // =========================================================
-    // 1. PRODUCT QUANTITY COUNTER (+ / - Buttons)
-    //    Works on: Product Cards & Cart Page
-    // =========================================================
     const productCards = document.querySelectorAll(".product-card, .cart-item"); // Supports both grid cards and cart items
 
     if (productCards.length > 0) {
@@ -11,10 +7,8 @@ document.addEventListener("DOMContentLoaded", function () {
             const minusBtn = card.querySelector(".minus, .qty-btn[value='decrease']");
             const plusBtn  = card.querySelector(".plus, .qty-btn[value='increase']");
             
-            // Matches the visible input
             const counterInput = card.querySelector(".counter-input, .qty-input"); 
             
-            // Matches the hidden input (FIXED: changed .quantity-field to .quantity-input)
             const hiddenInput = card.querySelector(".quantity-input, input[name='quantity']"); 
 
             // Only run if this specific card has the buttons
@@ -44,10 +38,7 @@ document.addEventListener("DOMContentLoaded", function () {
         });
     }
 
-    // =========================================================
-    // 2. NAVBAR SCROLL EFFECT
-    //    Works on: All Pages
-    // =========================================================
+    
     const navbar = document.querySelector(".navbar");
     if (navbar) {
         window.addEventListener("scroll", function() {
@@ -59,14 +50,9 @@ document.addEventListener("DOMContentLoaded", function () {
         });
     }
 
-    // =========================================================
-    // 3. CAROUSEL SLIDER
-    //    Works on: Home Page / Categories Page only
-    // =========================================================
     const carouselWrapper = document.querySelector(".carousel-wrapper");
     const navBtns = document.querySelectorAll(".nav-btn");
 
-    // Only run if wrapper AND buttons exist
     if (carouselWrapper && navBtns.length >= 2) {
         const prevBtn = navBtns[0];
         const nextBtn = navBtns[1];
@@ -81,10 +67,6 @@ document.addEventListener("DOMContentLoaded", function () {
         });
     }
 
-    // =========================================================
-    // 4. GRID / LIST VIEW TOGGLE
-    //    Works on: Categories Page only
-    // =========================================================
     const productGrid = document.getElementById("productGrid");
     const gridBtn = document.getElementById("gridView");
     const listBtn = document.getElementById("listView");
@@ -113,20 +95,15 @@ document.addEventListener("DOMContentLoaded", function () {
             setActive(listBtn);
         });
 
-        // Initialize button state
         setActive(productGrid.classList.contains("list-view") ? listBtn : gridBtn);
     }
 
-    // =========================================================
-    // 5. USER DROPDOWN MENU
-    //    Works on: All Pages (assuming header is everywhere)
-    // =========================================================
     const userBtn = document.querySelector(".user-btn");
     const dropdown = document.querySelector(".dropdown-menu");
 
     if (userBtn && dropdown) {
         userBtn.addEventListener("click", (e) => {
-            e.stopPropagation(); // Stop click from bubbling to document
+            e.stopPropagation(); 
             dropdown.style.display = dropdown.style.display === "flex" ? "none" : "flex";
         });
 
@@ -138,25 +115,22 @@ document.addEventListener("DOMContentLoaded", function () {
     }
 
 
-    // 6. SEARCH BAR TOGGLE
+   
     const searchForm = document.querySelector('.search-box');
     const searchBtn = document.querySelector('.search-btn');
     const searchInput = document.querySelector('.search-input');
 
     if (searchForm && searchBtn) {
         searchBtn.addEventListener('click', (e) => {
-            // Check if the search bar is already open
             if (!searchForm.classList.contains('active')) {
-                e.preventDefault(); // Stop form submission
-                searchForm.classList.add('active'); // Expand the bar
-                searchInput.focus(); // Put cursor inside
+                e.preventDefault(); 
+                searchForm.classList.add('active'); 
+                searchInput.focus(); 
             } 
-            // If open but empty, close it instead of submitting
             else if (searchInput.value.trim() === '') {
                 e.preventDefault();
                 searchForm.classList.remove('active');
             }
-            // If open AND has text, let it submit normally (no code needed)
         });
     }
 

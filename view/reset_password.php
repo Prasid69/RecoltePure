@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -14,7 +15,6 @@
     .input-box label { font-size: 14px; color: #555; font-weight: 500; }
     .input-box input { padding: 10px; border: 1px solid #ddd; border-radius: 6px; font-size: 16px; }
     .input-box input:focus { outline: none; border-color: #2d7a2d; }
-    
     .notice { margin-top:12px; padding:10px; background:#e7f3ff; border:1px solid #cbe1ff; color:#0b5ed7; border-radius:8px; text-align: center; }
     .error { margin-top:12px; padding:10px; background:#fde2e4; border:1px solid #fac5ca; color:#b02a37; border-radius:8px; text-align: center; }
   </style>
@@ -23,11 +23,14 @@
   <div class="wrapper">
     <h1>Reset Password</h1>
     
+
     <?php if (!empty($error)) : ?>
       <div class="error"><?php echo htmlspecialchars($error); ?></div>
-    <?php endif; ?>
+    <?php endif;
+     ?>
 
-    <?php if ($valid) : ?>
+
+    <?php if (!empty($valid) && $valid) : ?>
       <form method="POST" action="index.php?page=reset_password&email=<?php echo urlencode($email); ?>&token=<?php echo urlencode($token); ?>">
         <div class="input-box">
           <label>New Password</label>

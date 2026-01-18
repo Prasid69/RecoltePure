@@ -1,0 +1,11 @@
+RewriteEngine On
+RewriteBase /RecoltePure/
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+
+RewriteRule ^admin/farmer-products/([0-9]+)$ index.php?page=admin&action=view_farmer_products&id=$1 [L,QSA]
+
+RewriteRule ^admin/([a-z_]+)$ index.php?page=admin&action=$1 [L,QSA]
+
+RewriteRule ^admin/edit-product/([0-9]+)$ index.php?page=admin&action=edit_product&id=$1 [L,QSA]
+RewriteRule ^admin/view-farmer/([0-9]+)$ index.php?page=admin&action=view_farmer_products&id=$1 [L,QSA]

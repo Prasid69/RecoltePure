@@ -96,7 +96,7 @@ $cartCount = Cart::getTotalQuantity();
         <li><a href="index.php?page=categories" class="active">Product</a></li>
         <li><a href="index.php?page=farmers" class="active">Our Producers</a></li>
         <li><a href="index.php?page=contact" class="active">Contact Us</a></li>
-        <li><a href="/RecoltePure/view/terms_and_conditions.php" class="active">Terms & Conditions</a></li>
+        <li><a href="index.php?page=terms_and_conditions" class="active">Terms & Conditions</a></li>
       </ul>
       
       <div class="nav-actions">

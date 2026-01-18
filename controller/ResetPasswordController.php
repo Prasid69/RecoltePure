@@ -50,7 +50,7 @@ class ResetPasswordController {
             }
         }
 
-        include 'view/reset_password.php';
+        include __DIR__ . '/../view/reset_password.php';
     }
 }
 ?>

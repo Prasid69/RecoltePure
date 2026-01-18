@@ -1,55 +1,84 @@
+<?php
+$current_action = $_GET['action'] ?? 'dashboard';
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Admin Dashboard | RecoltePure</title>
-  <link rel="stylesheet" href="assets/css/admin.css">
+  <<base href="/RecoltePure/">
+
+<link rel="stylesheet" href="/RecoltePure/assets/css/admin_dashboard.css">
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
   
-  <style>
-    /* Table Styling */
-    .user-table {
-        width: 100%;
-        border-collapse: collapse;
-        margin-top: 15px;
-        font-size: 0.9rem;
-    }
-    .user-table th, .user-table td {
-        padding: 12px;
-        text-align: left;
-        border-bottom: 1px solid #eee;
-    }
-    .user-table th {
-        background-color: #f8f9fa;
-        color: #333;
-        font-weight: 600;
-    }
-    .user-table tr:hover {
-        background-color: #f1f1f1;
-    }
-    .panel {
-        background: #fff;
-        padding: 20px;
-        border-radius: 8px;
-        box-shadow: 0 2px 5px rgba(0,0,0,0.05);
-        margin-bottom: 20px;
-    }
-    .table-wrapper {
-        overflow-x: auto;
-    }
-  </style>
+  
 </head>
 <body>
   <header class="admin-header">
     <div class="brand"><img src="assets/uploads/products/Logo.png" alt="Logo"> RecoltePure Admin</div>
     <nav>
-      <a href="index.php?page=admin&action=dashboard">Dashboard</a>
-      <a class="logout" href="index.php?page=admin&action=logout">Logout</a>
-    </nav>
+            <nav>
+    <a href="admin/dashboard" class="<?= ($current_action == 'dashboard') ? 'active' : '' ?>">
+        <i class="fas fa-th-large"></i> <span>Dashboard</span>
+    </a>
+
+    <a href="admin/users" class="<?= ($current_action == 'users') ? 'active' : '' ?>">
+        <i class="fas fa-users"></i> <span>Users</span>
+    </a>
+
+    <a href="admin/farmers" class="<?= ($current_action == 'farmers') ? 'active' : '' ?>">
+        <i class="fas fa-tractor"></i> <span>Farmers</span>
+    </a>
+
+    <a href="admin/all_products" class="<?= ($current_action == 'all_products') ? 'active' : '' ?>">
+        <i class="fas fa-seedling"></i> <span>All Products</span>
+    </a>
+
+    <a href="admin/orders" class="<?= ($current_action == 'orders') ? 'active' : '' ?>">
+        <i class="fas fa-shopping-basket"></i> <span>Orders</span>
+    </a>
+</nav>    
+            
+            <a href="#" class="logout">
+                <i class="fas fa-sign-out-alt"></i> <span>Logout</span>
+            </a>
+        </nav>
   </header>
 
   <main class="admin-main">
+
+   <div class="top-action-bar">
+            <h2>Users Management</h2>
+
+            <form action="index.php" method="GET" class="search-box">
+                <input type="hidden" name="page" value="admin">
+                <input type="hidden" name="action" value="users"> 
+                <i class="fas fa-search"></i>
+                <input type="text" name="search" placeholder="Search users by name or email..." 
+                       value="<?= htmlspecialchars($search ?? '') ?>">
+            </form>
+
+            
+                
+
+            <?php
+            $adminEmail = $_SESSION['login_user'] ?? 'Admin';
+            $initial = strtoupper(substr($adminEmail, 0, 1));
+            ?>
+            
+            
+            <div class="admin-user-wrapper">
+                <button class="admin-initial-btn"><?php echo $initial; ?></button>
+                <div class="admin-dropdown">
+                    <a href="profile.php"><i class="fas fa-user-circle"></i> Profile</a>
+                    <a href="settings.php"><i class="fas fa-cog"></i> Settings</a>
+                    <hr>
+                    <a href="logout.php" class="text-danger"><i class="fas fa-sign-out-alt"></i> Logout</a>
+                </div>
+            </div>
+    </div>
     
     <section class="stats">
       <div class="stat"><div class="num"><?= (int)$stats['users'] ?></div><div class="label">Users</div></div>
@@ -57,122 +86,32 @@
       <div class="stat"><div class="num"><?= (int)$stats['products'] ?></div><div class="label">Products</div></div>
       <div class="stat"><div class="num"><?= (int)$stats['orders'] ?></div><div class="label">Orders</div></div>
     </section>
-
+    <br><br>
     <section class="panels" style="display: block;"> 
+
+    <div class="charts-section">
+
+  <div class="panel chart-panel">
+        <h2>Orders per Farmer</h2>
+        <canvas id="chartOrdersPerFarmer" 
+                data-labels='<?= json_encode(array_column($allFarmers, "name")) ?>'
+                data-values='<?= json_encode(array_column($allFarmers, "orders_completed")) ?>'>
+        </canvas>
+    </div>
+
+  <div class="panel chart-panel pie-chart">
+    <h2>Products by Category</h2>
+    <canvas id="chartProductsByCategory"></canvas>
+  </div>
+
+    </div>
+
+
+    
       
-      <div class="panel">
-        <h2>Registered Users</h2>
-        <div class="table-wrapper">
-            <table class="user-table">
-                <thead>
-                    <tr>
-                        <th>ID</th>
-                        <th>Name</th>
-                        <th>Email</th>
-                        <th>Phone</th>
-                        <th>Address</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <?php if (!empty($allUsers)): ?>
-                        <?php foreach ($allUsers as $user): ?>
-                        <tr>
-                            <td>#<?= isset($user['customer_id']) ? $user['customer_id'] : $user['user_id'] ?></td>
-                            <td><?= htmlspecialchars($user['user_name'] ?? $user['name'] ?? 'N/A') ?></td>
-                            <td><?= htmlspecialchars($user['user_email'] ?? $user['email'] ?? 'N/A') ?></td>
-                            <td><?= htmlspecialchars($user['user_phone_number'] ?? $user['phone_number'] ?? 'N/A') ?></td>
-                            <td><?= htmlspecialchars($user['user_address'] ?? $user['address'] ?? 'N/A') ?></td>
-                        </tr>
-                        <?php endforeach; ?>
-                    <?php else: ?>
-                        <tr><td colspan="5" style="text-align:center;">No registered users found.</td></tr>
-                    <?php endif; ?>
-                </tbody>
-            </table>
-        </div>
-      </div>
+      
 
-
-      <div class="panel">
-        <h2>Registered Farmers</h2>
-        <div class="table-wrapper">
-            <table class="user-table">
-                <thead>
-                    <tr>
-                        <th>ID</th>
-                        <th>Name</th>
-                        <th>Status</th> <th>Action</th> </tr>
-                </thead>
-                <tbody>
-                    <?php if (!empty($allFarmers)): ?>
-                        <?php foreach ($allFarmers as $farm): ?>
-                        <tr>
-                            <td>#<?= $farm['farmer_id'] ?></td>
-                            <td>
-                                <?= htmlspecialchars($farm['name']) ?><br>
-                                <small style="color:#888"><?= htmlspecialchars($farm['email']) ?></small>
-                            </td>
-                            
-                            <td>
-                                <?php if ($farm['account_status'] == 'Verified'): ?>
-                                    <span style="color: green; font-weight: bold; background: #e8f5e9; padding: 2px 6px; border-radius: 4px;">Verified</span>
-                                <?php else: ?>
-                                    <span style="color: orange; font-weight: bold; background: #fff3e0; padding: 2px 6px; border-radius: 4px;">Pending</span>
-                                <?php endif; ?>
-                            </td>
-
-                            <td>
-                                <?php if ($farm['account_status'] != 'Verified'): ?>
-                                    <a href="index.php?page=admin&action=verify_farmer&id=<?= $farm['farmer_id'] ?>" 
-                                       onclick="return confirm('Are you sure you want to verify this farmer?');"
-                                       style="background: #4CAF50; color: white; padding: 5px 10px; text-decoration: none; border-radius: 4px; font-size: 0.8rem;">
-                                       Verify Now
-                                    </a>
-                                <?php else: ?>
-                                    <span style="color: #ccc;">No Action</span>
-                                <?php endif; ?>
-                            </td>
-                        </tr>
-                        <?php endforeach; ?>
-                    <?php else: ?>
-                        <tr><td colspan="4" style="text-align:center;">No farmers found.</td></tr>
-                    <?php endif; ?>
-                </tbody>
-            </table>
-        </div>
-      </div>
-
-      <div class="panel">
-        <h2>Product Inventory by Category</h2>
-        <div class="table-wrapper">
-            <table class="user-table">
-                <thead>
-                    <tr>
-                        <th style="width: 70%;">Category Name</th>
-                        <th style="width: 30%; text-align: center;">Total Products</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <?php if (!empty($categoryStats)): ?>
-                        <?php foreach ($categoryStats as $cat): ?>
-                        <tr>
-                            <td>
-                                <strong><?= htmlspecialchars($cat['category_name']) ?></strong>
-                            </td>
-                            <td style="text-align: center;">
-                                <span style="background: #e3f2fd; color: #1976d2; padding: 4px 12px; border-radius: 12px; font-weight: bold;">
-                                    <?= $cat['total_products'] ?>
-                                </span>
-                            </td>
-                        </tr>
-                        <?php endforeach; ?>
-                    <?php else: ?>
-                        <tr><td colspan="2" style="text-align:center;">No categories found.</td></tr>
-                    <?php endif; ?>
-                </tbody>
-            </table>
-        </div>
-      </div>
+      
 
 
       
@@ -180,6 +119,71 @@
     </section>
   </main>
 
-  <footer class="admin-footer">&copy; <?= date('Y') ?> RecoltePure</footer>
+  <!-- <footer class="admin-footer">&copy; <?= date('Y') ?> RecoltePure</footer> -->
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    const barCanvas = document.getElementById('chartOrdersPerFarmer');
+    if (barCanvas) {
+        const barLabels = JSON.parse(barCanvas.getAttribute('data-labels') || '[]');
+        const barValues = JSON.parse(barCanvas.getAttribute('data-values') || '[]');
+
+        new Chart(barCanvas.getContext('2d'), {
+            type: 'bar',
+            data: {
+                labels: barLabels,
+                datasets: [{
+                    label: 'Orders',
+                    data: barValues,
+                    backgroundColor: '#FF2A00',
+                    borderRadius: 6,
+                    barThickness: 30
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                scales: {
+                    y: { beginAtZero: true, ticks: { stepSize: 1 } }
+                },
+                plugins: { legend: { display: false } }
+            }
+        });
+    }
+    const pieCanvas = document.getElementById('chartProductsByCategory');
+    if (pieCanvas) {
+        const pieLabels = <?= json_encode(array_column($categoryStats, 'category_name')) ?>;
+        const pieValues = <?= json_encode(array_column($categoryStats, 'total_products')) ?>;
+
+        new Chart(pieCanvas.getContext('2d'), {
+            type: 'pie',
+            data: {
+                labels: pieLabels,
+                datasets: [{
+                    data: pieValues,
+                    backgroundColor: ['#FF2A00', '#4CAF50', '#FFC107', '#2196F3', '#9C27B0'],
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    legend: { position: 'bottom', labels: { boxWidth: 12 } }
+                }
+            }
+        });
+    }
+});
+</script>
+
+<script src="assets/js/admin.js"></script>
+
+
+
 </body>
 </html>

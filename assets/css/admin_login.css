@@ -1,0 +1,133 @@
+/* General Reset */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Poppins', sans-serif;
+    background-color: #FEF1E1; /* Warm Cream Background */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    color: #333;
+}
+
+/* Auth Container */
+.admin-auth {
+    width: 100%;
+    max-width: 400px;
+    padding: 20px;
+}
+
+/* Card Styling */
+.card {
+    background: #ffffff;
+    padding: 40px;
+    border-radius: 20px;
+    box-shadow: 0 10px 25px rgba(255, 42, 0, 0.1); /* Subtle red shadow */
+    text-align: left;
+}
+
+/* Logo Section */
+.logo-top {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-bottom: 30px;
+}
+
+.logo-top img {
+    width: 80px;
+    margin-bottom: 10px;
+}
+
+.logo-top strong {
+    font-size: 1.2rem;
+    color: #FF2A00;
+    letter-spacing: 1px;
+}
+
+/* Typography */
+h1 {
+    font-size: 1.5rem;
+    font-weight: 600;
+    margin-bottom: 25px;
+    text-align: center;
+    color: #222;
+}
+
+/* Form Elements */
+form label {
+    display: block;
+    font-size: 0.9rem;
+    font-weight: 600;
+    margin-bottom: 8px;
+    color: #555;
+}
+
+form input {
+    width: 100%;
+    padding: 12px 15px;
+    margin-bottom: 20px;
+    border: 2px solid #eee;
+    border-radius: 10px;
+    font-family: inherit;
+    transition: all 0.3s ease;
+}
+
+form input:focus {
+    outline: none;
+    border-color: #FF2A00;
+    background-color: #fffaf9;
+}
+
+/* Button Styling */
+.btn {
+    width: 100%;
+    padding: 14px;
+    background-color: #FF2A00;
+    color: white;
+    border: none;
+    border-radius: 10px;
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: transform 0.2s, background-color 0.3s;
+}
+
+.btn:hover {
+    background-color: #e62600;
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(255, 42, 0, 0.3);
+}
+
+.btn:active {
+    transform: translateY(0);
+}
+
+/* Error Messages */
+.error {
+    background-color: #ffe5e0;
+    color: #FF2A00;
+    padding: 10px;
+    border-radius: 8px;
+    font-size: 0.85rem;
+    margin-bottom: 20px;
+    text-align: center;
+    border-left: 4px solid #FF2A00;
+}
+
+/* Links */
+a {
+    color: #FF2A00;
+    text-decoration: none;
+    font-weight: 600;
+    transition: color 0.3s;
+}
+
+a:hover {
+    color: #333;
+}

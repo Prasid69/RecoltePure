@@ -21,6 +21,13 @@ class ResetPasswordModel {
         $stmt->bind_param('ss', $newPasswordHash, $email);
         $stmt->execute();
 
+        
+
+
+        $stmt = $this->db->prepare('UPDATE admins SET password_hash = ? WHERE email = ?');
+        $stmt->bind_param('ss', $newPasswordHash, $email);
+        $stmt->execute();
+
         return ($stmt->affected_rows > 0);
     }
 }
