@@ -11,6 +11,31 @@ require_once __DIR__ . '/config/db_connection.php';
 $page = $_GET['page'] ?? 'home'; 
 
 switch ($page) {
+
+        case 'payment_success':
+            // Handle Stripe payment success, create order, clear cart, redirect to orders
+            if (session_status() === PHP_SESSION_NONE) session_start();
+            if (!isset($_SESSION['user_id']) || empty($_SESSION['cart'])) {
+                header("Location: index.php?page=cart&error=payment_session");
+                exit();
+            }
+            require_once 'controller/OrderController.php';
+            $controller = new OrderController($db);
+            $userId = $_SESSION['user_id'];
+            $cartItems = $_SESSION['cart'];
+            // Optionally get Stripe payment info from session if set
+            $transactionId = $_SESSION['stripe_transaction_id'] ?? null;
+            $paymentMethod = $_SESSION['stripe_payment_method'] ?? null;
+            $amountPaid = $_SESSION['stripe_amount_paid'] ?? null;
+            if ($controller->createOrder($userId, $cartItems, $transactionId, $paymentMethod, $amountPaid)) {
+                unset($_SESSION['cart']);
+                unset($_SESSION['stripe_transaction_id'], $_SESSION['stripe_payment_method'], $_SESSION['stripe_amount_paid']);
+                header("Location: index.php?page=my_orders&success=order_placed");
+                exit();
+            } else {
+                echo "Order creation failed after payment. Please contact support.";
+            }
+            break;
     case 'login':
         require_once "controller/AuthController.php";
         $controller = new AuthController();

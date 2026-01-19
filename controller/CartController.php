@@ -30,18 +30,14 @@ class CartController {
             exit();
         }
 
-        $userId = $_SESSION['user_id'];
-        $cartItems = $_SESSION['cart'];
-
-        if ($this->orderModel->createOrder($userId, $cartItems)) {
-            
-            unset($_SESSION['cart']);
-
-            header("Location: index.php?page=my_orders&success=order_placed");
-            exit();
-        } else {
-            echo "Failed to place order. Please try again.";
-        }
+        // Stripe payment integration
+        require_once __DIR__ . '/StripePayment.php';
+        $cartItems = array_values($_SESSION['cart']);
+        $successUrl = (isset($_SERVER['HTTPS']) ? "https://" : "http://") . $_SERVER['HTTP_HOST'] . dirname($_SERVER['PHP_SELF']) . "/index.php?page=payment_success";
+        $cancelUrl = (isset($_SERVER['HTTPS']) ? "https://" : "http://") . $_SERVER['HTTP_HOST'] . dirname($_SERVER['PHP_SELF']) . "/index.php?page=cart&error=payment_cancelled";
+        $stripeUrl = StripePayment::createCheckoutSession($cartItems, $successUrl, $cancelUrl);
+        header("Location: $stripeUrl");
+        exit();
     }
 
     public function handleActions() {
