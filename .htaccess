@@ -27,4 +27,62 @@ RewriteRule ^admin/export-farmers/?$ index.php?page=admin&action=export_farmers 
 RewriteRule ^admin/farmer-products/([0-9]+)/?$ index.php?page=admin&action=farmer_products&id=$1 [L,QSA]
 
 
+# Home page
+RewriteRule ^$ index.php?page=home [L,QSA]
+
+# Categories page
+RewriteRule ^categories/?$ index.php?page=categories [L,QSA]
+
+# Upload product
+RewriteRule ^upload-product/?$ index.php?page=upload_product [L,QSA]
+
+# Cart pages
+RewriteRule ^cart/?$ index.php?page=cart [L,QSA]
+RewriteRule ^cart/clear/?$ index.php?page=clear [L,QSA]
+
+# Contact page
+RewriteRule ^contact/?$ index.php?page=contact [L,QSA]
+
+# User registration
+RewriteRule ^register/?$ index.php?page=register [L,QSA]
+
+# Password recovery & reset
+RewriteRule ^password-recovery/?$ index.php?page=password_recovery [L,QSA]
+RewriteRule ^reset-password/?$ index.php?page=reset_password [L,QSA]
+
+# User profile
+RewriteRule ^profile/?$ index.php?page=profile [L,QSA]
+RewriteRule ^edit-profile/?$ index.php?page=edit_profile [L,QSA]
+RewriteRule ^update-profile/?$ index.php?page=update_profile [L,QSA]
+
+# Reviews
+RewriteRule ^write-review/?$ index.php?page=write_review [L,QSA]
+RewriteRule ^process-review/?$ index.php?page=process_review [L,QSA]
+
+# Orders
+RewriteRule ^my-orders/?$ index.php?page=my_orders [L,QSA]
+
+# Checkout
+RewriteRule ^checkout/?$ index.php?page=checkout [L,QSA]
+
+# Terms and conditions
+RewriteRule ^terms-and-conditions/?$ index.php?page=terms_and_conditions [L,QSA]
+
+# Farmers listing (frontend)
+RewriteRule ^farmers/?$ index.php?page=farmers [L,QSA]
+
+
+RewriteRule ^register/?$ index.php?page=register [L,QSA]
+
+RewriteRule ^login/?$ index.php?page=login [L,QSA]
+
+RewriteRule ^home/?$ index.php?page=home [L,QSA]
+
+RewriteRule ^$ index.php?page=home [L,QSA]
+RewriteRule ^home/?$ index.php?page=home [L,QSA]
+RewriteRule ^categories/?$ index.php?page=categories [L,QSA]
+RewriteRule ^farmers/?$ index.php?page=farmers [L,QSA]
+RewriteRule ^contact/?$ index.php?page=contact [L,QSA]
+RewriteRule ^terms-and-conditions/?$ index.php?page=terms_and_conditions [L,QSA]
+
 

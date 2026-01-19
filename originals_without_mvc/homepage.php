@@ -79,7 +79,8 @@ while ($row = mysqli_fetch_assoc($result)) {
     <a href="cart.php"><i class='bx bxs-cart' style="color: black"></i></a>
 
     <?php if (!isset($_SESSION['login_user'])): ?>
-        <a href="login.php" class="sign-in">Sign Up</a>
+        <a href="/RecoltePure/login" class="sign-in">Sign In</a>
+
     <?php else: ?>
         <?php 
             $email = $_SESSION['login_user'];

@@ -86,18 +86,20 @@ $cartCount = Cart::getTotalQuantity();
   <header>
     <nav class="navbar">
       <div class="logo">
-        <a href="index.php?page=home" class="logo">
+        <a href="/RecoltePure/home" class="logo">
+
             <img src="assets/uploads/products/Logo.png" alt="RecoltePure Logo" sizes="16x16"/>
             RecoltePure
         </a>
       </div>
       <ul class="nav-links">
-        <li><a href="index.php?page=home" class="active">Home</a></li>
-        <li><a href="index.php?page=categories" class="active">Product</a></li>
-        <li><a href="index.php?page=farmers" class="active">Our Producers</a></li>
-        <li><a href="index.php?page=contact" class="active">Contact Us</a></li>
-        <li><a href="index.php?page=terms_and_conditions" class="active">Terms & Conditions</a></li>
-      </ul>
+    <li><a href="/RecoltePure/" class="active">Home</a></li>
+    <li><a href="/RecoltePure/categories" class="active">Product</a></li>
+    <li><a href="/RecoltePure/farmers" class="active">Our Producers</a></li>
+    <li><a href="/RecoltePure/contact" class="active">Contact Us</a></li>
+    <li><a href="/RecoltePure/terms-and-conditions" class="active">Terms & Conditions</a></li>
+</ul>
+
       
       <div class="nav-actions">
 
@@ -124,7 +126,7 @@ $cartCount = Cart::getTotalQuantity();
             </div>
         </a>
         <?php if (!$userData['is_logged_in']): ?>
-           <a href="index.php?page=login" class="sign-in">Sign Up</a>
+           <a href="/RecoltePure/login" class="sign-in">Sign In</a>
         <?php else: ?>
             <button class="user-btn"><?php echo $userData['initial']; ?></button>
             <div class="dropdown-menu">
