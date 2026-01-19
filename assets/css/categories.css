@@ -326,6 +326,19 @@
     color: #4CAF50; /* Or your theme green color */
 }
 
+
+.product-img-wrapper {
+    position: relative;
+    overflow: hidden;
+}
+
+.product-img {
+    width: 100%;
+    height: auto;
+    transition: transform 0.3s ease;
+}
+
+
 @media (max-width: 992px) {
     .product-grid.grid-view {
         grid-template-columns: repeat(2, 1fr);

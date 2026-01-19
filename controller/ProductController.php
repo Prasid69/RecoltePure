@@ -87,40 +87,44 @@ class ProductController {
             $stock = (int)$_POST['stock_quantity'];
             $category_id = (int)$_POST['category_id'];
             
-            // Default: Keep old image if editing, or empty if new
-            $file_name = $this->edit_mode ? $this->product['image'] : '';
+            $file_names = $this->edit_mode ? json_decode($this->product['image'], true) : [];
 
             // 2. Handle Image Upload
-            if (isset($_FILES['image']) && $_FILES['image']['name'] != '') {
-                $target_dir = __DIR__ . "/../assets/uploads/products/";
-                $generated_name = time() . "_" . basename($_FILES["image"]["name"]);
-                $target_file = $target_dir . $generated_name;
-                $imageFileType = strtolower(pathinfo($target_file, PATHINFO_EXTENSION));
+            if (isset($_FILES['images'])) {
+    $target_dir = __DIR__ . "/../assets/uploads/products/";
 
-                $check = getimagesize($_FILES["image"]["tmp_name"]);
+    foreach ($_FILES['images']['tmp_name'] as $key => $tmp_name) {
+        $original_name = $_FILES['images']['name'][$key];
+        $file_size     = $_FILES['images']['size'][$key];
+        $file_error    = $_FILES['images']['error'][$key];
+        $file_tmp      = $_FILES['images']['tmp_name'][$key];
 
-                if ($check === false) {
-                    $this->error = "File is not an image.";
-                } elseif ($_FILES["image"]["size"] > 5000000) {
-                    $this->error = "File too large.";
-                } elseif (!in_array($imageFileType, ['jpg', 'jpeg', 'png', 'gif'])) {
-                    $this->error = "Only JPG, PNG, GIF allowed.";
-                } else {
-                    if (!file_exists($target_dir)) {
-                        mkdir($target_dir, 0777, true);
-                    }
-                    if (move_uploaded_file($_FILES["image"]["tmp_name"], $target_file)) {
-                        $file_name = $generated_name;
-                        if ($this->edit_mode && !empty($this->product['image'])) {
-                            $old_image_path = $target_dir . $this->product['image'];
-                            if (file_exists($old_image_path)) {
-                                unlink($old_image_path);
-                            }
-                        }
-                    } else {
-                        $this->error = "Image upload failed. Check folder permissions.";
-                    }
-                }
+        $generated_name = time() . "_" . $original_name;
+        $target_file = $target_dir . $generated_name;
+        $imageFileType = strtolower(pathinfo($target_file, PATHINFO_EXTENSION));
+
+        $check = getimagesize($file_tmp);
+
+        if ($check === false) {
+            $this->error[] = "$original_name is not an image.";
+            continue;
+        } elseif ($file_size > 5000000) {
+            $this->error[] = "$original_name is too large.";
+            continue;
+        } elseif (!in_array($imageFileType, ['jpg', 'jpeg', 'png', 'gif'])) {
+            $this->error[] = "$original_name has invalid format.";
+            continue;
+        }
+
+        if (!file_exists($target_dir)) mkdir($target_dir, 0777, true);
+
+        if (move_uploaded_file($file_tmp, $target_file)) {
+            $file_names[] = $generated_name;
+        } else {
+            $this->error[] = "Failed to upload $original_name.";
+        }
+    }
+
             }
 
             // 3. Save to Database 
@@ -133,7 +137,7 @@ class ProductController {
                     'stock_quantity' => $stock,
                     'category_id' => $category_id,
                     'farmer_id' => $this->farmer_id,
-                    'image' => $file_name,
+                    'image' => json_encode($file_names),
                     'product_id' => $this->edit_mode ? (int)$_GET['product_id'] : null
                 ];
 
@@ -160,5 +164,6 @@ class ProductController {
             die("View file '$view.php' not found!");
         }
     }
-} 
+}
+
 ?>

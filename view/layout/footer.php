@@ -23,10 +23,13 @@
         <div class="links-col">
             <h3>Categories</h3>
             <ul>
-                <li><a href="index.php?page=categories&category_id=1">Fruits</a></li>
-                <li><a href="index.php?page=categories&category_id=4">Dairy Products</a></li>
-                <li><a href="index.php?page=categories&category_id=2">Vegetables</a></li>
-                <li><a href="index.php?page=categories&category_id=3">Herbs</a></li>
+                <ul>
+                    <li><a href="/RecoltePure/categories/1">Fruits</a></li>
+                    <li><a href="/RecoltePure/categories/4">Dairy Products</a></li>
+                    <li><a href="/RecoltePure/categories/2">Vegetables</a></li>
+                    <li><a href="/RecoltePure/categories/3">Herbs</a></li>
+                </ul>
+
                
             </ul>
         </div>
@@ -34,12 +37,7 @@
         <div class="links-col">
             <h3>Useful Links</h3>
             <ul>
-                <li><a href="index.php?page=faq" class="active">FAQ</a></li>
-                <!-- <li><a href="#">Terms of Service</a></li>
-                <li><a href="#">Store Location</a></li>
-                <li><a href="#">Return Policy</a></li>
-                <li><a href="#">Discount</a></li> -->
-            </ul>
+                <li><a href="/RecoltePure/faq">FAQ</a></li>
         </div>
 
         <div class="newsletter-col">
@@ -66,7 +64,7 @@
     </div>
     
     <div class="bottom-links">
-        <a href="view/terms_and_conditions.php">Terms & Conditions</a>
+        <a href="/RecoltePure/terms-and-conditions">Terms & Conditions</a>
         
     </div>
 

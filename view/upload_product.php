@@ -47,11 +47,12 @@
             <?php endforeach; ?>
         </select>
 
-        <label>Upload Product Image</label>
-        <input type="file" name="image" accept="image/*" <?= $controller->edit_mode ? '' : 'required'; ?>>
+        <label>Upload Product Images</label>
+            <input type="file" name="images[]" accept="image/*" multiple <?= $controller->edit_mode ? '' : 'required'; ?>>
 
-        <button type="submit" name="upload" class="upload-btn">
+            <button type="submit" name="upload" class="upload-btn">
             <?php echo $controller->edit_mode ? "Update Product" : "Upload Product"; ?>
         </button>
+
     </form>
 </div>

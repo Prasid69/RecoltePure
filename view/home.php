@@ -15,7 +15,9 @@
         Healty <span class="highlight1">Eating is <br>an </span><span class="highlight2"> Important </span>Part <br>of Lifestyle
       </h1>
       <p>Straight from the farm to your doorstep, Quality you can trust every day.</p>
-      <a href="index.php?page=categories"><button class="explore-btn">Explore Now</button></a>
+      <a href="/RecoltePure/categories">
+    <button class="explore-btn">Explore Now</button>
+</a>
     </div>
 
     <div class="hero-image">

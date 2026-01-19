@@ -30,8 +30,9 @@ $cartCount = Cart::getTotalQuantity();
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>RecoltePure</title>
   
-  <link rel="icon" type="image/png" sizes="512x512" href="assets/images/favicon.png">
-  <link rel="stylesheet" href="assets/css/homepage.css" />
+  <link rel="icon" type="image/png" sizes="512x512" href="../assets/images/favicon.png">
+  <link rel="stylesheet" href="/RecoltePure/assets/css/homepage.css">
+
   
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
   <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
@@ -86,9 +87,10 @@ $cartCount = Cart::getTotalQuantity();
   <header>
     <nav class="navbar">
       <div class="logo">
-        <a href="/RecoltePure/home" class="logo">
+        <a href="../RecoltePure/home" class="logo">
 
-            <img src="assets/uploads/products/Logo.png" alt="RecoltePure Logo" sizes="16x16"/>
+            <img src="/RecoltePure/assets/uploads/products/Logo.png" alt="RecoltePure Logo" width="16" height="16">
+
             RecoltePure
         </a>
       </div>
@@ -138,6 +140,6 @@ $cartCount = Cart::getTotalQuantity();
       </div>
 </nav>
   </header>
-  <script src="assets/js/main.js" defer></script>
+  <script src="/RecoltePure/assets/js/main.js" defer></script>
 </body>
 </html>

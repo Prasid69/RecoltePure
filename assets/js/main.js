@@ -142,3 +142,50 @@ document.addEventListener("DOMContentLoaded", function () {
     navLinks.classList.toggle('active');
     });
 });
+
+
+document.addEventListener('DOMContentLoaded', function() {
+    const searchForm = document.querySelector('.search-form');
+    if (searchForm) {
+        searchForm.addEventListener('submit', function(e) {
+            e.preventDefault();
+            const searchInput = this.querySelector('input[name="search"]');
+            const search = searchInput.value.trim();
+            
+            const categoryId = this.dataset.categoryId || 1;
+            let url = `/RecoltePure/categories/${categoryId}`;
+            if (search.length > 0) {
+                url += `/search/${encodeURIComponent(search)}`;
+            }
+
+            window.location.href = url;
+        });
+    }
+});
+
+
+document.addEventListener('DOMContentLoaded', function() {
+    const productWrappers = document.querySelectorAll('.product-img-wrapper');
+
+    productWrappers.forEach(wrapper => {
+        const imgTag = wrapper.querySelector('img');
+        const images = JSON.parse(wrapper.dataset.images);
+        let index = 0;
+        let interval;
+
+        wrapper.addEventListener('mouseenter', () => {
+            if (images.length <= 1) return;
+
+            interval = setInterval(() => {
+                index = (index + 1) % images.length;
+                imgTag.src = `/RecoltePure/assets/uploads/products/${images[index]}`;
+            }, 800); // swap every 800ms
+        });
+
+        wrapper.addEventListener('mouseleave', () => {
+            clearInterval(interval);
+            index = 0;
+            imgTag.src = `/RecoltePure/assets/uploads/products/${images[0]}`;
+        });
+    });
+});
