@@ -84,6 +84,15 @@ class AdminController {
             case 'orders':
                 $this->ordersPage();
                 break;
+
+            case 'export_users':
+                $this->export_users();
+                break;
+
+            case 'export_farmers':
+                $this->export_farmers();
+                break;
+
             
             
             default:
@@ -93,7 +102,7 @@ class AdminController {
 
     private function ensureAdmin() {
     if (!isset($_SESSION['is_admin']) || $_SESSION['is_admin'] !== true) {
-        header('Location: index.php?page=admin&action=login');
+        header('Location: /RecoltePure/admin/login');
         exit;
     }
 }
@@ -109,7 +118,8 @@ class AdminController {
             if ($row && password_verify($password, $row['password_hash'])) {
                 $_SESSION['is_admin'] = true;
                 $_SESSION['admin_email'] = $email;
-                header('Location: index.php?page=admin&action=dashboard');
+                header('Location: /RecoltePure/admin');
+                
                 exit;
             } else {
                 $error = 'Invalid admin credentials';
@@ -148,15 +158,7 @@ class AdminController {
         exit;
     }
 
-    private function dashboard() {
-        $search = isset($_GET['search']) ? trim($_GET['search']) : '';
-        
-        $stats = $this->model->getDashboardStats();
-        $allUsers = $this->model->getAllUsers($search); 
-        $allFarmers = $this->model->getAllFarmers($search);
-        $categoryStats = $this->model->getCategoryStats($search);
-        require 'view/admin/dashboard.php';
-    }
+    
 
 
     private function verifyFarmerAction() {
@@ -292,5 +294,111 @@ private function ordersPage() {
     require 'view/admin/orders.php';
 }
 
+
+public function dashboard() {
+
+    $adminModel = new AdminModel($this->db);
+    $allFarmers = $adminModel->getAllFarmersWithPerformance();
+    $categoryStats = $adminModel->getCategoryStats();
+
+    $stats = $adminModel->getDashboardStats();
+
+    require 'view/admin/dashboard.php';
 }
-?>
+
+
+public function export_users() {
+
+    $this->ensureAdmin(); 
+
+    $adminModel = new AdminModel($this->db);
+    
+    $search = $_GET['search'] ?? null;
+
+    if ($search) {
+        $users = $adminModel->getAllUsers($search);
+    } else {
+        $users = $adminModel->getAllUsers();
+    }
+
+    header('Content-Type: text/csv');
+    header('Content-Disposition: attachment; filename="users_export_' . date('Y-m-d') . '.csv"');
+
+    $output = fopen('php://output', 'w');
+
+    fputcsv($output, [
+        'User ID',
+        'Name',
+        'Email',
+        'Phone',
+        'Status',
+        'Address'
+    ]);
+
+    foreach ($users as $user) {
+        fputcsv($output, [
+            $user['customer_id'],
+            $user['name'],
+            $user['email'],
+            $user['phone_number'] ?? '',
+            $user['status'] ?? 'active',
+            $user['address'] ?? ''
+        ]);
+    }
+
+    fclose($output);
+    exit;
+}
+
+public function export_farmers() {
+
+     $this->ensureAdmin(); 
+    if (!isset($_SESSION['is_admin']) || $_SESSION['is_admin'] !== true) {
+        header('Location: index.php?page=admin&action=login');
+        exit;
+    }
+
+    $adminModel = new AdminModel($this->db);
+    $search = $_GET['search'] ?? null;
+
+    if ($search) {
+        $farmers = $adminModel->getAllFarmersWithPerformance($search);
+    } else {
+        $farmers = $adminModel->getAllFarmersWithPerformance();
+    }
+
+    // CSV headers
+    header('Content-Type: text/csv');
+    header('Content-Disposition: attachment; filename="farmers_export_' . date('Y-m-d') . '.csv"');
+
+    $output = fopen('php://output', 'w');
+
+    fputcsv($output, [
+        'Farmer ID',
+        'Name',
+        'Email',
+        'Phone',
+        'Status',
+        'Address',
+        'Orders Completed',
+        'Revenue (€)'
+    ]);
+
+    foreach ($farmers as $farmer) {
+        fputcsv($output, [
+            $farmer['farmer_id'],
+            $farmer['name'],
+            $farmer['email'],
+            $farmer['phone_number'] ?? '',
+            $farmer['account_status'] ?? 'Pending',
+            $farmer['address'] ?? '',
+            $farmer['orders_completed'] ?? 0,
+            $farmer['revenue'] ?? 0
+        ]);
+    }
+
+    fclose($output);
+    exit;
+}
+
+}

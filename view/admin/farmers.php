@@ -10,6 +10,7 @@
    <base href="/RecoltePure/">
 
     <link rel="stylesheet" href="/RecoltePure/assets/css/admin_users.css">
+    <link rel="stylesheet" href="/RecoltePure/assets/css/responsive.css">
 </head>
 <body>
 
@@ -31,7 +32,7 @@
         <i class="fas fa-tractor"></i> <span>Farmers</span>
     </a>
 
-    <a href="admin/all_products" class="<?= ($current_action == 'all_products') ? 'active' : '' ?>">
+    <a href="/RecoltePure/admin/all_products" class="<?= ($current_action == 'all_products') ? 'active' : '' ?>">
         <i class="fas fa-seedling"></i> <span>All Products</span>
     </a>
 
@@ -39,20 +40,52 @@
         <i class="fas fa-shopping-basket"></i> <span>Orders</span>
     </a>
 
-    <a href="#" class="logout">
+    <a href="/RecoltePure/admin/logout" class="logout">
                 <i class="fas fa-sign-out-alt"></i> <span>Logout</span>
             </a>
         </nav>
     </header>
 <main class="admin-main">
     <div class="top-action-bar">
-        <h2>Farmers Management</h2>
-        <div class="admin-profile">
-             <button class="admin-initial-btn">A</button>
-        </div>
+    <h2>Farmers Management</h2>
+
+    
+
+    <form action="index.php" method="GET" class="search-box">
+    <input type="hidden" name="page" value="admin">
+    <input type="hidden" name="action" value="farmers">
+    
+    <i class="fas fa-search"></i>
+    <input type="text" name="search" placeholder="Search farmers by name, email, or address..." 
+           value="<?= htmlspecialchars($search ?? '') ?>">
+</form>
+
+    <div class="admin-profile">
+        <a href="/RecoltePure/admin/export-farmers" 
+   class="btn-outline">
+    <i class="fas fa-file-csv"></i> Export CSV
+</a>
+
+
     </div>
 
-    <section class="stats">
+
+    <?php
+        $adminEmail = $_SESSION['login_user'] ?? 'Admin';
+        $initial = strtoupper(substr($adminEmail, 0, 1));
+    ?>
+    <div class="admin-user-wrapper">
+        <button class="admin-initial-btn"><?= $initial ?></button>
+        <div class="admin-dropdown">
+            <a href="profile.php"><i class="fas fa-user-circle"></i> Profile</a>
+            <a href="settings.php"><i class="fas fa-cog"></i> Settings</a>
+            <hr>
+            <a href="/RecoltePure/admin/logout"  class="text-danger"><i class="fas fa-sign-out-alt"></i> Logout</a>
+        </div>
+    </div>
+</div>
+
+<section class="stats">
     <div class="stat">
         <div class="num"><?= (int)($stats['total_farmers'] ?? 0) ?></div>
         <div class="label">Total Farmers</div>
@@ -66,7 +99,6 @@
         <div class="label">Total Revenue</div>
     </div>
 </section>
-
 
 <div class="charts-section">
     <div class="panel chart-panel">
@@ -84,6 +116,7 @@
         </canvas>
     </div>
 </div>
+
 
     <section class="panel">
         <div class="panel-header">

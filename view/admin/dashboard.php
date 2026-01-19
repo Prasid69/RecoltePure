@@ -1,3 +1,4 @@
+
 <?php
 $current_action = $_GET['action'] ?? 'dashboard';
 ?>
@@ -41,7 +42,7 @@ $current_action = $_GET['action'] ?? 'dashboard';
     </a>
 </nav>    
             
-            <a href="#" class="logout">
+            <a  href="/RecoltePure/admin/logout" class="logout">
                 <i class="fas fa-sign-out-alt"></i> <span>Logout</span>
             </a>
         </nav>
@@ -52,13 +53,7 @@ $current_action = $_GET['action'] ?? 'dashboard';
    <div class="top-action-bar">
             <h2>Users Management</h2>
 
-            <form action="index.php" method="GET" class="search-box">
-                <input type="hidden" name="page" value="admin">
-                <input type="hidden" name="action" value="users"> 
-                <i class="fas fa-search"></i>
-                <input type="text" name="search" placeholder="Search users by name or email..." 
-                       value="<?= htmlspecialchars($search ?? '') ?>">
-            </form>
+            
 
             
                 
@@ -93,6 +88,8 @@ $current_action = $_GET['action'] ?? 'dashboard';
 
   <div class="panel chart-panel">
         <h2>Orders per Farmer</h2>
+        
+
         <canvas id="chartOrdersPerFarmer" 
                 data-labels='<?= json_encode(array_column($allFarmers, "name")) ?>'
                 data-values='<?= json_encode(array_column($allFarmers, "orders_completed")) ?>'>
@@ -101,7 +98,10 @@ $current_action = $_GET['action'] ?? 'dashboard';
 
   <div class="panel chart-panel pie-chart">
     <h2>Products by Category</h2>
-    <canvas id="chartProductsByCategory"></canvas>
+    <canvas id="categoryPieChart" 
+                data-labels='<?= json_encode(array_column($categoryStats, "category_name")) ?>'
+                data-values='<?= json_encode(array_column($categoryStats, "total_products")) ?>'>
+            </canvas>
   </div>
 
     </div>
@@ -122,66 +122,55 @@ $current_action = $_GET['action'] ?? 'dashboard';
   <!-- <footer class="admin-footer">&copy; <?= date('Y') ?> RecoltePure</footer> -->
 
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-
-
-
 <script>
-document.addEventListener('DOMContentLoaded', function() {
-    const barCanvas = document.getElementById('chartOrdersPerFarmer');
-    if (barCanvas) {
-        const barLabels = JSON.parse(barCanvas.getAttribute('data-labels') || '[]');
-        const barValues = JSON.parse(barCanvas.getAttribute('data-values') || '[]');
+document.addEventListener('DOMContentLoaded', function () {
 
-        new Chart(barCanvas.getContext('2d'), {
-            type: 'bar',
-            data: {
-                labels: barLabels,
-                datasets: [{
-                    label: 'Orders',
-                    data: barValues,
-                    backgroundColor: '#FF2A00',
-                    borderRadius: 6,
-                    barThickness: 30
-                }]
-            },
-            options: {
-                responsive: true,
-                maintainAspectRatio: false,
-                scales: {
-                    y: { beginAtZero: true, ticks: { stepSize: 1 } }
-                },
-                plugins: { legend: { display: false } }
-            }
-        });
-    }
-    const pieCanvas = document.getElementById('chartProductsByCategory');
-    if (pieCanvas) {
-        const pieLabels = <?= json_encode(array_column($categoryStats, 'category_name')) ?>;
-        const pieValues = <?= json_encode(array_column($categoryStats, 'total_products')) ?>;
+  // Orders per Farmer
+  const ordersCanvas = document.getElementById('chartOrdersPerFarmer');
+  if (ordersCanvas) {
+    new Chart(ordersCanvas, {
+      type: 'bar',
+      data: {
+        labels: JSON.parse(ordersCanvas.dataset.labels),
+        datasets: [{
+          data: JSON.parse(ordersCanvas.dataset.values),
+          backgroundColor: '#FF2A00',
+          borderRadius: 6
+        }]
+      },
+      options: {
+        responsive: true,
+        maintainAspectRatio: false,
+        plugins: { legend: { display: false } },
+        scales: { y: { beginAtZero: true } }
+      }
+    });
+  }
 
-        new Chart(pieCanvas.getContext('2d'), {
-            type: 'pie',
-            data: {
-                labels: pieLabels,
-                datasets: [{
-                    data: pieValues,
-                    backgroundColor: ['#FF2A00', '#4CAF50', '#FFC107', '#2196F3', '#9C27B0'],
-                    borderWidth: 1
-                }]
-            },
-            options: {
-                responsive: true,
-                maintainAspectRatio: false,
-                plugins: {
-                    legend: { position: 'bottom', labels: { boxWidth: 12 } }
-                }
-            }
-        });
-    }
+  // Products by Category
+  const pieCanvas = document.getElementById('categoryPieChart');
+  if (pieCanvas) {
+    new Chart(pieCanvas, {
+      type: 'pie',
+      data: {
+        labels: JSON.parse(pieCanvas.dataset.labels),
+        datasets: [{
+          data: JSON.parse(pieCanvas.dataset.values),
+          backgroundColor: [
+            '#FF2A00','#4CAF50','#FFC107','#2196F3','#9C27B0'
+          ]
+        }]
+      },
+      options: {
+        responsive: true,
+        maintainAspectRatio: false,
+        plugins: { legend: { position: 'bottom' } }
+      }
+    });
+  }
 });
 </script>
 
-<script src="assets/js/admin.js"></script>
 
 
 

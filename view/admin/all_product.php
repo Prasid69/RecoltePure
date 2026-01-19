@@ -37,7 +37,7 @@
         <i class="fas fa-shopping-basket"></i> <span>Orders</span>
     </a>
 
-    <a href="#" class="logout">
+    <a href="/RecoltePure/admin/logout"  class="logout">
                 <i class="fas fa-sign-out-alt"></i> <span>Logout</span>
             </a>
         </nav>
@@ -121,15 +121,13 @@
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 <script>
 document.addEventListener('DOMContentLoaded', function() {
-    // 1. Get the Pie Chart Canvas
+   
     const pieCtx = document.getElementById('categoryPieChart');
     
     if (pieCtx) {
-        // 2. Parse data from attributes provided by the Model
         const pieLabels = JSON.parse(pieCtx.getAttribute('data-labels') || '[]');
         const pieValues = JSON.parse(pieCtx.getAttribute('data-values') || '[]');
 
-        // 3. Initialize Pie Chart
         new Chart(pieCtx, {
             type: 'pie',
             data: {
@@ -160,7 +158,6 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
 
-    // --- Performance Charts (If on the same page) ---
     const orderCanvas = document.getElementById('chartOrdersPerFarmer');
     if (orderCanvas) {
         new Chart(orderCanvas, {

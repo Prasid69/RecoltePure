@@ -11,14 +11,14 @@
   <div class="admin-auth">
     <div class="card">
       <div class="logo-top">
-        <img src="assets/uploads/products/Logo.png" alt="RecoltePure">
+        <img src="../assets/uploads/products/Logo.png" alt="RecoltePure">
         <strong>RecoltePure Admin</strong>
       </div>
       <h1>Admin Login</h1>
       <?php if (!empty($error)) : ?>
         <div class="error"><?= htmlspecialchars($error) ?></div>
       <?php endif; ?>
-      <form method="POST" action="index.php?page=admin&action=login">
+      <form method="POST" action="/RecoltePure/admin/login">
         <label>Email</label>
         <input type="email" name="email" required>
         <label>Password</label>

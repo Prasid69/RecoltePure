@@ -1,0 +1,112 @@
+/* --- responsive.css --- */
+
+/* ----------------- Tablet View ----------------- */
+@media (max-width: 1024px) {
+    /* Sidebar collapses to icon-only */
+    .admin-header {
+        width: 80px !important;
+        padding: 15px 0 !important;
+    }
+    .admin-header .brand span,
+    .admin-header nav a span {
+        display: none !important; /* hide text */
+    }
+    .admin-main {
+        margin-left: 80px !important;
+        width: calc(100% - 80px) !important;
+        padding: 20px !important;
+    }
+
+    /* Stack top-action-bar */
+    .top-action-bar {
+        flex-direction: column !important;
+        align-items: stretch !important;
+        gap: 15px !important;
+    }
+    .search-box {
+        max-width: 100% !important;
+    }
+
+    /* Stats grid adjustment */
+    .stats {
+        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)) !important;
+    }
+
+    /* Charts grid */
+    .charts-container {
+        grid-template-columns: 1fr !important;
+    }
+}
+
+/* ----------------- Mobile View ----------------- */
+@media (max-width: 768px) {
+    /* Sidebar becomes top nav */
+    .admin-header {
+        width: 100% !important;
+        height: auto !important;
+        flex-direction: row !important;
+        justify-content: space-between !important;
+        padding: 10px 20px !important;
+        position: relative !important;
+    }
+    .admin-header nav {
+        flex-direction: row !important;
+        flex-wrap: wrap !important;
+        justify-content: flex-start !important;
+        margin-top: 10px !important;
+    }
+    .admin-main {
+        margin-left: 0 !important;
+        width: 100% !important;
+        padding: 15px !important;
+    }
+
+    /* Stack stats */
+    .stats {
+        grid-template-columns: 1fr !important;
+    }
+    .stat .num {
+        font-size: 1.6rem !important;
+    }
+
+    /* Stack top-action-bar */
+    .top-action-bar {
+        flex-direction: column !important;
+        gap: 10px !important;
+    }
+    .search-box input {
+        padding-left: 8px !important;
+    }
+
+    /* Chart container stack */
+    .charts-container {
+        grid-template-columns: 1fr !important;
+    }
+}
+
+/* ----------------- Extra Small (Phones) ----------------- */
+@media (max-width: 480px) {
+    .admin-header {
+        flex-direction: column !important;
+        align-items: flex-start !important;
+        padding: 10px !important;
+    }
+    .admin-header nav a {
+        padding: 8px 10px !important;
+        font-size: 0.8rem !important;
+    }
+    .top-action-bar {
+        gap: 8px !important;
+    }
+    .panel {
+        padding: 15px !important;
+    }
+    .btn-icon {
+        width: 30px !important;
+        height: 30px !important;
+        font-size: 0.8rem !important;
+    }
+    .search-box {
+        padding: 8px 10px !important;
+    }
+}

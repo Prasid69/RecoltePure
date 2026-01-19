@@ -39,7 +39,7 @@ $current_action = $_GET['action'] ?? 'dashboard';
         <i class="fas fa-shopping-basket"></i> <span>Orders</span>
     </a>
 
-    <a href="#" class="logout">
+    <a href="/RecoltePure/admin/logout"  class="logout">
                 <i class="fas fa-sign-out-alt"></i> <span>Logout</span>
             </a>
         </nav>

@@ -112,7 +112,7 @@ class AdminModel {
 
 public function updateUserStatus($id, $status) {
     $stmt = $this->db->prepare("UPDATE users SET status = ? WHERE customer_id = ?");
-    $stmt->bind_param("si", $status, $id); // "s" for string, "i" for integer
+    $stmt->bind_param("si", $status, $id); 
     return $stmt->execute();
 }
 
@@ -123,7 +123,6 @@ public function updateFarmerStatus($id, $status) {
 }
 
 public function deleteUser($id) {
-    // Note: Ensure the column name is correct (you used customer_id elsewhere)
     $stmt = $this->db->prepare("DELETE FROM users WHERE customer_id = ?");
     $stmt->bind_param("i", $id);
     return $stmt->execute();
@@ -137,7 +136,9 @@ public function getUserRegistrationStats() {
             FROM users 
             GROUP BY MONTH(created_at) 
             ORDER BY created_at ASC LIMIT 6";
-    return $this->db->query($sql)->fetchAll(PDO::FETCH_ASSOC);
+    $result = $this->db->query($sql);
+return ($result) ? $result->fetch_all(MYSQLI_ASSOC) : [];
+
 }
 
 public function getAllFarmersWithPerformance($search = '') {
@@ -155,16 +156,13 @@ public function getAllFarmersWithPerformance($search = '') {
             GROUP BY f.farmer_id
             ORDER BY revenue DESC";
 
-    // Prepare the statement
     $stmt = $this->db->prepare($sql);
-    
     $stmt->bind_param("sss", $searchTerm, $searchTerm, $searchTerm);
-    
     $stmt->execute();
     
-    $result = $stmt->get_result();
-    return $result->fetch_all(MYSQLI_ASSOC);
+    return $stmt->get_result()->fetch_all(MYSQLI_ASSOC);
 }
+
 
 
 public function getProductsByFarmer($farmerId) {
@@ -245,6 +243,20 @@ public function getAllOrders($timeframe = 'all', $status = 'all') {
     $result = $this->db->query($sql);
     return ($result) ? $result->fetch_all(MYSQLI_ASSOC) : [];
 }
+
+public function searchUsers($search) {
+    $like = "%{$search}%";
+    $stmt = $this->db->prepare("
+        SELECT customer_id, name, email, phone_number, address, status
+        FROM users
+        WHERE name LIKE ? OR email LIKE ? OR phone_number LIKE ?
+        ORDER BY customer_id DESC
+    ");
+    $stmt->bind_param("sss", $like, $like, $like);
+    $stmt->execute();
+    return $stmt->get_result()->fetch_all(MYSQLI_ASSOC);
+}
+
 
 }
 ?>

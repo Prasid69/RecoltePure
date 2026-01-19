@@ -3,9 +3,24 @@ RewriteBase /RecoltePure/
 RewriteCond %{REQUEST_FILENAME} !-f
 RewriteCond %{REQUEST_FILENAME} !-d
 
-RewriteRule ^admin/farmer-products/([0-9]+)$ index.php?page=admin&action=view_farmer_products&id=$1 [L,QSA]
+RewriteRule ^admin/?$ index.php?page=admin&action=dashboard [L,QSA]
 
-RewriteRule ^admin/([a-z_]+)$ index.php?page=admin&action=$1 [L,QSA]
 
-RewriteRule ^admin/edit-product/([0-9]+)$ index.php?page=admin&action=edit_product&id=$1 [L,QSA]
-RewriteRule ^admin/view-farmer/([0-9]+)$ index.php?page=admin&action=view_farmer_products&id=$1 [L,QSA]
+RewriteRule ^admin/login$ index.php?page=admin&action=login [L,QSA]
+
+
+RewriteRule ^admin/logout$ index.php?page=admin&action=logout [L,QSA]
+
+RewriteRule ^admin/export-users$ index.php?page=admin&action=export_users [L,QSA]
+
+
+RewriteRule ^admin/export-farmers$ index.php?page=admin&action=export_farmers [L,QSA]
+
+
+RewriteRule ^admin/users$ index.php?page=admin&action=users [L,QSA]
+RewriteRule ^admin/farmers$ index.php?page=admin&action=farmers [L,QSA]
+RewriteRule ^admin/orders$ index.php?page=admin&action=orders [L,QSA]
+
+RewriteRule ^admin/all_products$ index.php?page=admin&action=all_products [L,QSA]
+
+RewriteRule ^admin/logout$ index.php?page=admin&action=logout [L,QSA]

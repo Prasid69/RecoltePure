@@ -11,7 +11,6 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
     <base href="/RecoltePure/">
-    <base href="/RecoltePure/">
 
     <link rel="stylesheet" href="/RecoltePure/assets/css/admin_users.css">
 </head>
@@ -45,7 +44,7 @@
 
     
 
-    <a href="#" class="logout">
+    <a href="/RecoltePure/admin/logout"  class="logout">
                 <i class="fas fa-sign-out-alt"></i> <span>Logout</span>
             </a>
         </nav>
@@ -65,10 +64,11 @@
             </form>
 
             <div class="admin-profile">
-                <a href="index.php?page=admin&action=export_users" class="btn-outline">
-                    <i class="fas fa-file-csv"></i> 
-                    Export CSV
-                </a>
+                <a href="admin/export-users" class="btn-outline">
+    <i class="fas fa-file-csv"></i> Export CSV
+</a>
+
+
                 <?php
                 $adminEmail = $_SESSION['login_user'] ?? 'Admin';
                 $initial = strtoupper(substr($adminEmail, 0, 1));
@@ -139,10 +139,7 @@
     <td><small><?= htmlspecialchars($user['address'] ?? '-') ?></small></td>
 
     <td class="actions">
-        <a href="index.php?page=admin&action=view_user&id=<?= $user['customer_id'] ?>" 
-           class="btn-icon" title="View Profile">
-            <i class="fas fa-eye"></i>
-        </a>
+        
         
         <?php if ($currentStatus === 'active'): ?>
             <a href="index.php?page=admin&action=toggle_user_status&id=<?= $user['customer_id'] ?>&status=blocked" 
