@@ -31,7 +31,7 @@
     <a href="admin/orders" class="<?= ($current_action == 'orders') ? 'active' : '' ?>">
         <i class="fas fa-shopping-basket"></i> <span>Orders</span>
     </a>
-    <a href="/RecoltePure/admin/logout" class="logout">
+    <a href="#" class="logout">
                 <i class="fas fa-sign-out-alt"></i> <span>Logout</span>
             </a>
         </nav>

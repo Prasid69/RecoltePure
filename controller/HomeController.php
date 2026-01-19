@@ -1,16 +1,18 @@
 <?php
-require_once  'config/db_connection.php';
+require_once 'config/db_connection.php';
 require_once 'model/product.php';
 
-class HomeController {
+class HomeController
+{
     private $db;
 
-    public function __construct() {
-        global $db; 
+    public function __construct($db)
+    {
         $this->db = $db;
     }
 
-    public function index() {
+    public function index()
+    {
         if (session_status() === PHP_SESSION_NONE) {
             session_start();
         }

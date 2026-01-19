@@ -3,17 +3,20 @@
 require_once 'config/db_connection.php';
 require_once 'model/product.php';
 
-class CategoryController {
+class CategoryController
+{
     private $db;
 
-    public function __construct() {
-        global $db;
+    public function __construct($db)
+    {
         $this->db = $db;
     }
 
-    public function index() {
-        if (session_status() === PHP_SESSION_NONE) session_start();
-        
+    public function index()
+    {
+        if (session_status() === PHP_SESSION_NONE)
+            session_start();
+
         $userData = [
             'is_logged_in' => isset($_SESSION['login_user']),
             'initial' => isset($_SESSION['login_user']) ? strtoupper(substr($_SESSION['login_user'], 0, 1)) : ''
@@ -34,7 +37,7 @@ class CategoryController {
         // Get Data
         $categories = $productModel->getAllCategories();
         $totalItems = $productModel->countProducts($search, $categoryId);
-        
+
         // Calculate Pagination
         $totalPages = ceil($totalItems / $limit);
         $offset = ($page - 1) * $limit;
