@@ -4,8 +4,9 @@ FROM php:8.2-apache
 # Install required PHP extensions
 RUN docker-php-ext-install mysqli
 
-# Enable Apache mod_rewrite if needed
-RUN a2enmod rewrite
+
+# Ensure only one MPM is enabled (mpm_event is default in php:apache)
+RUN a2dismod mpm_prefork mpm_worker && a2enmod mpm_event && a2enmod rewrite
 
 # Copy project files to the container
 COPY . /var/www/html/
