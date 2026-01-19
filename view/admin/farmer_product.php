@@ -10,9 +10,9 @@
 </head>
 <body>
     <header class="admin-header">
-    <div class="brand"><img src="assets/uploads/products/Logo.png" alt="Logo"> RecoltePure Admin</div>
+    <div class="brand"><img src="/RecoltePure/assets/uploads/products/Logo.png" alt="Logo"> RecoltePure Admin</div>
     <nav>
-            <a href="admin/dashboard" class="<?= ($current_action == 'dashboard') ? 'active' : '' ?>">
+            <a href="admin/" class="<?= ($current_action == 'dashboard') ? 'active' : '' ?>">
         <i class="fas fa-th-large"></i> <span>Dashboard</span>
     </a>
 

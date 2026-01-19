@@ -20,7 +20,7 @@
             <span>RecoltePure Admin</span>
         </div>
         <nav>
-            <a href="admin/dashboard" class="<?= ($current_action == 'dashboard') ? 'active' : '' ?>">
+            <a href="admin/" class="<?= ($current_action == 'dashboard') ? 'active' : '' ?>">
         <i class="fas fa-th-large"></i> <span>Dashboard</span>
     </a>
 
@@ -163,9 +163,10 @@
                             <strong>$<?= number_format((float)($farmer['revenue'] ?? 0), 2) ?></strong>
                         </td>
                         <td class="actions">
-                            <a href="admin/farmer-products/<?= $farmer['farmer_id'] ?>" class="btn-icon">
+                            <a href="/RecoltePure/admin/farmer-products/<?= $farmer['farmer_id'] ?>" class="btn-icon">
                                 <i class="fas fa-seedling"></i>
                             </a>
+
 
                             <?php if ($farmer['account_status'] === 'Pending'): ?>
                                 <a href="index.php?page=admin&action=verify_farmer&id=<?= $farmer['farmer_id'] ?>&status=Verified" class="btn-icon text-success" title="Approve">

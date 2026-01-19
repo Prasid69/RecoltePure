@@ -215,10 +215,10 @@ public function getAllOrders($timeframe = 'all', $status = 'all') {
                 JOIN products p ON o.product_id = p.product_id
                 WHERE 1=1";
 
-        if ($timeframe == 'today') $sql .= " AND DATE(o.date) = CURDATE()";
+        if ($timeframe == 'today') $sql .= " AND DATE(o.deivery_date) = CURDATE()";
         if ($status != 'all') $sql .= " AND o.status = '$status'";
 
-        $sql .= " ORDER BY o.date DESC";
+        $sql .= " ORDER BY o.delivery_date DESC";
         return $this->db->query($sql)->fetch_all(MYSQLI_ASSOC);
     }
 
@@ -234,10 +234,10 @@ public function getAllOrders($timeframe = 'all', $status = 'all') {
     }
 
     public function getOrdersTrend() {
-    $sql = "SELECT DATE(date) as order_date, COUNT(*) as total_orders 
+    $sql = "SELECT DATE(delivery_date) as order_date, COUNT(*) as total_orders 
             FROM order_or_cart 
-            WHERE date >= DATE_SUB(CURDATE(), INTERVAL 45 DAY)
-            GROUP BY DATE(date) 
+            WHERE delivery_date >= DATE_SUB(CURDATE(), INTERVAL 45 DAY)
+            GROUP BY DATE(delivery_date) 
             ORDER BY order_date ASC";
             
     $result = $this->db->query($sql);
@@ -257,6 +257,27 @@ public function searchUsers($search) {
     return $stmt->get_result()->fetch_all(MYSQLI_ASSOC);
 }
 
+
+public function searchProducts($search) {
+    $like = "%{$search}%";
+
+    $stmt = $this->db->prepare("
+        SELECT p.product_id, p.product_name, p.price, p.stock_quantity,
+               c.category_name,
+               f.name AS farmer_name, f.address AS farmer_location
+        FROM products p
+        JOIN categories c ON p.category_id = c.category_id
+        JOIN farmer f ON p.farmer_id = f.farmer_id
+        WHERE p.product_name LIKE ? 
+           OR c.category_name LIKE ?
+           OR f.name LIKE ?
+        ORDER BY p.product_id DESC
+    ");
+
+    $stmt->bind_param("sss", $like, $like, $like);
+    $stmt->execute();
+    return $stmt->get_result()->fetch_all(MYSQLI_ASSOC);
+}
 
 }
 ?>
