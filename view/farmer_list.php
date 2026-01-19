@@ -7,11 +7,11 @@
     <div class="farmers-grid">
         <?php foreach ($farmers as $farm): ?>
             <div class="farmer-card">
-
+                
                 <div class="card-header">
                     <div class="farmer-name">
                         <span><?php echo htmlspecialchars($farm['name']); ?></span>
-
+                        
                         <?php if (isset($farm['account_status']) && $farm['account_status'] === 'Verified'): ?>
                             <span class="status-badge status-verified">Verified</span>
                         <?php else: ?>
@@ -27,13 +27,12 @@
 
                 <div class="products-preview">
                     <div class="preview-label">Top Products</div>
-
+                    
                     <?php if (!empty($farm['products'])): ?>
                         <div class="product-row">
                             <?php foreach ($farm['products'] as $prod): ?>
                                 <div class="mini-prod">
-                                    <img src="assets/uploads/products/<?php echo htmlspecialchars($prod['image']); ?>"
-                                        alt="product">
+                                    <img src="assets/uploads/products/<?php echo htmlspecialchars($prod['image']); ?>" alt="product">
                                     <div class="mini-price">$<?php echo $prod['price']; ?></div>
                                 </div>
                             <?php endforeach; ?>
@@ -43,9 +42,8 @@
                     <?php endif; ?>
                 </div>
 
-
+            
             </div>
         <?php endforeach; ?>
     </div>
 </div>
-<?php include 'view/layout/footer.php'; ?>

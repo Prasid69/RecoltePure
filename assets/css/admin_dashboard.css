@@ -354,9 +354,11 @@
     }
 
     .chart-panel canvas {
-        flex-grow: 1;
-        max-height: 300px; /* Prevents the chart from becoming too huge */
-    }
+    width: 100% !important;
+    height: 320px !important;
+    flex-grow: 0; /* disable flex stretching */
+}
+
 
 
 

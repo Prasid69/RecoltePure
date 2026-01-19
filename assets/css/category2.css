@@ -1,0 +1,152 @@
+
+body {
+  font-family: 'Poppins', sans-serif;
+  background: #f9f6f2; 
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  margin: 0;
+  overflow:visible;
+}
+
+
+
+.carousel {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  background: #ffffff;
+  border-radius: 25px;
+  padding: 20px 30px;
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.08);
+}
+
+
+.cards-container {
+  display: flex;
+  gap: 20px;
+  overflow-x: auto;
+  scroll-behavior: smooth;
+  padding: 10px;
+  overflow: visible;
+}
+
+.card {
+  flex: 0 0 180px;
+  border-radius: 18px;
+  color: #4b3f33;
+  text-align: center;
+  padding: 70px 15px 25px;
+  position: relative;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  box-shadow: 0 5px 12px rgba(0, 0, 0, 0.1);
+
+}
+
+
+.card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+}
+
+
+.card img {
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+  object-fit: cover;
+  background: white;
+  padding: 8px;
+  margin-bottom: 15px;
+  box-shadow: 0 3px 8px rgba(0, 0, 0, 0.1);
+  position: absolute;
+  top: -50px; 
+  left: 50%;
+  transform: translateX(-50%);;
+}
+
+
+.pink {
+  background: linear-gradient(145deg, #e8d3c5, #d1b7a1);
+}
+
+.orange {
+  background: linear-gradient(145deg, #e0c7a1, #c9a87a); 
+}
+
+.green {
+  background: linear-gradient(145deg, #d5c3aa, #bfa689); 
+}
+
+.blue {
+  background: linear-gradient(145deg, #e0c7a1, #c9a87a); 
+}
+
+.red {
+  background: linear-gradient(145deg, #e8d3c5, #d1b7a1);
+}
+
+.order-btn {
+  background: #f5eee7;
+  color: #4b3f33;
+  border: none;
+  border-radius: 20px;
+  padding: 8px 15px;
+  cursor: pointer;
+  font-weight: 600;
+  transition: background 0.3s ease, transform 0.2s ease;
+}
+
+.order-btn:hover {
+  background: #e0d4c6;
+  transform: scale(1.05);
+}
+
+.nav-btn {
+  background: #f5eee7;
+  border: none;
+  font-size: 2rem;
+  cursor: pointer;
+  color: #7a6b5b;
+  border-radius: 50%;
+  width: 45px;
+  height: 45px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1);
+  transition: all 0.3s ease;
+}
+
+.nav-btn:hover {
+  color: #3b3027;
+  background: #e7ddd2;
+}
+
+
+.cards-container::-webkit-scrollbar {
+  display: none;
+}
+
+
+
+@media (max-width: 768px) {
+  .carousel {
+    padding: 15px 20px;
+  }
+
+  .card {
+    flex: 0 0 140px;
+    padding: 60px 10px 20px;
+  }
+
+  .card img {
+    width: 80px;
+    height: 80px;
+    top: -40px;
+  }
+}
+
+
+

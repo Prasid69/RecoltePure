@@ -1,16 +1,13 @@
 <?php
-class OrderModel
-{
+class OrderModel {
     private $db;
 
-    public function __construct($db)
-    {
+    public function __construct($db) {
         $this->db = $db;
     }
 
-    public function getOrdersByCustomerId($customerId)
-    {
-        $sql = "SELECT 
+    public function getOrdersByCustomerId($customerId) {
+    $sql = "SELECT 
                 oc.delivery_id AS order_customer_id,  
                 oc.delivery_id AS order_delivery_id, 
                 MAX(oc.delivery_date) AS order_date,  
@@ -28,157 +25,72 @@ class OrderModel
             GROUP BY oc.delivery_id
             ORDER BY oc.delivery_date DESC";
 
-        $stmt = $this->db->prepare($sql);
-
-        if (!$stmt) {
-            die("Error preparing statement: " . $this->db->error);
-        }
-
-        $stmt->bind_param("i", $customerId);
-        $stmt->execute();
-        $result = $stmt->get_result();
-
-        return $result->fetch_all(MYSQLI_ASSOC);
+    $stmt = $this->db->prepare($sql);
+    
+    if (!$stmt) {
+        die("Error preparing statement: " . $this->db->error);
     }
 
+    $stmt->bind_param("i", $customerId);
+    $stmt->execute();
+    $result = $stmt->get_result();
+    
+    return $result->fetch_all(MYSQLI_ASSOC);
+}
 
 
 
-
-    public function createOrder($userId, $cartItems)
-    {
-        $newDeliveryId = time();
-        $currentDate = date('Y-m-d H:i:s');
-        $sqlDelivery = "INSERT INTO delivery (delivery_id, order_id, delivery_date, delivery_status, delivery_partner, tracking_number) 
+    public function createOrder($userId, $cartItems) {
+    $newDeliveryId = time(); 
+    $currentDate = date('Y-m-d H:i:s');
+    $sqlDelivery = "INSERT INTO delivery (delivery_id, order_id, delivery_date, delivery_status, delivery_partner, tracking_number) 
                     VALUES (?, ?, ?, 'Pending', 'Waiting', 'N/A')";
-
-        $stmt = $this->db->prepare($sqlDelivery);
-        if (!$stmt) {
-            die("Prepare failed (Delivery): " . $this->db->error);
-        }
-        $stmt->bind_param("iis", $newDeliveryId, $newDeliveryId, $currentDate);
-
-        if (!$stmt->execute()) {
-            die("Execute failed (Delivery): " . $stmt->error);
-        }
-        $stmt->close();
-        $sqlItem = "INSERT INTO order_or_cart (customer_id, delivery_id, product_id, total_price, delivery_date) 
+    
+    $stmt = $this->db->prepare($sqlDelivery);
+    if (!$stmt) {
+        die("Prepare failed (Delivery): " . $this->db->error);
+    }
+    $stmt->bind_param("iis", $newDeliveryId, $newDeliveryId, $currentDate);
+    
+    if (!$stmt->execute()) {
+        die("Execute failed (Delivery): " . $stmt->error);
+    }
+    $stmt->close();
+    $sqlItem = "INSERT INTO order_or_cart (customer_id, delivery_id, product_id, total_price, delivery_date) 
                 VALUES (?, ?, ?, ?, ?)";
-
-        $stmtItem = $this->db->prepare($sqlItem);
-        if (!$stmtItem) {
-            die("Prepare failed (Items): " . $this->db->error);
-        }
-        $p_userId = $userId;
-        $p_deliveryId = $newDeliveryId;
-        $p_productId = 0;
-        $p_totalPrice = 0.0;
-        $p_date = $currentDate;
-        $stmtItem->bind_param("iiids", $p_userId, $p_deliveryId, $p_productId, $p_totalPrice, $p_date);
-
-        foreach ($cartItems as $keyId => $item) {
-            $p_productId = isset($item['product_id']) ? $item['product_id'] : $keyId;
-            $p_totalPrice = $item['price'] * $item['quantity'];
-            if (!$p_productId)
-                $p_productId = 0;
-            if (!$stmtItem->execute()) {
-                die("Execute failed (Item ID: $p_productId): " . $stmtItem->error);
-            }
-        }
-        $stmtItem->close();
-
-        return true;
+    
+    $stmtItem = $this->db->prepare($sqlItem);
+    if (!$stmtItem) {
+        die("Prepare failed (Items): " . $this->db->error);
     }
+    $p_userId = $userId;
+    $p_deliveryId = $newDeliveryId;
+    $p_productId = 0;
+    $p_totalPrice = 0.0;
+    $p_date = $currentDate;
+    $stmtItem->bind_param("iiids", $p_userId, $p_deliveryId, $p_productId, $p_totalPrice, $p_date);
 
-    /**
-     * Create order with payment tracking
-     * Used when payment is processed via Stripe
-     */
-    public function createOrderWithPayment($userId, $cartItems, $transactionId, $paymentMethod, $amountPaid)
-    {
-        $newDeliveryId = time();
-        $currentDate = date('Y-m-d H:i:s');
-
-        // Create delivery record
-        $sqlDelivery = "INSERT INTO delivery (delivery_id, order_id, delivery_date, delivery_status, delivery_partner, tracking_number) 
-                        VALUES (?, ?, ?, 'Confirmed', 'Processing', 'TRK-" . $newDeliveryId . "')";
-
-        $stmt = $this->db->prepare($sqlDelivery);
-        if (!$stmt) {
-            throw new Exception("Prepare failed (Delivery): " . $this->db->error);
+    foreach ($cartItems as $keyId => $item) {
+        $p_productId = isset($item['product_id']) ? $item['product_id'] : $keyId;
+        $p_totalPrice = $item['price'] * $item['quantity'];
+        if (!$p_productId) $p_productId = 0; 
+        if (!$stmtItem->execute()) {
+             die("Execute failed (Item ID: $p_productId): " . $stmtItem->error);
         }
-        $stmt->bind_param("iis", $newDeliveryId, $newDeliveryId, $currentDate);
-
-        if (!$stmt->execute()) {
-            throw new Exception("Execute failed (Delivery): " . $stmt->error);
-        }
-        $stmt->close();
-
-        // Insert order items with payment info
-        $sqlItem = "INSERT INTO order_or_cart 
-                    (customer_id, delivery_id, product_id, quantity, total_price, delivery_date, 
-                     payment_status, payment_method, transaction_id, payment_date, amount_paid) 
-                    VALUES (?, ?, ?, ?, ?, ?, 'Paid', ?, ?, ?, ?)";
-
-        $stmtItem = $this->db->prepare($sqlItem);
-        if (!$stmtItem) {
-            throw new Exception("Prepare failed (Items): " . $this->db->error);
-        }
-
-        // Prepare bind parameters
-        $p_userId = $userId;
-        $p_deliveryId = $newDeliveryId;
-        $p_productId = 0;
-        $p_quantity = 1;
-        $p_totalPrice = 0.0;
-        $p_date = $currentDate;
-        $p_paymentMethod = $paymentMethod;
-        $p_transactionId = $transactionId;
-        $p_paymentDate = $currentDate;
-        $p_amountPaid = 0.0;
-
-        $stmtItem->bind_param(
-            "iiiidssssd",
-            $p_userId,
-            $p_deliveryId,
-            $p_productId,
-            $p_quantity,
-            $p_totalPrice,
-            $p_date,
-            $p_paymentMethod,
-            $p_transactionId,
-            $p_paymentDate,
-            $p_amountPaid
-        );
-
-        foreach ($cartItems as $keyId => $item) {
-            $p_productId = isset($item['product_id']) ? $item['product_id'] : $keyId;
-            $p_quantity = $item['quantity'];
-            $p_totalPrice = $item['price'] * $item['quantity'];
-            $p_amountPaid = $p_totalPrice; // Same as total for individual items
-
-            if (!$p_productId)
-                $p_productId = 0;
-
-            if (!$stmtItem->execute()) {
-                throw new Exception("Execute failed (Item ID: $p_productId): " . $stmtItem->error);
-            }
-        }
-        $stmtItem->close();
-
-        return $newDeliveryId; // Return delivery ID as order ID
     }
+    $stmtItem->close();
+
+    return true;
+}
 
 
-
-    public function getOrderItems($deliveryId)
-    {
+public function getOrderItems($deliveryId) {
         // This query fetches all products belonging to a specific delivery/order
         $sql = "SELECT oc.product_id, p.product_name, p.image 
                 FROM order_or_cart oc
                 JOIN products p ON oc.product_id = p.product_id
                 WHERE oc.delivery_id = ?";
-
+                
         $stmt = $this->db->prepare($sql);
         if (!$stmt) {
             die("Error preparing getOrderItems: " . $this->db->error);

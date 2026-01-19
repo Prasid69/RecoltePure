@@ -1,7 +1,0 @@
-.env
-debug_session.log
-.vscode/
-vendor/
-.DS_Store
-*.tmp
-*.log
