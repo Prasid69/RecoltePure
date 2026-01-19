@@ -11,7 +11,7 @@
   <div class="admin-auth">
     <div class="card">
       <div class="logo-top">
-        <img src="../assets/uploads/products/Logo.png" alt="RecoltePure">
+        <img src="/RecoltePure/assets/uploads/products/Logo.png" alt="RecoltePure">
         <strong>RecoltePure Admin</strong>
       </div>
       <h1>Admin Login</h1>
@@ -25,7 +25,7 @@
         <input type="password" name="password" required>
         <button type="submit" class="btn">Login</button>
         <div style="margin-top:10px; font-size:13px; text-align:center;">
-          <a href="index.php?page=admin&action=register">Register an Admin</a>
+          <a href="/RecoltePure/admin/register">Register an Admin</a>
         </div>
       </form>
     </div>

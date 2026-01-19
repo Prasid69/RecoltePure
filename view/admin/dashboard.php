@@ -21,7 +21,7 @@ $current_action = $_GET['action'] ?? 'dashboard';
     <div class="brand"><img src="assets/uploads/products/Logo.png" alt="Logo"> RecoltePure Admin</div>
     <nav>
             <nav>
-    <a href="admin/dashboard" class="<?= ($current_action == 'dashboard') ? 'active' : '' ?>">
+    <a href="admin" class="<?= ($current_action == 'dashboard') ? 'active' : '' ?>">
         <i class="fas fa-th-large"></i> <span>Dashboard</span>
     </a>
 
@@ -42,7 +42,7 @@ $current_action = $_GET['action'] ?? 'dashboard';
     </a>
 </nav>    
             
-            <a  href="/RecoltePure/admin/logout" class="logout">
+            <a  href="admin/logout" class="logout">
                 <i class="fas fa-sign-out-alt"></i> <span>Logout</span>
             </a>
         </nav>

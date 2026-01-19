@@ -19,7 +19,7 @@ $current_action = $_GET['action'] ?? 'dashboard';
   <header class="admin-header">
     <div class="brand"><img src="assets/uploads/products/Logo.png" alt="Logo"> RecoltePure Admin</div>
     <nav>
-            <a href="admin/dashboard" class="<?= ($current_action == 'dashboard') ? 'active' : '' ?>">
+            <a href="admin/" class="<?= ($current_action == 'dashboard') ? 'active' : '' ?>">
         <i class="fas fa-th-large"></i> <span>Dashboard</span>
     </a>
 
@@ -57,6 +57,7 @@ $current_action = $_GET['action'] ?? 'dashboard';
                     <option value="all" <?= ($_GET['status'] ?? '') == 'all' ? 'selected' : '' ?>>All Statuses</option>
                     <option value="Pending" <?= ($_GET['status'] ?? '') == 'Pending' ? 'selected' : '' ?>>Pending</option>
                     <option value="Delivered" <?= ($_GET['status'] ?? '') == 'Delivered' ? 'selected' : '' ?>>Delivered</option>
+                    <option value="Cancelled" <?= ($_GET['status'] ?? '') == 'Cancelled' ? 'selected' : '' ?>>Cancelled</option>
                 </select>
             </div>
         </div>

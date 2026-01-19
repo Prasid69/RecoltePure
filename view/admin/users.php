@@ -22,7 +22,7 @@
             <span>RecoltePure Admin</span>
         </div>
         <nav>
-            <a href="admin/dashboard" class="<?= ($current_action == 'dashboard') ? 'active' : '' ?>">
+            <a href="admin/" class="<?= ($current_action == 'dashboard') ? 'active' : '' ?>">
         <i class="fas fa-th-large"></i> <span>Dashboard</span>
     </a>
 

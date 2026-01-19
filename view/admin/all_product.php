@@ -17,7 +17,7 @@
   <header class="admin-header">
     <div class="brand"><img src="assets/uploads/products/Logo.png" alt="Logo"> RecoltePure Admin</div>
     <nav>
-            <a href="admin/dashboard" class="<?= ($current_action == 'dashboard') ? 'active' : '' ?>">
+            <a href="admin/" class="<?= ($current_action == 'dashboard') ? 'active' : '' ?>">
         <i class="fas fa-th-large"></i> <span>Dashboard</span>
     </a>
 
@@ -48,12 +48,12 @@
     </div>
 
     <form action="index.php" method="GET" class="search-box">
-                <input type="hidden" name="page" value="admin">
-                <input type="hidden" name="action" value="users"> 
-                <i class="fas fa-search"></i>
-                <input type="text" name="search" placeholder="Search users by name or email..." 
-                       value="<?= htmlspecialchars($search ?? '') ?>">
-            </form>
+    <input type="hidden" name="page" value="admin">
+    <input type="hidden" name="action" value="all_products">
+    <input type="text" name="search" placeholder="Search..." value="<?= htmlspecialchars($_GET['search'] ?? '') ?>">
+</form>
+
+
     <br>
 
     <div class="charts-section" style="display: grid; grid-template-columns: 1fr 2fr; gap: 20px; margin-bottom: 30px;">
@@ -76,6 +76,7 @@
     </div>
 
     <section class="panel">
+        
         <table class="user-table">
             <thead>
                 <tr>
@@ -87,6 +88,8 @@
                 </tr>
             </thead>
             <tbody>
+               
+
                 <?php foreach ($products as $p): ?>
                 <tr>
                     <td>

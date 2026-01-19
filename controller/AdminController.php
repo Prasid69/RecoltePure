@@ -29,10 +29,6 @@ class AdminController {
                 $this->login();
                 break;
 
-            case 'users':          
-                $this->usersPage();
-                break;
-
             case 'register':
                 $this->register();
                 break;
@@ -91,6 +87,10 @@ class AdminController {
 
             case 'export_farmers':
                 $this->export_farmers();
+                break;
+
+            case 'product_search':
+                $this->productsPage();
                 break;
 
             
@@ -249,12 +249,20 @@ private function viewFarmerProducts() {
     }
 }
 
-private function allproductsPage() {
-    $products = $this->model->getAllProductsWithDetails();
+private function allProductsPage() {
+    $search = $_GET['search'] ?? null;
+
+    if ($search) {
+        $products = $this->model->searchProducts($search); // Only matching products
+    } else {
+        $products = $this->model->getAllProductsWithDetails(); // All products
+    }
+
     $categoryStats = $this->model->getCategoryStats();
     
     require 'view/admin/all_product.php';
 }
+
 
 
 
@@ -399,6 +407,19 @@ public function export_farmers() {
 
     fclose($output);
     exit;
+}
+
+public function productsPage() {
+    $search = $_GET['search'] ?? null;
+
+if ($search) {
+    $products = $this->model->searchProducts($search);
+} else {
+    $products = $this->model->getAllProductsWithDetails(); 
+}
+
+require 'view/admin/all_product.php';
+
 }
 
 }
