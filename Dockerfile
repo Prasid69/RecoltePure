@@ -9,7 +9,7 @@ RUN apt-get update && apt-get install -y \
 
 # Install required PHP extensions
 RUN docker-php-ext-install mysqli
-RUN a2dismod mpm_event mpm_worker && a2enmod mpm_prefork
+
 RUN a2enmod rewrite
 
 # Install Composer
