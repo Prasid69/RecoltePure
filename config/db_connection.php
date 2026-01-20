@@ -13,8 +13,13 @@ if ($envUrl) {
     $port = $urlParts['port'] ?? 3306;
 } else {
     // Fallback to individual variables
-    // Prioritize MYSQL* variables (Railway standard) over DB_* as DB_HOST might be misconfigured
-    $servername = getenv('MYSQLHOST') ?: getenv('DB_HOST') ?: 'localhost';
+    // Prioritize MYSQL* variables. Fallback to 'mysql.railway.internal' if MYSQLHOST is missing.
+    // Explicitly ignoring DB_HOST if it mimics the web service name to avoid "Connection Refused".
+    $envHost = getenv('MYSQLHOST');
+    if (!$envHost) {
+        $envHost = 'mysql.railway.internal';
+    }
+    $servername = $envHost;
     $username = getenv('MYSQLUSER') ?: getenv('DB_USER') ?: 'root';
     $password = getenv('MYSQLPASSWORD') ?: getenv('DB_PASS') ?: '';
     $database = getenv('MYSQLDATABASE') ?: getenv('DB_NAME') ?: 'recoltepure';
