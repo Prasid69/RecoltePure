@@ -26,8 +26,7 @@ class OrderController
             return true;
         } catch (Exception $e) {
             error_log('Order creation failed: ' . $e->getMessage());
-            // Temporary Debugging: Show error on screen
-            echo "DEBUG ERROR: " . $e->getMessage();
+
             return false;
         }
     }
