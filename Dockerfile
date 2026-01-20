@@ -12,6 +12,7 @@ RUN docker-php-ext-install mysqli
 
 # Copy and set up entrypoint script for runtime configuration
 COPY docker-entrypoint.sh /usr/local/bin/
+RUN sed -i 's/\r$//' /usr/local/bin/docker-entrypoint.sh
 RUN chmod +x /usr/local/bin/docker-entrypoint.sh
 
 CMD ["docker-entrypoint.sh"]
