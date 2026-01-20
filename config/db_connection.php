@@ -1,5 +1,5 @@
 <?php
-$envUrl = getenv('DATABASE_URL') ?: getenv('MYSQL_URL');
+$envUrl = getenv('MYSQL_URL') ?: getenv('DATABASE_URL');
 
 if ($envUrl) {
     // Parse the connection string (e.g. mysql://user:pass@host:port/db)
