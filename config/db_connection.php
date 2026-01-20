@@ -17,7 +17,7 @@ if ($envUrl) {
     $username = getenv('DB_USER') ?: getenv('MYSQLUSER') ?: 'root';
     $password = getenv('DB_PASS') ?: getenv('MYSQLPASSWORD') ?: '';
     $database = getenv('DB_NAME') ?: getenv('MYSQLDATABASE') ?: 'recoltepure';
-    $port = getenv('DB_PORT') ?: getenv('MYSQLPORT') ?: 3306;
+    $port = getenv('MYSQLPORT') ?: getenv('DB_PORT') ?: 3306;
 
     $servername = str_replace('tcp://', '', $servername);
     if (strpos($servername, ':') !== false) {
