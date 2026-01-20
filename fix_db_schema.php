@@ -23,6 +23,9 @@ function runQuery($db, $sql, $description)
 runQuery($db, "ALTER TABLE users MODIFY customer_id INT(11) NOT NULL AUTO_INCREMENT", "Fixing customer_id AUTO_INCREMENT");
 runQuery($db, "ALTER TABLE users MODIFY phone_number INT(10) NULL DEFAULT NULL", "Fixing phone_number NULLABLE");
 
+// 1b. Fix Order Cart Table
+runQuery($db, "ALTER TABLE order_or_cart MODIFY order_cart_id INT(11) NOT NULL AUTO_INCREMENT", "Fixing order_cart_id AUTO_INCREMENT");
+
 // 2. Add Missing Payment Columns to order_or_cart
 $columnsToAdd = [
     'payment_status' => "VARCHAR(50) DEFAULT 'Pending'",
