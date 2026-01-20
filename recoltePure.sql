@@ -218,7 +218,12 @@ CREATE TABLE `order_or_cart` (
   `product_id` int(11) DEFAULT NULL,
   `quantity` int(11) DEFAULT NULL,
   `total_price` decimal(10,2) DEFAULT NULL,
-  `delivery_date` datetime DEFAULT NULL
+  `delivery_date` datetime DEFAULT NULL,
+  `payment_status` varchar(50) DEFAULT 'Pending',
+  `payment_method` varchar(50) DEFAULT NULL,
+  `transaction_id` varchar(255) DEFAULT NULL,
+  `payment_date` datetime DEFAULT NULL,
+  `amount_paid` decimal(10,2) DEFAULT 0.00
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- --------------------------------------------------------

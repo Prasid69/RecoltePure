@@ -9,7 +9,14 @@ $commands = [
     "ALTER TABLE users MODIFY customer_id INT(11) NOT NULL AUTO_INCREMENT",
 
     // 2. Fix: Make phone_number NULLABLE because it is not collected during registration
-    "ALTER TABLE users MODIFY phone_number INT(10) NULL DEFAULT NULL"
+    "ALTER TABLE users MODIFY phone_number INT(10) NULL DEFAULT NULL",
+
+    // 3. Fix: Add missing payment columns to order_or_cart table (required for Stripe orders)
+    "ALTER TABLE order_or_cart ADD COLUMN IF NOT EXISTS payment_status VARCHAR(50) DEFAULT 'Pending'",
+    "ALTER TABLE order_or_cart ADD COLUMN IF NOT EXISTS payment_method VARCHAR(50) DEFAULT NULL",
+    "ALTER TABLE order_or_cart ADD COLUMN IF NOT EXISTS transaction_id VARCHAR(255) DEFAULT NULL",
+    "ALTER TABLE order_or_cart ADD COLUMN IF NOT EXISTS payment_date DATETIME DEFAULT NULL",
+    "ALTER TABLE order_or_cart ADD COLUMN IF NOT EXISTS amount_paid DECIMAL(10,2) DEFAULT 0.00"
 ];
 
 foreach ($commands as $sql) {
