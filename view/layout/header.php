@@ -145,7 +145,6 @@ $cartCount = Cart::getTotalQuantity();
                 <a href="index.php?page=cart" class="cart-link" style="text-decoration: none;">
                     <div class="icon-wrapper">
                         <i class='bx bxs-cart' style="color: black"></i>
-
                         <?php if ($cartCount > 0): ?>
                             <span class="cart-badge"><?php echo $cartCount; ?></span>
                         <?php endif; ?>
@@ -160,7 +159,6 @@ $cartCount = Cart::getTotalQuantity();
                         <a href="index.php?page=my_orders">My Orders</a>
                         <a href="index.php?page=logout">Logout</a>
                     </div>
->>>>>>> 48a96ddb6036066e08f78c207bf86e544e837861
                 <?php endif; ?>
             </div>
         </nav>
