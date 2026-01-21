@@ -37,7 +37,7 @@
             <div class="homepage-card homepage-pink">
                 <img src="assets/uploads/products/fruits.png" alt="fruits">
                 <h3>Fruits</h3>
-                <a href="index.php?page=categories&category_id=1">
+                <a href="/RecoltePure/categories">
                     <button class="homepage-order-btn">Order Now</button>
                 </a>
             </div>
@@ -45,7 +45,7 @@
             <div class="homepage-card homepage-orange">
                 <img src="assets/uploads/products/vegetables.png" alt="vegetables">
                 <h3>Vegetables</h3>
-                <a href="index.php?page=categories&category_id=2">
+                <a href="/RecoltePure/categories/2">
                     <button class="homepage-order-btn">Order Now</button>
                 </a>
             </div>
@@ -53,7 +53,7 @@
             <div class="homepage-card homepage-green">
                 <img src="assets/uploads/products/dairyproducts.png" alt="dairyproducts">
                 <h3>Dairy Products</h3>
-                <a href="index.php?page=categories&category_id=3">
+                <a href="/RecoltePure/categories/3">
                     <button class="homepage-order-btn">Order Now</button>
                 </a>
             </div>
@@ -62,7 +62,7 @@
             <div class="homepage-card homepage-red">
                 <img src="assets/uploads/products/herbss.webp" alt="herbs">
                 <h3>Herbs</h3>
-                <a href="index.php?page=categories&category_id=4">
+                <a href="/RecoltePure/categories/4">
                     <button class="homepage-order-btn">Order Now</button>
                 </a>
             </div>
@@ -132,7 +132,7 @@
             <?php if (!empty($bestSellingProducts)): ?>
                 <?php foreach ($bestSellingProducts as $product): ?>
 
-                    <form action="index.php?page=cart" method="POST" class="card">
+                    <form action="/RecoltePure/cart" method="POST" class="card">
                         <?php if ($product['old_price'] > $product['price']): ?>
                             <div class="badge">
                                 -<?= round((($product['old_price'] - $product['price']) / $product['old_price']) * 100); ?>%
@@ -169,7 +169,7 @@
                                     <input type="text" class="counter-input" value="1" readonly>
                                     <button type="button" class="counter-btn plus">+</button>
                                 </div>
-                                <form action="index.php?page=cart" method="POST">
+                                <form action="/RecoltePure/cart" method="POST">
                                     <input type="hidden" name="quantity" class="quantity-field" value="1">
                                     <button type="submit" class="add-to-cart-btn">
                                         <i class="fas fa-shopping-bag"></i>

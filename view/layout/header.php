@@ -91,7 +91,7 @@ $cartCount = Cart::getTotalQuantity();
     <header>
         <nav class="navbar">
             <div class="logo">
-                <a href="index.php?page=home" class="logo">
+                <a href="/home" class="logo">
 
                     <img src="/assets/uploads/products/Logo.png" alt="RecoltePure Logo" width="40" height="40">
 
@@ -99,22 +99,44 @@ $cartCount = Cart::getTotalQuantity();
                 </a>
             </div>
             <ul class="nav-links">
-                <li><a href="index.php?page=home" class="active">Home</a></li>
-                <li><a href="index.php?page=categories" class="active">Product</a></li>
-                <li><a href="index.php?page=farmers" class="active">Our Producers</a></li>
-                <li><a href="index.php?page=contact" class="active">Contact Us</a></li>
-                <li><a href="index.php?page=terms_and_conditions" class="active">Terms & Conditions</a></li>
+                <li><a href="/home" class="active">Home</a></li>
+                <li><a href="/categories" class="active">Product</a></li>
+                <li><a href="/farmers" class="active">Our Producers</a></li>
+                <li><a href="/contact" class="active">Contact Us</a></li>
+                <li><a href="/terms-and-conditions" class="active">Terms & Conditions</a></li>
             </ul>
 
 
+<<<<<<< HEAD
+      <div class="menu-icon" id="menu-toggle">
+     <i class='bx bx-menu'></i> </div>
+        <form method="GET" action="/RecoltePure/categories/search/" class="search-box">
+    <input type="text" name="search" class="search-input" placeholder="Search..." 
+           value="<?php echo isset($_GET['search']) ? htmlspecialchars($_GET['search']) : ''; ?>" required>
+    <button type="submit" class="search-btn">
+        <i class='bx bx-search'></i>
+    </button>
+</form>
+
+
+        <a href="/RecoltePure/cart" class="cart-link" style="text-decoration: none;">
+            <div class="icon-wrapper">
+                <i class='bx bxs-cart' style="color: black"></i>
+                
+                <?php if ($cartCount > 0): ?>
+                    <span class="cart-badge"><?php echo $cartCount; ?></span>
+=======
             <div class="nav-actions">
+
                 <div class="menu-icon" id="menu-toggle">
                     <i class='bx bx-menu'></i>
                 </div>
                 <form method="GET" action="index.php" class="search-box">
                     <input type="hidden" name="page" value="categories">
+
                     <input type="text" name="search" class="search-input" placeholder="Search..."
                         value="<?php echo isset($_GET['search']) ? htmlspecialchars($_GET['search']) : ''; ?>">
+
                     <button type="submit" class="search-btn">
                         <i class='bx bx-search'></i>
                     </button>
@@ -123,24 +145,22 @@ $cartCount = Cart::getTotalQuantity();
                 <a href="index.php?page=cart" class="cart-link" style="text-decoration: none;">
                     <div class="icon-wrapper">
                         <i class='bx bxs-cart' style="color: black"></i>
+
                         <?php if ($cartCount > 0): ?>
-                            <span class="cart-badge">
-                                <?php echo $cartCount; ?>
-                            </span>
+                            <span class="cart-badge"><?php echo $cartCount; ?></span>
                         <?php endif; ?>
                     </div>
                 </a>
                 <?php if (!$userData['is_logged_in']): ?>
-                    <a href="index.php?page=login" class="sign-in">Sign In</a>
+                    <a href="/login" class="sign-in">Sign In</a>
                 <?php else: ?>
-                    <button class="user-btn">
-                        <?php echo $userData['initial']; ?>
-                    </button>
+                    <button class="user-btn"><?php echo $userData['initial']; ?></button>
                     <div class="dropdown-menu">
                         <a href="index.php?page=profile">My Profile</a>
                         <a href="index.php?page=my_orders">My Orders</a>
                         <a href="index.php?page=logout">Logout</a>
                     </div>
+>>>>>>> 48a96ddb6036066e08f78c207bf86e544e837861
                 <?php endif; ?>
             </div>
         </nav>

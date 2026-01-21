@@ -85,7 +85,7 @@ switch ($page) {
 
     case 'clear':
         require_once "controller/CartController.php";
-        $controller = new CartController($db);
+        $controller = new CartController();
         $controller->handleActions();
         break;
 

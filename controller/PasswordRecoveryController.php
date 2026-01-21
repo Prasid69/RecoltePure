@@ -33,8 +33,7 @@ class RecoveryController
                         'token' => $token,
                         'created' => time()
                     ];
-                    $scheme = isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on' ? "https" : "http";
-                    $resetLink = $scheme . "://" . $_SERVER['HTTP_HOST'] . "/index.php?page=reset_password&email=" . urlencode($email) . "&token=" . urlencode($token);
+                    $resetLink = "http://localhost/RecoltePure/index.php?page=reset_password&email=" . urlencode($email) . "&token=" . urlencode($token);
 
                     $message = 'A recovery link has been generated below (local test).';
                 } else {

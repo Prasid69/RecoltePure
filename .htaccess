@@ -1,2 +1,143 @@
-# .htaccess removed to ensure compatibility with Railway and avoid 500/404 errors.
-# All routing is handled via index.php?page=... parameters.
+RewriteEngine On
+RewriteBase /
+
+# -------------------------------------------------
+# Remove index.php from URLs
+# -------------------------------------------------
+RewriteCond %{THE_REQUEST} /index\.php\?page=([^\s&]+) [NC]
+RewriteRule ^index\.php$ /%1? [R=301,L]
+
+# -------------------------------------------------
+# Ignore real files & directories
+# -------------------------------------------------
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+
+# -------------------------------------------------
+# ADMIN ROUTES
+# -------------------------------------------------
+RewriteRule ^admin/?$ index.php?page=admin&action=dashboard [L,QSA]
+
+RewriteRule ^admin/login/?$ index.php?page=admin&action=login [L,QSA]
+RewriteRule ^admin/logout/?$ index.php?page=admin&action=logout [L,QSA]
+RewriteRule ^admin/register/?$ index.php?page=admin&action=register [L,QSA]
+
+RewriteRule ^admin/users/?$ index.php?page=admin&action=users [L,QSA]
+RewriteRule ^admin/farmers/?$ index.php?page=admin&action=farmers [L,QSA]
+RewriteRule ^admin/orders/?$ index.php?page=admin&action=orders [L,QSA]
+RewriteRule ^admin/all_products/?$ index.php?page=admin&action=all_products [L,QSA]
+
+RewriteRule ^admin/export-users/?$ index.php?page=admin&action=export_users [L,QSA]
+RewriteRule ^admin/export-farmers/?$ index.php?page=admin&action=export_farmers [L,QSA]
+
+RewriteRule ^admin/farmer-products/([0-9]+)/?$ index.php?page=admin&action=farmer_products&id=$1 [L,QSA]
+
+# -------------------------------------------------
+# FRONTEND ROUTES
+# -------------------------------------------------
+RewriteRule ^$ index.php?page=home [L,QSA]
+RewriteRule ^home/?$ index.php?page=home [L,QSA]
+
+RewriteRule ^login/?$ index.php?page=login [L,QSA]
+RewriteRule ^register/?$ index.php?page=register [L,QSA]
+
+RewriteRule ^contact/?$ index.php?page=contact [L,QSA]
+RewriteRule ^faq/?$ index.php?page=faq [L,QSA]
+RewriteRule ^terms-and-conditions/?$ index.php?page=terms_and_conditions [L,QSA]
+
+RewriteRule ^profile/?$ index.php?page=profile [L,QSA]
+RewriteRule ^edit-profile/?$ index.php?page=edit_profile [L,QSA]
+RewriteRule ^update-profile/?$ index.php?page=update_profile [L,QSA]
+
+# -------------------------------------------------
+# CATEGORIES (with ID, search, pagination)
+# -------------------------------------------------
+RewriteRule ^categories/([1-9][0-9]*)(/search/([^/]+))?(/page/([0-9]+))?/?$ index.php?page=categories&category_id=$1&search=$3&p=$5 [L,QSA]
+# Search across all categories
+RewriteRule ^categories/search/?$ index.php?page=categories&search=$1 [L,QSA]
+RewriteRule ^categories/search/?$ index.php?page=categories [L,QSA]
+
+# Default category
+RewriteRule ^categories/?$ index.php?page=categories&category_id=1 [L,QSA]
+
+# -------------------------------------------------
+# FARMERS
+# -------------------------------------------------
+RewriteRule ^farmers/?$ index.php?page=farmers [L,QSA]
+
+# -------------------------------------------------
+# CART & CHECKOUT
+# -------------------------------------------------
+RewriteRule ^cart/?$ index.php?page=cart [L,QSA]
+RewriteRule ^cart/clear/?$ index.php?page=clear [L,QSA]
+RewriteRule ^checkout/?$ index.php?page=checkout [L,QSA]
+RewriteRule ^cart/clear/?$ index.php?page=cart&action=clear [L,QSA]
+# Search across all categories
+RewriteRule ^categories/search/?$ index.php?page=categories [L,QSA]
+
+
+
+RewriteRule ^profile/?$ index.php?page=profile [L,QSA]
+
+RewriteRule ^home/?$ index.php?page=home [L,QSA]
+
+
+
+
+# -------------------------------------------------
+# ORDERS & REVIEWS
+# -------------------------------------------------
+RewriteRule ^my-orders/?$ index.php?page=my_orders [L,QSA]
+RewriteRule ^write-review/?$ index.php?page=write_review [L,QSA]
+RewriteRule ^process-review/?$ index.php?page=process_review [L,QSA]
+
+# -------------------------------------------------
+# PASSWORD
+# -------------------------------------------------
+RewriteRule ^password-recovery/?$ index.php?page=password_recovery [L,QSA]
+RewriteRule ^reset-password/?$ index.php?page=reset_password [L,QSA]
+# Orders
+RewriteRule ^my-orders/?$ index.php?page=my_orders [L,QSA]
+
+# Checkout
+RewriteRule ^checkout/?$ index.php?page=checkout [L,QSA]
+
+# Terms and conditions
+RewriteRule ^terms-and-conditions/?$ index.php?page=terms_and_conditions [L,QSA]
+
+# Farmers listing (frontend)
+RewriteRule ^farmers/?$ index.php?page=farmers [L,QSA]
+
+
+RewriteRule ^register/?$ index.php?page=register [L,QSA]
+
+RewriteRule ^login/?$ index.php?page=login [L,QSA]
+
+RewriteRule ^home/?$ index.php?page=home [L,QSA]
+
+RewriteRule ^$ index.php?page=home [L,QSA]
+RewriteRule ^home/?$ index.php?page=home [L,QSA]
+RewriteRule ^categories/?$ index.php?page=categories [L,QSA]
+RewriteRule ^farmers/?$ index.php?page=farmers [L,QSA]
+RewriteRule ^contact/?$ index.php?page=contact [L,QSA]
+RewriteRule ^terms-and-conditions/?$ index.php?page=terms_and_conditions [L,QSA]
+
+
+
+
+# FAQ
+RewriteRule ^faq/?$ index.php?page=faq [L,QSA]
+
+# Terms
+RewriteRule ^terms-and-conditions/?$ index.php?page=terms_and_conditions [L,QSA]
+
+
+RewriteRule ^categories/([1-9][0-9]*)(/search/([^/]+))?(/page/([0-9]+))?/?$ index.php?page=categories&category_id=$1&search=$3&p=$5 [L,QSA]
+
+# Default categories page if no ID is given, go to 1
+RewriteRule ^categories/?$ index.php?page=categories&category_id=1 [L,QSA]
+
+
+# Cart pages
+RewriteRule ^cart/?$ index.php?page=cart [L,QSA]
+RewriteRule ^cart/clear/?$ index.php?page=clear [L,QSA]

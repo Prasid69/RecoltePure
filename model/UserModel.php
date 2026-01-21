@@ -26,7 +26,7 @@ class UserModel
 
     public function registerFarmer($fullName, $email, $phone, $address, $certNumber, $passwordHash)
     {
-        $stmt = $this->db->prepare("INSERT INTO farmer (name, email, phone_number, address, certificate_number, password) VALUES (?, ?, ?, ?, ?, ?)");
+        $stmt = $this->db->prepare("INSERT INTO farmer (name, email, phone_number, address, certificate_number, password_hash) VALUES (?, ?, ?, ?, ?, ?)");
         $stmt->bind_param("ssssss", $fullName, $email, $phone, $address, $certNumber, $passwordHash);
 
         if ($stmt->execute()) {
