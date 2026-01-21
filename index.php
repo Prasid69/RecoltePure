@@ -85,8 +85,13 @@ switch ($page) {
 
     case 'clear':
         require_once "controller/CartController.php";
+<<<<<<< HEAD
+        $controller = new CartController($db);
+        $controller->handleActions(); 
+=======
         $controller = new CartController();
         $controller->handleActions();
+>>>>>>> 48a96ddb6036066e08f78c207bf86e544e837861
         break;
 
     case 'contact':

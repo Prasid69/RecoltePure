@@ -107,6 +107,25 @@ $cartCount = Cart::getTotalQuantity();
             </ul>
 
 
+<<<<<<< HEAD
+      <div class="menu-icon" id="menu-toggle">
+     <i class='bx bx-menu'></i> </div>
+        <form method="GET" action="/RecoltePure/categories/search/" class="search-box">
+    <input type="text" name="search" class="search-input" placeholder="Search..." 
+           value="<?php echo isset($_GET['search']) ? htmlspecialchars($_GET['search']) : ''; ?>" required>
+    <button type="submit" class="search-btn">
+        <i class='bx bx-search'></i>
+    </button>
+</form>
+
+
+        <a href="/RecoltePure/cart" class="cart-link" style="text-decoration: none;">
+            <div class="icon-wrapper">
+                <i class='bx bxs-cart' style="color: black"></i>
+                
+                <?php if ($cartCount > 0): ?>
+                    <span class="cart-badge"><?php echo $cartCount; ?></span>
+=======
             <div class="nav-actions">
 
                 <div class="menu-icon" id="menu-toggle">
@@ -141,6 +160,7 @@ $cartCount = Cart::getTotalQuantity();
                         <a href="index.php?page=my_orders">My Orders</a>
                         <a href="index.php?page=logout">Logout</a>
                     </div>
+>>>>>>> 48a96ddb6036066e08f78c207bf86e544e837861
                 <?php endif; ?>
             </div>
         </nav>

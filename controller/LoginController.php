@@ -27,8 +27,9 @@ class LoginController {
                 $_SESSION['user_id'] = $loggedInUser['id'];  
                 $_SESSION['login_user'] = $loggedInUser['name']; 
                 $_SESSION['role'] = $role;
-                header("Location: index.php?page=profile");
+                header("Location: /RecoltePure/profile");
                 exit();
+
             } else {
                 $error = "Invalid email or password.";
             }

@@ -20,7 +20,7 @@ class CategoryController {
         ];
 
         $search = isset($_GET['search']) ? trim($_GET['search']) : '';
-        $categoryId = isset($_GET['category_id']) ? intval($_GET['category_id']) : 1;
+        $categoryId = !empty($_GET['category_id']) ? intval($_GET['category_id']) : null;
         $sort = isset($_GET['sort']) ? $_GET['sort'] : '';
         $page = isset($_GET['p']) ? intval($_GET['p']) : 1;
         $page = max(1, $page); 
