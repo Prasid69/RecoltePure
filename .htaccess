@@ -1,5 +1,5 @@
 RewriteEngine On
-RewriteBase /
+Options -MultiViews
 
 # -------------------------------------------------
 # Remove index.php from URLs
@@ -48,13 +48,13 @@ RewriteRule ^process-review/?$ index.php?page=process_review [L,QSA]
 RewriteRule ^farmers/?$ index.php?page=farmers [L,QSA]
 
 # -------------------------------------------------
-# CATEGORIES (with ID, search, pagination)
+# CATEGORIES
 # -------------------------------------------------
-RewriteRule ^categories/([1-9][0-9]*)/search/([^/]+)/page/([0-9]+)/?$
-index.php?page=categories&category_id=$1&search=$2&p=$3 [L,QSA]
-RewriteRule ^categories/([1-9][0-9]*)/search/([^/]+)/?$ index.php?page=categories&category_id=$1&search=$2 [L,QSA]
-RewriteRule ^categories/([1-9][0-9]*)/page/([0-9]+)/?$ index.php?page=categories&category_id=$1&p=$2 [L,QSA]
-RewriteRule ^categories/([1-9][0-9]*)/?$ index.php?page=categories&category_id=$1 [L,QSA]
+RewriteRule ^categories/([0-9]+)/search/([^/]+)/page/([0-9]+)/?$ index.php?page=categories&category_id=$1&search=$2&p=$3
+[L,QSA]
+RewriteRule ^categories/([0-9]+)/search/([^/]+)/?$ index.php?page=categories&category_id=$1&search=$2 [L,QSA]
+RewriteRule ^categories/([0-9]+)/page/([0-9]+)/?$ index.php?page=categories&category_id=$1&p=$2 [L,QSA]
+RewriteRule ^categories/([0-9]+)/?$ index.php?page=categories&category_id=$1 [L,QSA]
 RewriteRule ^categories/search/?$ index.php?page=categories [L,QSA]
 RewriteRule ^categories/?$ index.php?page=categories [L,QSA]
 
