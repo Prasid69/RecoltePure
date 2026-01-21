@@ -62,8 +62,8 @@
                     <h2>Welcome <br>to RecoltePure</h2>
                 </div>
 
-                <!-- LOGIN FORM -->
-                <form method="POST" action="/login">
+            <!-- LOGIN FORM -->
+            <form method="POST" action="/RecoltePure/login">
 
 
                     <!-- ERROR MESSAGE FROM CONTROLLER -->

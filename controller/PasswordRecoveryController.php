@@ -3,17 +3,14 @@
 require_once 'model/PasswordRecovery.php';
 require_once 'config/db_connection.php';
 
-class RecoveryController
-{
+class RecoveryController {
     private $model;
 
-    public function __construct($dbConnection)
-    {
+    public function __construct($dbConnection) {
         $this->model = new RecoveryModel($dbConnection);
     }
 
-    public function handleRequest()
-    {
+    public function handleRequest() {
         $message = '';
         $resetLink = '';
 
@@ -24,22 +21,20 @@ class RecoveryController
                 $message = 'Please enter your email.';
             } else {
                 if ($this->model->emailExists($email)) {
-
+              
                     $token = bin2hex(random_bytes(16));
-
+                    
                     $_SESSION['pwd_reset'] = $_SESSION['pwd_reset'] ?? [];
-
+                    
                     $_SESSION['pwd_reset'][$email] = [
-                        'token' => $token,
+                        'token' => $token, 
                         'created' => time()
                     ];
-                    $protocol = (isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on') ? "https://" : "http://";
-                    $host = $_SERVER['HTTP_HOST'];
-                    $resetLink = "{$protocol}{$host}/reset-password?email=" . urlencode($email) . "&token=" . urlencode($token);
-
+                    $resetLink = "http://localhost/RecoltePure/index.php?page=reset_password&email=" . urlencode($email) . "&token=" . urlencode($token);
+                    
                     $message = 'A recovery link has been generated below (local test).';
                 } else {
-
+                   
                     $message = 'Email address not found.';
                 }
             }

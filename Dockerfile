@@ -37,9 +37,6 @@ RUN composer install --no-dev --optimize-autoloader
 # Copy project files to the container
 COPY . /var/www/html/
 
-# Copy and enable custom Apache configuration
-COPY apache-config.conf /etc/apache2/sites-available/000-default.conf
-
 # Permissions
 RUN chown -R www-data:www-data /var/www/html
 
