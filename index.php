@@ -168,6 +168,10 @@ switch ($page) {
         $controller->route();
         break;
 
+    case 'faq':
+        require_once 'view/faq.php';
+        break;
+
     case 'terms_and_conditions':
         require_once 'view/terms_and_conditions.php';
         break;

@@ -37,7 +37,7 @@
         <div class="links-col">
             <h3>Useful Links</h3>
             <ul>
-                <li><a href="/faq">FAQ</a></li>
+                <li><a href="index.php?page=faq">FAQ</a></li>
         </div>
 
         <div class="newsletter-col">
