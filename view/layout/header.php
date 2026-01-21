@@ -32,7 +32,7 @@ $cartCount = Cart::getTotalQuantity();
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>RecoltePure</title>
 
-    <link rel="icon" type="image/png" sizes="512x512" href="../assets/images/favicon.png">
+    <link rel="icon" type="image/png" sizes="512x512" href="/assets/images/favicon.png">
     <link rel="stylesheet" href="/assets/css/homepage.css">
 
 
