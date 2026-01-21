@@ -118,12 +118,7 @@
         </div>
     </div>
 
-    <footer class="footer">
-        <div class="footer-content">
-            <p>&copy; 2024 RecoltePure. All rights reserved.</p>
 
-        </div>
-    </footer>
 
     <div id="successModal" class="success-modal" style="display: none;">
         <div class="success-modal-content">
@@ -175,6 +170,7 @@
             <?php } ?>
         });
     </script>
+    <?php include 'view/layout/footer.php'; ?>
 </body>
 
 </html>

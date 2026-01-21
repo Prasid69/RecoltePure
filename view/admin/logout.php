@@ -6,5 +6,5 @@ unset($_SESSION['admin_email']);
 
 session_destroy();
 
-header('Location: index.php?page=admin&action=login');
+header('Location: /admin/login');
 exit;
