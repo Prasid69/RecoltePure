@@ -132,26 +132,27 @@ class Product
         $types .= "ii";
 
         $stmt = $this->db->prepare($sql);
+        // Sorting
+        if ($sort === 'price_asc') $sql .= " ORDER BY price ASC";
+        elseif ($sort === 'price_desc') $sql .= " ORDER BY price DESC";
+        else $sql .= " ORDER BY product_name ASC";
+
+        $sql .= " LIMIT ?, ?";
+        $params[] = $offset;
+        $params[] = $limit;
+        $types .= 'ii';
+
+        $stmt = $this->db->prepare($sql);
+        if ($stmt === false) {
+            die("Prepare failed: " . $this->db->error);
+        }
+        // Bind parameters dynamically
         if (!empty($params)) {
             $stmt->bind_param($types, ...$params);
         }
         $stmt->execute();
-        return $stmt->get_result()->fetch_all(MYSQLI_ASSOC);
-    }
-
-    // Sorting
-    if ($sort === 'price_asc') $sql .= " ORDER BY price ASC";
-    elseif ($sort === 'price_desc') $sql .= " ORDER BY price DESC";
-    else $sql .= " ORDER BY product_name ASC";
-
-    $sql .= " LIMIT ?, ?";
-    $params[] = $offset;
-    $params[] = $limit;
-    $types .= 'ii';
-
-    $stmt = $this->db->prepare($sql);
-    if ($stmt === false) {
-        die("Prepare failed: " . $this->db->error);
+        $result = $stmt->get_result();
+        return $result->fetch_all(MYSQLI_ASSOC);
     }
 
     // Bind parameters dynamically
