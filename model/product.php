@@ -90,32 +90,22 @@ class Product
         return $result['total'];
     }
 
-<<<<<<< HEAD
     public function getProducts($search = '', $categoryId = null, $sort = '', $offset = 0, $limit = 12) {
-    $sql = "SELECT * FROM products WHERE 1=1";
-=======
-    public function getProducts($search, $categoryId, $sort, $offset, $limit)
-    {
         $sql = "SELECT * FROM products WHERE 1=1";
         $params = [];
-        $types = "";
->>>>>>> 48a96ddb6036066e08f78c207bf86e544e837861
-
-    $params = [];
-    $types = '';
-
-<<<<<<< HEAD
-    if ($categoryId !== null) {
-        $sql .= " AND category_id = ?";
-        $params[] = $categoryId;
-        $types .= 'i';
-=======
-        if ($categoryId > 0) {
+        $types = '';
+        if (!empty($search)) {
+            $sql .= " AND (product_name LIKE ? OR product_description LIKE ?)";
+            $searchTerm = "%$search%";
+            $params[] = $searchTerm;
+            $params[] = $searchTerm;
+            $types .= 'ss';
+        }
+        if ($categoryId !== null) {
             $sql .= " AND category_id = ?";
             $params[] = $categoryId;
-            $types .= "i";
+            $types .= 'i';
         }
-
         // Sorting
         switch ($sort) {
             case 'low':
