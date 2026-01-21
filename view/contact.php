@@ -7,7 +7,7 @@ include 'view/layout/header.php';
 <head>
     <meta charset="UTF-8">
     <title>Contact Us - Recolte Pure</title>
-    <link rel="stylesheet" href="assets/css/Contact.css?v=3">
+    <link rel="stylesheet" href="assets/css/Contact.css?v=4">
 </head>
 
 <body>
