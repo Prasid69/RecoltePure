@@ -91,7 +91,7 @@ body {
 
 .contact-wrapper {
     display: grid;
-    grid-template-columns: 350px 1fr;
+    grid-template-columns: minmax(300px, 350px) minmax(400px, 1fr);
     gap: 30px;
     margin-bottom: 50px;
     align-items: start;
@@ -102,6 +102,7 @@ body {
     display: flex;
     flex-direction: column;
     gap: 20px;
+    min-width: 300px;
 }
 
 .info-card {
@@ -313,7 +314,7 @@ body {
 }
 
 /* Responsive Design */
-@media (max-width: 768px) {
+@media (max-width: 900px) {
     .contact-wrapper {
         grid-template-columns: 1fr;
     }
