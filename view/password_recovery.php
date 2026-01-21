@@ -1,35 +1,3 @@
-<?php
-require 'config/db_connection.php';
-
-$message = '';
-$resetLink = '';
-if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    $email = trim($_POST['email'] ?? '');
-    if ($email === '') {
-        $message = 'Please enter your email.';
-    } else {
-
-        $exists = false;
-        $stmt = $db->prepare('SELECT 1 FROM users WHERE email = ? LIMIT 1');
-        $stmt->bind_param('s', $email);
-        $stmt->execute();
-        $exists = $stmt->get_result()->num_rows > 0;
-        if (!$exists) {
-            $stmt = $db->prepare('SELECT 1 FROM farmer WHERE email = ? LIMIT 1');
-            $stmt->bind_param('s', $email);
-            $stmt->execute();
-            $exists = $stmt->get_result()->num_rows > 0;
-        }
-
-        $token = bin2hex(random_bytes(16));
-        $_SESSION['pwd_reset'] = $_SESSION['pwd_reset'] ?? [];
-
-        $_SESSION['pwd_reset'][$email] = ['token' => $token, 'created' => time()];
-        $resetLink = 'http://' . $_SERVER['HTTP_HOST'] . '/view/reset_password.php?email=' . urlencode($email) . '&token=' . urlencode($token);
-        $message = 'If this email is registered, a recovery link has been generated below (local test).';
-    }
-}
-?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -123,7 +91,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
 <body>
     <div class="wrapper">
-        <form method="POST" action="index.php?page=password_recovery">
+        <form method="POST" action="/password-recovery">
             <h1>Password Recovery</h1>
 
             <div class="input-box" style="margin-top:12px;">
@@ -139,14 +107,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
             <?php if (!empty($resetLink)): ?>
                 <div class="notice" style="margin-top:8px;">
-                    <strong>Localhost Test Link:</strong><br>
-                    <a href="index.php?page=reset_password&email=<?= urlencode($email) ?>&token=<?= urlencode($token) ?>">Open
-                        Password Reset</a>
+                    <strong>Password Reset Link:</strong><br>
+                    <a href="<?= $resetLink ?>">Open Password Reset</a>
                 </div>
             <?php endif; ?>
 
             <div class="login-link">
-                <p>Remembered your password? <a href="index.php?page=login">Login</a></p>
+                <p>Remembered your password? <a href="/login">Login</a></p>
             </div>
         </form>
     </div>

@@ -1,11 +1,13 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>RecoltePure - Registration</title>
     <link rel="stylesheet" href="assets/css/registration.css">
 </head>
+
 <body>
     <div class="header">
         <div class="logo">
@@ -18,27 +20,36 @@
 
     <div class="container">
         <div class="left-section">
-             <h1>Join Us to Change Food for Good</h1>
-             <ul class="feature-list">
-                <li class="feature-item"><div class="check-icon"></div><span>Leader in direct sales</span></li>
-                <li class="feature-item"><div class="check-icon"></div><span>Certified organic farmers</span></li>
-                <li class="feature-item"><div class="check-icon"></div><span>Refund or replacement for defects</span></li>
-                <li class="feature-item"><div class="check-icon"></div><span>98.44% issue-free delivery</span></li>
-             </ul>
+            <h1>Join Us to Change Food for Good</h1>
+            <ul class="feature-list">
+                <li class="feature-item">
+                    <div class="check-icon"></div><span>Leader in direct sales</span>
+                </li>
+                <li class="feature-item">
+                    <div class="check-icon"></div><span>Certified organic farmers</span>
+                </li>
+                <li class="feature-item">
+                    <div class="check-icon"></div><span>Refund or replacement for defects</span>
+                </li>
+                <li class="feature-item">
+                    <div class="check-icon"></div><span>98.44% issue-free delivery</span>
+                </li>
+            </ul>
         </div>
 
         <div class="right-section">
             <div class="form-container">
                 <h2>Create account</h2>
-                
+
                 <?php if (isset($error) && !empty($error)): ?>
-                    <div style="background: #ffcfcc; color: #a61b1b; padding: 10px; border-radius: 5px; margin-bottom: 15px; text-align: center;">
+                    <div
+                        style="background: #ffcfcc; color: #a61b1b; padding: 10px; border-radius: 5px; margin-bottom: 15px; text-align: center;">
                         <?php echo $error; ?>
                     </div>
                 <?php endif; ?>
 
-                <form method="POST" action="index.php?page=register">
-                    
+                <form method="POST" action="/register">
+
                     <div class="form-group">
                         <label for="role">Register as</label>
                         <select id="role" name="role" required>
@@ -76,9 +87,10 @@
                     <div class="form-row">
                         <div class="form-group" id="certNumberGroup">
                             <label for="certNumber">Certification number (Farmers only)</label>
-                            <input type="text" id="certNumber" name="certNumber" placeholder="Enter certificate number (optional)">
+                            <input type="text" id="certNumber" name="certNumber"
+                                placeholder="Enter certificate number (optional)">
                         </div>
-                        
+
                     </div>
 
                     <div class="form-group">
@@ -99,7 +111,7 @@
                     <button type="submit" class="submit-btn">Sign Up</button>
 
                     <div class="login-link">
-                        Already have an account? <a href="index.php?page=login">Log In</a>
+                        Already have an account? <a href="/login">Log In</a>
                     </div>
                 </form>
             </div>
@@ -109,7 +121,7 @@
     <footer class="footer">
         <div class="footer-content">
             <p>&copy; 2024 RecoltePure. All rights reserved.</p>
-            
+
         </div>
     </footer>
 
@@ -118,7 +130,7 @@
             <div class="success-icon">✓</div>
             <h2>Registration Successful!</h2>
             <p>Your account has been created. You will be redirected to login in a moment.</p>
-            <a href="index.php?page=login" class="btn btn-primary">Go to Login Now</a>
+            <a href="/login" class="btn btn-primary">Go to Login Now</a>
         </div>
     </div>
 
@@ -135,7 +147,7 @@
             }
         }
 
-        document.addEventListener('DOMContentLoaded', function() {
+        document.addEventListener('DOMContentLoaded', function () {
             const roleSelect = document.getElementById('role');
             const certGroup = document.getElementById('certNumberGroup');
             const certInput = document.getElementById('certNumber');
@@ -157,11 +169,12 @@
             <?php if (isset($success) && $success === "registered") { ?>
                 const modal = document.getElementById('successModal');
                 modal.style.display = 'flex';
-                setTimeout(function() {
-                    window.location.href = 'index.php?page=login';
+                setTimeout(function () {
+                    window.location.href = '/login';
                 }, 3000);
             <?php } ?>
         });
     </script>
 </body>
+
 </html>

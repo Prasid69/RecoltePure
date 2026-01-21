@@ -111,8 +111,7 @@ $cartCount = Cart::getTotalQuantity();
                 <div class="menu-icon" id="menu-toggle">
                     <i class='bx bx-menu'></i>
                 </div>
-                <form method="GET" action="index.php" class="search-box">
-                    <input type="hidden" name="page" value="categories">
+                <form method="GET" action="/categories/search/" class="search-box">
                     <input type="text" name="search" class="search-input" placeholder="Search..."
                         value="<?php echo isset($_GET['search']) ? htmlspecialchars($_GET['search']) : ''; ?>">
                     <button type="submit" class="search-btn">
@@ -120,7 +119,7 @@ $cartCount = Cart::getTotalQuantity();
                     </button>
                 </form>
 
-                <a href="index.php?page=cart" class="cart-link" style="text-decoration: none;">
+                <a href="/cart" class="cart-link" style="text-decoration: none;">
                     <div class="icon-wrapper">
                         <i class='bx bxs-cart' style="color: black"></i>
                         <?php if ($cartCount > 0): ?>
@@ -137,9 +136,9 @@ $cartCount = Cart::getTotalQuantity();
                         <?php echo $userData['initial']; ?>
                     </button>
                     <div class="dropdown-menu">
-                        <a href="index.php?page=profile">My Profile</a>
-                        <a href="index.php?page=my_orders">My Orders</a>
-                        <a href="index.php?page=logout">Logout</a>
+                        <a href="/profile">My Profile</a>
+                        <a href="/my-orders">My Orders</a>
+                        <a href="/logout">Logout</a>
                     </div>
                 <?php endif; ?>
             </div>

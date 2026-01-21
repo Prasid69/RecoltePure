@@ -49,12 +49,13 @@
         </div>
         <div class="actions">
 
-           <form method="GET" class="search-form" action="/RecoltePure/categories/search/">
-    <div class="search-group">
-        <input type="text" name="search" placeholder="Search..." value="<?= htmlspecialchars($search ?? '') ?>" required>
-        <button type="submit"><i class="fas fa-search"></i></button>
-    </div>
-</form>
+            <form method="GET" class="search-form" action="/categories/search/">
+                <div class="search-group">
+                    <input type="text" name="search" placeholder="Search..."
+                        value="<?= htmlspecialchars($search ?? '') ?>" required>
+                    <button type="submit"><i class="fas fa-search"></i></button>
+                </div>
+            </form>
 
             <span class="view-options">
                 <i class="fas fa-th-large" id="gridView"></i>
@@ -175,3 +176,4 @@
 
 
 </div>
+<?php include 'view/layout/footer.php'; ?>

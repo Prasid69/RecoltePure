@@ -8,7 +8,7 @@
     <div class="footer-content">
         <div class="brand-col">
             <div class="logo">
-                <img src="assets/uploads/products/Logo.png" alt="RecoltePure Logo" sizes="4x4" />
+                <img src="/assets/uploads/products/Logo.png" alt="RecoltePure Logo" sizes="4x4" />
                 <div class="logo-text">
                     <span>RecoltePure</span>
                     <span></span>
@@ -16,28 +16,29 @@
             </div>
             <br>
             <div class="social-icons">
-
+                <a href="#"><i class="fa-brands fa-facebook"></i></a>
+                <a href="#"><i class="fa-brands fa-twitter"></i></a>
+                <a href="#"><i class="fa-brands fa-instagram"></i></a>
             </div>
         </div>
 
         <div class="links-col">
             <h3>Categories</h3>
             <ul>
-                <ul>
-                    <li><a href="/categories/1">Fruits</a></li>
-                    <li><a href="/categories/4">Dairy Products</a></li>
-                    <li><a href="/categories/2">Vegetables</a></li>
-                    <li><a href="/categories/3">Herbs</a></li>
-                </ul>
-
-
+                <li><a href="/categories/1">Fruits</a></li>
+                <li><a href="/categories/2">Vegetables</a></li>
+                <li><a href="/categories/3">Dairy Products</a></li>
+                <li><a href="/categories/4">Herbs</a></li>
             </ul>
         </div>
 
         <div class="links-col">
             <h3>Useful Links</h3>
             <ul>
-                <li><a href="index.php?page=faq">FAQ</a></li>
+                <li><a href="/faq">FAQ</a></li>
+                <li><a href="/contact">Contact</a></li>
+                <li><a href="/terms-and-conditions">Terms & Conditions</a></li>
+            </ul>
         </div>
 
         <div class="newsletter-col">
@@ -51,8 +52,8 @@
             </form>
 
             <div class="contact-info">
-                <div>T : +1-202-555-0184</div>
-                <div>E : hello@example.com</div>
+                <div>T : +33 1 45 67 89 01</div>
+                <div>E : contact@recoltepure.fr</div>
             </div>
         </div>
     </div>
@@ -65,7 +66,6 @@
 
     <div class="bottom-links">
         <a href="/terms-and-conditions">Terms & Conditions</a>
-
     </div>
 
     <div class="payment-icons">

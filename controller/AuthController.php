@@ -4,54 +4,58 @@ require_once "config/db_connection.php";
 require_once "model/Farmers.php";
 require_once "model/Users.php";
 
-class AuthController {
+class AuthController
+{
 
-    public function login() {
-    if (session_status() === PHP_SESSION_NONE) session_start();
+    public function login()
+    {
+        if (session_status() === PHP_SESSION_NONE)
+            session_start();
 
-    $error = "";
+        $error = "";
 
-    if ($_SERVER["REQUEST_METHOD"] === "POST") {
+        if ($_SERVER["REQUEST_METHOD"] === "POST") {
 
-        $email = $_POST['username'];
-        $password = $_POST['password'];
+            $email = $_POST['username'];
+            $password = $_POST['password'];
 
-        $farmerModel = new Farmer($GLOBALS['db']);
-        $userModel   = new User($GLOBALS['db']);
+            $farmerModel = new Farmer($GLOBALS['db']);
+            $userModel = new User($GLOBALS['db']);
 
-        $farmer = $farmerModel->findByEmail($email);
-        if ($farmer && password_verify($password, $farmer['password'])) {
-            $_SESSION['login_user'] = $farmer['email'];
-            $_SESSION['role'] = "farmer";
-            $_SESSION['user_name'] = $farmer['name'];
-           
-            $_SESSION['user_id'] = $farmer['farmer_id'];    
+            $farmer = $farmerModel->findByEmail($email);
+            if ($farmer && password_verify($password, $farmer['password'])) {
+                $_SESSION['login_user'] = $farmer['email'];
+                $_SESSION['role'] = "farmer";
+                $_SESSION['user_name'] = $farmer['name'];
 
-            header("Location: /RecoltePure/home");
-            exit;
+                $_SESSION['user_id'] = $farmer['farmer_id'];
+
+                header("Location: /home");
+                exit;
+            }
+
+            $user = $userModel->findByEmail($email);
+            if ($user && password_verify($password, $user['password'])) {
+                $_SESSION['login_user'] = $user['email'];
+                $_SESSION['role'] = "customer";
+                $_SESSION['user_name'] = $user['name'];
+
+                $_SESSION['user_id'] = $user['customer_id'];
+
+                header("Location: /home");
+
+
+                exit;
+            }
+
+            $error = "Invalid Username or Password!";
         }
 
-        $user = $userModel->findByEmail($email);
-        if ($user && password_verify($password, $user['password'])) {
-            $_SESSION['login_user'] = $user['email'];
-            $_SESSION['role'] = "customer";
-            $_SESSION['user_name'] = $user['name'];
-
-            $_SESSION['user_id'] = $user['customer_id'];     
-
-            header("Location: /RecoltePure/home");
-            
-
-            exit;
-        }
-
-        $error = "Invalid Username or Password!";
+        require "view/login.php";
     }
-  
-    require "view/login.php";
-}
 
-    public function logout() {
+    public function logout()
+    {
         session_unset();
         session_destroy();
 
