@@ -90,7 +90,8 @@
                     $images = [$product['image']];
                 }
 
-                $firstImage = !empty($images) ? $images[0] : 'default.png';
+                // Ensure we have a valid image filename; fallback to default.png if empty
+                $firstImage = (!empty($images) && !empty($images[0])) ? $images[0] : 'default.png';
                 ?>
                 <div class="product-card">
                     <div class="product-img-wrapper" data-images='<?= json_encode($images); ?>'>
