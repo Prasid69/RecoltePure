@@ -9,52 +9,14 @@ body {
     background: #FEF1E1;
     min-height: 100vh;
     padding-bottom: 0;
-    /* Footer has margin */
 }
 
 /* Hero Section */
 .hero {
     background: #FFF6ED;
-    /* Cream background like Home */
     padding: 60px 20px 100px;
-    /* Extra bottom padding for overlap */
     text-align: center;
     position: relative;
-}
-
-.back-home {
-    position: absolute;
-    top: 20px;
-    left: 40px;
-}
-
-.back-home a {
-    display: inline-flex;
-    align-items: center;
-    gap: 8px;
-    color: #4a5568;
-    background: white;
-    padding: 10px 20px;
-    text-decoration: none;
-    border-radius: 8px;
-    font-weight: 600;
-    font-size: 14px;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
-    transition: all 0.3s ease;
-}
-
-.back-home a:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
-    background: white;
-}
-
-.back-home svg {
-    transition: transform 0.3s ease;
-}
-
-.back-home a:hover svg {
-    transform: translateX(-3px);
 }
 
 .hero-content {
@@ -81,12 +43,9 @@ body {
 .container {
     max-width: 1200px;
     margin: -60px auto 60px;
-    /* Negative margin to overlap hero */
     padding: 0 20px;
     position: relative;
     z-index: 10;
-    min-width: 0;
-    /* Allow shrinking */
 }
 
 .contact-wrapper {
@@ -102,22 +61,20 @@ body {
     display: flex;
     flex-direction: column;
     gap: 20px;
-    min-width: 300px;
 }
 
 .info-card {
-    background: #FFF6ED;
+    background: white;
     border-radius: 12px;
     padding: 25px;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
-    /* Softer shadow */
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
     transition: all 0.3s ease;
     border: 1px solid rgba(0, 0, 0, 0.05);
 }
 
 .info-card:hover {
     transform: translateY(-3px);
-    box-shadow: 0 10px 15px rgba(0, 0, 0, 0.08);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.12);
 }
 
 .info-card-header {
@@ -131,7 +88,6 @@ body {
     width: 45px;
     height: 45px;
     background: #ffebe6;
-    /* Light red background */
     color: #ff4d2d;
     border-radius: 10px;
     display: flex;
@@ -163,16 +119,16 @@ body {
 }
 
 .info-card-content a:hover {
-    color: #1b5e20;
+    color: #e04328;
     text-decoration: underline;
 }
 
 /* Contact Form */
 .form-container {
-    background: #FFF6ED;
+    background: white;
     border-radius: 16px;
     padding: 40px;
-    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
 }
 
 .form-header {
@@ -283,10 +239,10 @@ body {
 
 /* Map Section */
 .map-section {
-    background: #FFF6ED;
+    background: white;
     border-radius: 16px;
     padding: 20px;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
     margin-top: 40px;
 }
 
@@ -345,9 +301,5 @@ body {
 
     .form-row {
         grid-template-columns: 1fr;
-    }
-
-    .back-home {
-        left: 20px;
     }
 }
