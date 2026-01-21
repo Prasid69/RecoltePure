@@ -25,9 +25,9 @@ class AuthController {
             $_SESSION['role'] = "farmer";
             $_SESSION['user_name'] = $farmer['name'];
            
-            $_SESSION['user_id'] = $farmer['farmer_id']; 
+            $_SESSION['user_id'] = $farmer['farmer_id'];    
 
-            header("Location: index.php?page=home");
+            header("Location: /RecoltePure/home");
             exit;
         }
 
@@ -39,7 +39,9 @@ class AuthController {
 
             $_SESSION['user_id'] = $user['customer_id'];     
 
-            header("Location: index.php?page=home");
+            header("Location: /RecoltePure/home");
+            
+
             exit;
         }
 

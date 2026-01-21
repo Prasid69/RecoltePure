@@ -52,12 +52,21 @@ class Cart {
     }
 
     public function calculateTotal() {
-        $total = 0;
+    $total = 0;
+
+    if (!empty($_SESSION['cart'])) {
         foreach ($_SESSION['cart'] as $item) {
             $total += $item['price'] * $item['quantity'];
         }
-        return $total;
     }
+    if (isset($_SESSION['coupon']) && isset($_SESSION['coupon']['discount'])) {
+        $discountPercent = $_SESSION['coupon']['discount'];
+        $total = $total - ($total * $discountPercent / 100);
+    }
+
+    return $total;
+}
+
 
     public function countItems() {
         return array_sum(array_column($_SESSION['cart'], 'quantity'));
@@ -77,5 +86,25 @@ class Cart {
         }
         return $total;
     }
+
+
+    public function applyCoupon($code) {
+    $coupons = [
+        'DISCOUNT10' => 10,
+        'SAVE20'     => 20
+    ];
+
+    if (isset($coupons[$code])) {
+        $_SESSION['coupon'] = [
+            'code'     => $code,
+            'discount' => $coupons[$code]
+        ];
+        return $coupons[$code]; 
+    }
+
+    unset($_SESSION['coupon']); 
+    return 0;
+}
+
 }
 ?>
