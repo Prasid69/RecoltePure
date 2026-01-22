@@ -63,7 +63,7 @@
                 </div>
 
                 <!-- LOGIN FORM -->
-                <form method="POST" action="/login">
+                <form method="POST" action="index.php?page=login">
 
 
                     <!-- ERROR MESSAGE FROM CONTROLLER -->
@@ -96,7 +96,7 @@
 
                     <p class="signup-text">
                         Don't have an account?
-                        <a href="/register">Sign Up</a>
+                        <a href="index.php?page=register">Sign Up</a>
                     </p>
 
                 </form>

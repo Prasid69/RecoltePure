@@ -20,7 +20,7 @@
       <?php if (!empty($error)): ?>
         <div class="error"><?= htmlspecialchars($error) ?></div>
       <?php endif; ?>
-      <form method="POST" action="/admin/login">
+      <form method="POST" action="index.php?page=admin&action=login">
         <label>Email</label>
         <input type="email" name="email" required>
         <label>Password</label>

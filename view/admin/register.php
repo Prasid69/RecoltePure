@@ -25,7 +25,7 @@
           <?= htmlspecialchars($success) ?>
         </div>
       <?php endif; ?>
-      <form method="POST" action="/admin/register">
+      <form method="POST" action="index.php?page=admin&action=register">
         <label>Email</label>
         <input type="email" name="email" required>
 

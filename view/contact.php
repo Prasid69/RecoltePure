@@ -173,7 +173,7 @@
             </div>
         <?php endif; ?>
 
-        <form method="POST" action="/contact" class="contact-form">
+        <form method="POST" action="index.php?page=contact" class="contact-form">
             <div class="form-row">
                 <div class="form-group">
                     <label for="firstName">First Name *</label>

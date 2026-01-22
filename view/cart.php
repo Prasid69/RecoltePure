@@ -38,7 +38,7 @@
 
 
         <div class="back-home">
-            <a href="/home">
+            <a href="index.php?page=home">
                 <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                     <path d="M19 12H5M12 19l-7-7 7-7" />
                 </svg>
@@ -77,7 +77,7 @@
 
                             <div class="price-text">$<?php echo number_format($product['price'], 2); ?></div>
 
-                            <form method="POST" action="/cart" style="display:inline;">
+                            <form method="POST" action="index.php?page=cart" style="display:inline;">
                                 <input type="hidden" name="product_id" value="<?php echo $product_id; ?>">
                                 <div class="qty-control">
                                     <button type="submit" name="action" value="decrease" class="qty-btn">-</button>
@@ -88,7 +88,7 @@
 
                             <div class="price-text">$<?php echo number_format($line_total, 2); ?></div>
 
-                            <form method="POST" action="/cart" style="display:inline;">
+                            <form method="POST" action="index.php?page=cart" style="display:inline;">
                                 <input type="hidden" name="product_id" value="<?php echo $product_id; ?>">
                                 <button type="submit" name="action" value="remove" class="remove-btn">
                                     <i class="fas fa-times"></i>
@@ -102,7 +102,7 @@
                         <!-- Show coupon input only if no coupon applied -->
                         <?php if (empty($_SESSION['coupon'])): ?>
                             <div class="coupon-group">
-                                <form action="/cart" method="POST">
+                                <form action="index.php?page=cart" method="POST">
                                     <input type="text" name="coupon_code" class="input-field" placeholder="Coupon Code"
                                         required>
                                     <button type="submit" name="action" value="apply_coupon" class="btn btn-dark">Apply
@@ -116,7 +116,7 @@
                                     Coupon "<strong><?= htmlspecialchars($_SESSION['coupon']['code']); ?></strong>" applied!
                                     Discount: <?= $_SESSION['coupon']['discount']; ?>%
                                 </p>
-                                <form action="/cart" method="POST">
+                                <form action="index.php?page=cart" method="POST">
                                     <button type="submit" name="action" value="remove_coupon" class="btn btn-secondary">Remove
                                         Coupon</button>
                                 </form>
@@ -127,7 +127,7 @@
 
 
 
-                        <a href="/cart/clear" class="link-text">Clear Shopping Cart</a>
+                        <a href="index.php?page=clear" class="link-text">Clear Shopping Cart</a>
 
                     </div>
                 </div>
@@ -163,7 +163,7 @@
 
 
 
-                        <form action="/checkout" method="POST">
+                        <form action="index.php?page=checkout" method="POST">
                             <?php if (!empty($_SESSION['cart'])): ?>
                                 <button type="submit" class="btn btn-green btn-block">Proceed to Checkout</button>
                             <?php else: ?>
@@ -179,7 +179,7 @@
             <div class="empty-cart-msg">
                 <i class="fas fa-shopping-basket" style="font-size: 3rem; margin-bottom: 20px; color:#ccc;"></i>
                 <h2>Your cart is currently empty.</h2>
-                <a href="/categories" class="btn-continue">Return to Shop</a>
+                <a href="index.php?page=categories" class="btn-continue">Return to Shop</a>
             </div>
         <?php endif; ?>
 
