@@ -91,7 +91,7 @@ $cartCount = Cart::getTotalQuantity();
     <header>
         <nav class="navbar">
             <div class="logo">
-                <a href="/home" class="logo">
+                <a href="index.php?page=home" class="logo">
 
                     <img src="/assets/uploads/products/Logo.png" alt="RecoltePure Logo" width="40" height="40">
 
@@ -99,11 +99,11 @@ $cartCount = Cart::getTotalQuantity();
                 </a>
             </div>
             <ul class="nav-links">
-                <li><a href="/home" class="active">Home</a></li>
-                <li><a href="/categories" class="active">Product</a></li>
-                <li><a href="/farmers" class="active">Our Producers</a></li>
-                <li><a href="/contact" class="active">Contact Us</a></li>
-                <li><a href="/terms-and-conditions" class="active">Terms & Conditions</a></li>
+                <li><a href="index.php?page=home" class="active">Home</a></li>
+                <li><a href="index.php?page=categories" class="active">Product</a></li>
+                <li><a href="index.php?page=farmers" class="active">Our Producers</a></li>
+                <li><a href="index.php?page=contact" class="active">Contact Us</a></li>
+                <li><a href="index.php?page=terms_and_conditions" class="active">Terms & Conditions</a></li>
             </ul>
 
 
@@ -132,7 +132,7 @@ $cartCount = Cart::getTotalQuantity();
                     </div>
                 </a>
                 <?php if (!$userData['is_logged_in']): ?>
-                    <a href="/login" class="sign-in">Sign In</a>
+                    <a href="index.php?page=login" class="sign-in">Sign In</a>
                 <?php else: ?>
                     <button class="user-btn"><?php echo $userData['initial']; ?></button>
                     <div class="dropdown-menu">
