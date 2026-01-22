@@ -26,24 +26,25 @@ $current_action = $_GET['action'] ?? 'dashboard';
           <i class="fas fa-th-large"></i> <span>Dashboard</span>
         </a>
 
-        <a href="admin/users" class="<?= ($current_action == 'users') ? 'active' : '' ?>">
+        <a href="index.php?page=admin&action=users" class="<?= ($current_action == 'users') ? 'active' : '' ?>">
           <i class="fas fa-users"></i> <span>Users</span>
         </a>
 
-        <a href="admin/farmers" class="<?= ($current_action == 'farmers') ? 'active' : '' ?>">
+        <a href="index.php?page=admin&action=farmers" class="<?= ($current_action == 'farmers') ? 'active' : '' ?>">
           <i class="fas fa-tractor"></i> <span>Farmers</span>
         </a>
 
-        <a href="admin/all_products" class="<?= ($current_action == 'all_products') ? 'active' : '' ?>">
+        <a href="index.php?page=admin&action=all_products"
+          class="<?= ($current_action == 'all_products') ? 'active' : '' ?>">
           <i class="fas fa-seedling"></i> <span>All Products</span>
         </a>
 
-        <a href="admin/orders" class="<?= ($current_action == 'orders') ? 'active' : '' ?>">
+        <a href="index.php?page=admin&action=orders" class="<?= ($current_action == 'orders') ? 'active' : '' ?>">
           <i class="fas fa-shopping-basket"></i> <span>Orders</span>
         </a>
       </nav>
 
-      <a href="admin/logout" class="logout">
+      <a href="index.php?page=admin&action=logout" class="logout">
         <i class="fas fa-sign-out-alt"></i> <span>Logout</span>
       </a>
     </nav>
