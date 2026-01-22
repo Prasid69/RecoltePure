@@ -9,19 +9,19 @@
         <div class="footer-section">
             <h3>Quick Links</h3>
             <ul>
-                <li><a href="/home">Home</a></li>
-                <li><a href="/categories">Products</a></li>
-                <li><a href="/farmers">Our Farmers</a></li>
-                <li><a href="/contact">Contact Us</a></li>
+                <li><a href="index.php?page=home">Home</a></li>
+                <li><a href="index.php?page=categories">Products</a></li>
+                <li><a href="index.php?page=farmers">Our Farmers</a></li>
+                <li><a href="index.php?page=contact">Contact Us</a></li>
             </ul>
         </div>
 
         <div class="footer-section">
             <h3>Support</h3>
             <ul>
-                <li><a href="/faq">FAQ</a></li>
-                <li><a href="/terms-and-conditions">Terms & Conditions</a></li>
-                <li><a href="/contact">Customer Support</a></li>
+                <li><a href="index.php?page=faq">FAQ</a></li>
+                <li><a href="index.php?page=terms_and_conditions">Terms & Conditions</a></li>
+                <li><a href="index.php?page=contact">Customer Support</a></li>
             </ul>
         </div>
 
