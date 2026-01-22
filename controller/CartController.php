@@ -25,12 +25,12 @@ class CartController
             session_start();
 
         if (!isset($_SESSION['user_id'])) {
-            header("Location: /RecoltePure/login");
+            header("Location: index.php?page=login");
             exit();
         }
 
         if (empty($_SESSION['cart'])) {
-            header("Location: /RecoltePure/cart?error=empty_cart");
+            header("Location: index.php?page=cart&error=empty_cart");
             exit();
         }
         require_once __DIR__ . '/StripePayment.php';
@@ -58,7 +58,7 @@ class CartController
                     (int) $_POST['quantity'],
                     $_POST['image']
                 );
-                header("Location: /RecoltePure/cart");
+                header("Location: index.php?page=cart");
                 exit;
             }
 
@@ -72,7 +72,7 @@ class CartController
                     $this->cartModel->updateQuantity($id, $action);
                 }
 
-                header("Location: /RecoltePure/cart");
+                header("Location: index.php?page=cart");
                 exit;
             }
 
@@ -92,21 +92,21 @@ class CartController
                     $_SESSION['error_message'] = "Invalid coupon code.";
                 }
 
-                header("Location: /RecoltePure/cart");
+                header("Location: index.php?page=cart");
                 exit;
             }
 
             if (isset($_POST['action']) && $_POST['action'] === 'remove_coupon') {
                 unset($_SESSION['coupon']);
                 $_SESSION['success_message'] = "Coupon removed.";
-                header("Location: /RecoltePure/cart");
+                header("Location: index.php?page=cart");
                 exit;
             }
         }
 
         if (isset($_GET['action']) && $_GET['action'] === 'clear') {
             $this->cartModel->clear();
-            header("Location: /RecoltePure/cart");
+            header("Location: index.php?page=cart");
             exit;
         }
 
