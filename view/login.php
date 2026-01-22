@@ -63,7 +63,7 @@
                 </div>
 
                 <!-- LOGIN FORM -->
-                <form method="POST" action="/RecoltePure/login">
+                <form method="POST" action="/login">
 
 
                     <!-- ERROR MESSAGE FROM CONTROLLER -->

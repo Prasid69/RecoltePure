@@ -31,7 +31,7 @@ class LoginController
                 $_SESSION['user_id'] = $loggedInUser['id'];
                 $_SESSION['login_user'] = $loggedInUser['name'];
                 $_SESSION['role'] = $role;
-                header("Location: /RecoltePure/profile");
+                header("Location: /profile");
                 exit();
 
             } else {

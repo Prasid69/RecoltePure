@@ -49,7 +49,7 @@
         </div>
         <div class="actions">
 
-            <form method="GET" class="search-form" action="/RecoltePure/categories/search/">
+            <form method="GET" class="search-form" action="/categories/search/">
                 <div class="search-group">
                     <input type="text" name="search" placeholder="Search..."
                         value="<?= htmlspecialchars($search ?? '') ?>" required>
