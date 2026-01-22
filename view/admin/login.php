@@ -20,14 +20,14 @@
       <?php if (!empty($error)): ?>
         <div class="error"><?= htmlspecialchars($error) ?></div>
       <?php endif; ?>
-      <form method="POST" action="index.php?page=admin&action=login">
+      <form method="POST" action="/index.php?page=admin&action=login">
         <label>Email</label>
         <input type="email" name="email" required>
         <label>Password</label>
         <input type="password" name="password" required>
         <button type="submit" class="btn">Login</button>
         <div style="margin-top:10px; font-size:13px; text-align:center;">
-          <a href="/admin/register">Register an Admin</a>
+          <a href="/index.php?page=admin&action=register">Register an Admin</a>
         </div>
       </form>
     </div>

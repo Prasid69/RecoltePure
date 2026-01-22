@@ -25,7 +25,7 @@
           <?= htmlspecialchars($success) ?>
         </div>
       <?php endif; ?>
-      <form method="POST" action="index.php?page=admin&action=register">
+      <form method="POST" action="/index.php?page=admin&action=register">
         <label>Email</label>
         <input type="email" name="email" required>
 
@@ -39,7 +39,7 @@
 
         <div style="margin-top:10px; font-size:13px;">
           Already have an account?
-          <a href="/admin/login">Login as Admin</a>
+          <a href="/index.php?page=admin&action=login">Login as Admin</a>
         </div>
       </form>
 

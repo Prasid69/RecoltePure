@@ -26,6 +26,7 @@ RewriteRule ^categories/?$ index.php?page=categories [L,QSA]
 RewriteRule ^farmers/?$ index.php?page=farmers [L,QSA]
 RewriteRule ^my-orders/?$ index.php?page=my_orders [L,QSA]
 
+RewriteRule ^admin/register/?$ index.php?page=admin&action=register [L,QSA]
 # -------------------------------------------------
 # 3. ADMIN ROUTES
 # -------------------------------------------------
